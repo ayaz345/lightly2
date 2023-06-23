@@ -292,7 +292,7 @@ class _DownloadDatasetMixin:
             >>> client.export_label_studio_tasks_by_tag_id(tag_id="646f34608a5613b57d8b73cc")
             [{'id': 0, 'data': {'image': '...', ...}}]
         """
-        label_studio_tasks = list(
+        return list(
             paginate_endpoint(
                 self._tags_api.export_tag_to_label_studio_tasks,
                 page_size=20000,
@@ -300,7 +300,6 @@ class _DownloadDatasetMixin:
                 tag_id=tag_id,
             )
         )
-        return label_studio_tasks
 
 
 def _get_latest_default_embedding_data(
@@ -309,9 +308,9 @@ def _get_latest_default_embedding_data(
     """Returns the latest embedding data with a default name or None if no such
     default embedding exists.
     """
-    default_embeddings = [e for e in embeddings if e.name.startswith("default")]
-    if default_embeddings:
-        last_embedding = sorted(default_embeddings, key=lambda e: e.created_at)[-1]
-        return last_embedding
+    if default_embeddings := [
+        e for e in embeddings if e.name.startswith("default")
+    ]:
+        return sorted(default_embeddings, key=lambda e: e.created_at)[-1]
     else:
         return None

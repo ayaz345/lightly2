@@ -40,13 +40,11 @@ class DINO(pl.LightningModule):
 
     def forward(self, x):
         y = self.student_backbone(x).flatten(start_dim=1)
-        z = self.student_head(y)
-        return z
+        return self.student_head(y)
 
     def forward_teacher(self, x):
         y = self.teacher_backbone(x).flatten(start_dim=1)
-        z = self.teacher_head(y)
-        return z
+        return self.teacher_head(y)
 
     def training_step(self, batch, batch_idx):
         momentum = cosine_schedule(self.current_epoch, 10, 0.996, 1)
@@ -57,8 +55,7 @@ class DINO(pl.LightningModule):
         global_views = views[:2]
         teacher_out = [self.forward_teacher(view) for view in global_views]
         student_out = [self.forward(view) for view in views]
-        loss = self.criterion(teacher_out, student_out, epoch=self.current_epoch)
-        return loss
+        return self.criterion(teacher_out, student_out, epoch=self.current_epoch)
 
     def on_after_backward(self):
         self.student_head.cancel_last_layer_gradients(current_epoch=self.current_epoch)

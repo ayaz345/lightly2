@@ -55,7 +55,7 @@ class MultiViewCollate:
                 >>>     [filename_0, ..., filename_B],
                 >>> )
         """
-        if len(batch) == 0:
+        if not batch:
             warn("MultiViewCollate received empty batch.")
             return [], [], []
 

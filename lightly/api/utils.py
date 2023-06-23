@@ -129,7 +129,7 @@ def PIL_to_bytes(img, ext: str = "png", quality: int = None):
     if quality is not None:
         img.save(bytes_io, format=ext, quality=quality)
     else:
-        subsampling = -1 if ext.lower() in ["jpg", "jpeg"] else 0
+        subsampling = -1 if ext.lower() in {"jpg", "jpeg"} else 0
         img.save(bytes_io, format=ext, quality=100, subsampling=subsampling)
     bytes_io.seek(0)
     return bytes_io
@@ -168,14 +168,13 @@ def build_azure_signed_url_write_headers(
         Formatted header which should be passed to the PUT request.
 
     """
-    headers = {
+    return {
         "x-ms-blob-type": x_ms_blob_type,
         "Accept": accept,
         "Content-Length": content_length,
         "x-ms-original-content-length": content_length,
         "Accept-Encoding": accept_encoding,
     }
-    return headers
 
 
 class DatasourceType(Enum):

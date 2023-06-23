@@ -123,11 +123,7 @@ class DatasetData(BaseModel):
 
     def to_dict(self, by_alias: bool = False):
         """Returns the dictionary representation of the model"""
-        _dict = self.dict(by_alias=by_alias,
-                          exclude={
-                          },
-                          exclude_none=True)
-        return _dict
+        return self.dict(by_alias=by_alias, exclude={}, exclude_none=True)
 
     @classmethod
     def from_dict(cls, obj: dict) -> DatasetData:
@@ -139,27 +135,32 @@ class DatasetData(BaseModel):
             return DatasetData.parse_obj(obj)
 
         # raise errors for additional fields in the input
-        for _key in obj.keys():
+        for _key in obj:
             if _key not in cls.__properties:
-                raise ValueError("Error due to additional fields (not defined in DatasetData) in the input: " + str(obj))
+                raise ValueError(
+                    f"Error due to additional fields (not defined in DatasetData) in the input: {obj}"
+                )
 
-        _obj = DatasetData.parse_obj({
-            "id": obj.get("id"),
-            "name": obj.get("name"),
-            "user_id": obj.get("userId"),
-            "access_type": obj.get("accessType"),
-            "type": obj.get("type"),
-            "img_type": obj.get("imgType"),
-            "n_samples": obj.get("nSamples"),
-            "size_in_bytes": obj.get("sizeInBytes"),
-            "meta_data_configuration_id": obj.get("metaDataConfigurationId"),
-            "datasources": obj.get("datasources"),
-            "created_at": obj.get("createdAt"),
-            "last_modified_at": obj.get("lastModifiedAt"),
-            "datasource_processed_until_timestamp": obj.get("datasourceProcessedUntilTimestamp"),
-            "access_role": obj.get("accessRole"),
-            "parent_dataset_id": obj.get("parentDatasetId"),
-            "original_dataset_id": obj.get("originalDatasetId")
-        })
-        return _obj
+        return DatasetData.parse_obj(
+            {
+                "id": obj.get("id"),
+                "name": obj.get("name"),
+                "user_id": obj.get("userId"),
+                "access_type": obj.get("accessType"),
+                "type": obj.get("type"),
+                "img_type": obj.get("imgType"),
+                "n_samples": obj.get("nSamples"),
+                "size_in_bytes": obj.get("sizeInBytes"),
+                "meta_data_configuration_id": obj.get("metaDataConfigurationId"),
+                "datasources": obj.get("datasources"),
+                "created_at": obj.get("createdAt"),
+                "last_modified_at": obj.get("lastModifiedAt"),
+                "datasource_processed_until_timestamp": obj.get(
+                    "datasourceProcessedUntilTimestamp"
+                ),
+                "access_role": obj.get("accessRole"),
+                "parent_dataset_id": obj.get("parentDatasetId"),
+                "original_dataset_id": obj.get("originalDatasetId"),
+            }
+        )
 

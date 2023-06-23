@@ -248,12 +248,11 @@ class _ExportDatasetMixin:
             >>> client.export_filenames_by_tag_id("646b40d6c06aae1b91294a9e")
             'image-1.jpg\nimage-2.jpg\nimage-3.jpg'
         """
-        filenames = retry(
+        return retry(
             self._tags_api.export_tag_to_basic_filenames,
             dataset_id=self.dataset_id,
             tag_id=tag_id,
         )
-        return filenames
 
     def export_filenames_by_tag_name(
         self,

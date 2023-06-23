@@ -66,11 +66,7 @@ class DatasourceConfigS3(DatasourceConfigBase):
 
     def to_dict(self, by_alias: bool = False):
         """Returns the dictionary representation of the model"""
-        _dict = self.dict(by_alias=by_alias,
-                          exclude={
-                          },
-                          exclude_none=True)
-        return _dict
+        return self.dict(by_alias=by_alias, exclude={}, exclude_none=True)
 
     @classmethod
     def from_dict(cls, obj: dict) -> DatasourceConfigS3:
@@ -82,20 +78,25 @@ class DatasourceConfigS3(DatasourceConfigBase):
             return DatasourceConfigS3.parse_obj(obj)
 
         # raise errors for additional fields in the input
-        for _key in obj.keys():
+        for _key in obj:
             if _key not in cls.__properties:
-                raise ValueError("Error due to additional fields (not defined in DatasourceConfigS3) in the input: " + str(obj))
+                raise ValueError(
+                    f"Error due to additional fields (not defined in DatasourceConfigS3) in the input: {obj}"
+                )
 
-        _obj = DatasourceConfigS3.parse_obj({
-            "id": obj.get("id"),
-            "purpose": obj.get("purpose"),
-            "type": obj.get("type"),
-            "full_path": obj.get("fullPath"),
-            "thumb_suffix": obj.get("thumbSuffix"),
-            "s3_region": obj.get("s3Region"),
-            "s3_access_key_id": obj.get("s3AccessKeyId"),
-            "s3_secret_access_key": obj.get("s3SecretAccessKey"),
-            "s3_server_side_encryption_kms_key": obj.get("s3ServerSideEncryptionKMSKey")
-        })
-        return _obj
+        return DatasourceConfigS3.parse_obj(
+            {
+                "id": obj.get("id"),
+                "purpose": obj.get("purpose"),
+                "type": obj.get("type"),
+                "full_path": obj.get("fullPath"),
+                "thumb_suffix": obj.get("thumbSuffix"),
+                "s3_region": obj.get("s3Region"),
+                "s3_access_key_id": obj.get("s3AccessKeyId"),
+                "s3_secret_access_key": obj.get("s3SecretAccessKey"),
+                "s3_server_side_encryption_kms_key": obj.get(
+                    "s3ServerSideEncryptionKMSKey"
+                ),
+            }
+        )
 

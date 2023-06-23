@@ -65,9 +65,7 @@ class NTXentLoss(MemoryBankModule):
         self.eps = 1e-8
 
         if abs(self.temperature) < self.eps:
-            raise ValueError(
-                "Illegal temperature: abs({}) < 1e-8".format(self.temperature)
-            )
+            raise ValueError(f"Illegal temperature: abs({self.temperature}) < 1e-8")
         if gather_distributed and not torch_dist.is_available():
             raise ValueError(
                 "gather_distributed is True but torch.distributed is not available. "
@@ -172,6 +170,4 @@ class NTXentLoss(MemoryBankModule):
                 labels = labels + dist.rank() * batch_size
             labels = labels.repeat(2)
 
-        loss = self.cross_entropy(logits, labels)
-
-        return loss
+        return self.cross_entropy(logits, labels)

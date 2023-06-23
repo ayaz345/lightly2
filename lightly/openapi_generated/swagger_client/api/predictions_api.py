@@ -84,7 +84,7 @@ class PredictionsApi(object):
         return self.create_or_update_prediction_by_sample_id_with_http_info(dataset_id, sample_id, prediction_uuid_timestamp, prediction_singleton, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def create_or_update_prediction_by_sample_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], sample_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the sample")], prediction_uuid_timestamp : Annotated[conint(strict=True, ge=0), Field(..., description="The timestamp of when the actual predictions were created. This is used as a peg to version predictions. E.g one could upload predictions on day 1 and then create new predictions with an improved model on day 30. One can then upload the new predictions to the same dataset. ")], prediction_singleton : conlist(PredictionSingleton), **kwargs) -> ApiResponse:  # noqa: E501
+    def create_or_update_prediction_by_sample_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], sample_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the sample")], prediction_uuid_timestamp : Annotated[conint(strict=True, ge=0), Field(..., description="The timestamp of when the actual predictions were created. This is used as a peg to version predictions. E.g one could upload predictions on day 1 and then create new predictions with an improved model on day 30. One can then upload the new predictions to the same dataset. ")], prediction_singleton : conlist(PredictionSingleton), **kwargs) -> ApiResponse:    # noqa: E501
         """create_or_update_prediction_by_sample_id  # noqa: E501
 
         Create/Update all the prediction singletons for a sampleId in the order/index of them being discovered   # noqa: E501
@@ -133,26 +133,20 @@ class PredictionsApi(object):
             'dataset_id',
             'sample_id',
             'prediction_uuid_timestamp',
-            'prediction_singleton'
+            'prediction_singleton',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method create_or_update_prediction_by_sample_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method create_or_update_prediction_by_sample_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
@@ -190,12 +184,11 @@ class PredictionsApi(object):
         _header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
 
-        # set the HTTP header `Content-Type`
-        _content_types_list = _params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json']))
-        if _content_types_list:
-                _header_params['Content-Type'] = _content_types_list
+        if _content_types_list := _params.get(
+            '_content_type',
+            self.api_client.select_header_content_type(['application/json']),
+        ):
+            _header_params['Content-Type'] = _content_types_list
 
         # authentication setting
         _auth_settings = ['auth0Bearer', 'ApiKeyAuth']  # noqa: E501
@@ -259,7 +252,7 @@ class PredictionsApi(object):
         return self.create_or_update_prediction_task_schema_by_dataset_id_with_http_info(dataset_id, prediction_uuid_timestamp, prediction_task_schema, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def create_or_update_prediction_task_schema_by_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], prediction_uuid_timestamp : Annotated[conint(strict=True, ge=0), Field(..., description="The timestamp of when the actual predictions were created. This is used as a peg to version predictions. E.g one could upload predictions on day 1 and then create new predictions with an improved model on day 30. One can then upload the new predictions to the same dataset. ")], prediction_task_schema : PredictionTaskSchema, **kwargs) -> ApiResponse:  # noqa: E501
+    def create_or_update_prediction_task_schema_by_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], prediction_uuid_timestamp : Annotated[conint(strict=True, ge=0), Field(..., description="The timestamp of when the actual predictions were created. This is used as a peg to version predictions. E.g one could upload predictions on day 1 and then create new predictions with an improved model on day 30. One can then upload the new predictions to the same dataset. ")], prediction_task_schema : PredictionTaskSchema, **kwargs) -> ApiResponse:    # noqa: E501
         """create_or_update_prediction_task_schema_by_dataset_id  # noqa: E501
 
         Creates/updates a prediction task schema with the task name  # noqa: E501
@@ -305,26 +298,20 @@ class PredictionsApi(object):
         _all_params = [
             'dataset_id',
             'prediction_uuid_timestamp',
-            'prediction_task_schema'
+            'prediction_task_schema',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method create_or_update_prediction_task_schema_by_dataset_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method create_or_update_prediction_task_schema_by_dataset_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
@@ -359,12 +346,11 @@ class PredictionsApi(object):
         _header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
 
-        # set the HTTP header `Content-Type`
-        _content_types_list = _params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json']))
-        if _content_types_list:
-                _header_params['Content-Type'] = _content_types_list
+        if _content_types_list := _params.get(
+            '_content_type',
+            self.api_client.select_header_content_type(['application/json']),
+        ):
+            _header_params['Content-Type'] = _content_types_list
 
         # authentication setting
         _auth_settings = ['auth0Bearer', 'ApiKeyAuth']  # noqa: E501
@@ -427,7 +413,7 @@ class PredictionsApi(object):
         return self.get_prediction_by_sample_id_with_http_info(dataset_id, sample_id, prediction_uuid_timestamp, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_prediction_by_sample_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], sample_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the sample")], prediction_uuid_timestamp : Annotated[conint(strict=True, ge=0), Field(..., description="The timestamp of when the actual predictions were created. This is used as a peg to version predictions. E.g one could upload predictions on day 1 and then create new predictions with an improved model on day 30. One can then upload the new predictions to the same dataset. ")], **kwargs) -> ApiResponse:  # noqa: E501
+    def get_prediction_by_sample_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], sample_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the sample")], prediction_uuid_timestamp : Annotated[conint(strict=True, ge=0), Field(..., description="The timestamp of when the actual predictions were created. This is used as a peg to version predictions. E.g one could upload predictions on day 1 and then create new predictions with an improved model on day 30. One can then upload the new predictions to the same dataset. ")], **kwargs) -> ApiResponse:    # noqa: E501
         """get_prediction_by_sample_id  # noqa: E501
 
         Get all prediction singletons of a specific sample of a dataset  # noqa: E501
@@ -473,31 +459,23 @@ class PredictionsApi(object):
         _all_params = [
             'dataset_id',
             'sample_id',
-            'prediction_uuid_timestamp'
+            'prediction_uuid_timestamp',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_prediction_by_sample_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method get_prediction_by_sample_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -538,6 +516,7 @@ class PredictionsApi(object):
             '404': "ApiErrorResponse",
         }
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/datasets/{datasetId}/predictions/samples/{sampleId}', 'GET',
             _path_params,
@@ -589,7 +568,7 @@ class PredictionsApi(object):
         return self.get_prediction_task_schema_by_task_name_with_http_info(dataset_id, prediction_uuid_timestamp, task_name, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_prediction_task_schema_by_task_name_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], prediction_uuid_timestamp : Annotated[conint(strict=True, ge=0), Field(..., description="The timestamp of when the actual predictions were created. This is used as a peg to version predictions. E.g one could upload predictions on day 1 and then create new predictions with an improved model on day 30. One can then upload the new predictions to the same dataset. ")], task_name : Annotated[constr(strict=True, min_length=1), Field(..., description="The prediction task name for which one wants to list the predictions")], **kwargs) -> ApiResponse:  # noqa: E501
+    def get_prediction_task_schema_by_task_name_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], prediction_uuid_timestamp : Annotated[conint(strict=True, ge=0), Field(..., description="The timestamp of when the actual predictions were created. This is used as a peg to version predictions. E.g one could upload predictions on day 1 and then create new predictions with an improved model on day 30. One can then upload the new predictions to the same dataset. ")], task_name : Annotated[constr(strict=True, min_length=1), Field(..., description="The prediction task name for which one wants to list the predictions")], **kwargs) -> ApiResponse:    # noqa: E501
         """get_prediction_task_schema_by_task_name  # noqa: E501
 
         Get a prediction task schemas named taskName for a datasetId  # noqa: E501
@@ -635,31 +614,23 @@ class PredictionsApi(object):
         _all_params = [
             'dataset_id',
             'prediction_uuid_timestamp',
-            'task_name'
+            'task_name',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_prediction_task_schema_by_task_name" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method get_prediction_task_schema_by_task_name"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -700,6 +671,7 @@ class PredictionsApi(object):
             '404': "ApiErrorResponse",
         }
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/datasets/{datasetId}/predictions/tasks/{taskName}', 'GET',
             _path_params,
@@ -749,7 +721,7 @@ class PredictionsApi(object):
         return self.get_prediction_task_schemas_by_dataset_id_with_http_info(dataset_id, prediction_uuid_timestamp, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_prediction_task_schemas_by_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], prediction_uuid_timestamp : Annotated[Optional[conint(strict=True, ge=0)], Field(description="The timestamp of when the actual predictions were created. This is used as a peg to version predictions. E.g one could upload predictions on day 1 and then create new predictions with an improved model on day 30. One can then upload the new predictions to the same dataset. ")] = None, **kwargs) -> ApiResponse:  # noqa: E501
+    def get_prediction_task_schemas_by_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], prediction_uuid_timestamp : Annotated[Optional[conint(strict=True, ge=0)], Field(description="The timestamp of when the actual predictions were created. This is used as a peg to version predictions. E.g one could upload predictions on day 1 and then create new predictions with an improved model on day 30. One can then upload the new predictions to the same dataset. ")] = None, **kwargs) -> ApiResponse:    # noqa: E501
         """get_prediction_task_schemas_by_dataset_id  # noqa: E501
 
         Get list of all the prediction task schemas for a datasetId at a specific predictionUUIDTimestamp. If no predictionUUIDTimestamp is set, it defaults to the newest  # noqa: E501
@@ -792,31 +764,23 @@ class PredictionsApi(object):
 
         _all_params = [
             'dataset_id',
-            'prediction_uuid_timestamp'
+            'prediction_uuid_timestamp',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_prediction_task_schemas_by_dataset_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method get_prediction_task_schemas_by_dataset_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -854,6 +818,7 @@ class PredictionsApi(object):
             '404': "ApiErrorResponse",
         }
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/datasets/{datasetId}/predictions/tasks', 'GET',
             _path_params,
@@ -905,7 +870,7 @@ class PredictionsApi(object):
         return self.get_predictions_by_dataset_id_with_http_info(dataset_id, prediction_uuid_timestamp, task_name, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_predictions_by_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], prediction_uuid_timestamp : Annotated[conint(strict=True, ge=0), Field(..., description="The timestamp of when the actual predictions were created. This is used as a peg to version predictions. E.g one could upload predictions on day 1 and then create new predictions with an improved model on day 30. One can then upload the new predictions to the same dataset. ")], task_name : Annotated[Optional[constr(strict=True, min_length=1)], Field(description="If provided, only gets all prediction singletons of all samples of a dataset that were yielded by a specific prediction task name")] = None, **kwargs) -> ApiResponse:  # noqa: E501
+    def get_predictions_by_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], prediction_uuid_timestamp : Annotated[conint(strict=True, ge=0), Field(..., description="The timestamp of when the actual predictions were created. This is used as a peg to version predictions. E.g one could upload predictions on day 1 and then create new predictions with an improved model on day 30. One can then upload the new predictions to the same dataset. ")], task_name : Annotated[Optional[constr(strict=True, min_length=1)], Field(description="If provided, only gets all prediction singletons of all samples of a dataset that were yielded by a specific prediction task name")] = None, **kwargs) -> ApiResponse:    # noqa: E501
         """get_predictions_by_dataset_id  # noqa: E501
 
         Get all prediction singletons of all samples of a dataset ordered by the sample mapping  # noqa: E501
@@ -951,31 +916,23 @@ class PredictionsApi(object):
         _all_params = [
             'dataset_id',
             'prediction_uuid_timestamp',
-            'task_name'
+            'task_name',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_predictions_by_dataset_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method get_predictions_by_dataset_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -1019,6 +976,7 @@ class PredictionsApi(object):
             '404': "ApiErrorResponse",
         }
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/datasets/{datasetId}/predictions/samples', 'GET',
             _path_params,

@@ -80,13 +80,10 @@ class BaseEmbedding(LightningModule):
             A trained encoder, ready for embedding datasets.
 
         """
-        trainer_callbacks = []
-
         checkpoint_cb = callbacks.create_checkpoint_callback(
             **checkpoint_callback_config
         )
-        trainer_callbacks.append(checkpoint_cb)
-
+        trainer_callbacks = [checkpoint_cb]
         summary_cb = callbacks.create_summary_callback(
             summary_callback_config=summary_callback_config,
             trainer_config=trainer_config,

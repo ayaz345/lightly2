@@ -77,7 +77,7 @@ class JobsApi(object):
         return self.get_job_status_by_id_with_http_info(job_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_job_status_by_id_with_http_info(self, job_id : Annotated[StrictStr, Field(..., description="id of the job")], **kwargs) -> ApiResponse:  # noqa: E501
+    def get_job_status_by_id_with_http_info(self, job_id : Annotated[StrictStr, Field(..., description="id of the job")], **kwargs) -> ApiResponse:    # noqa: E501
         """get_job_status_by_id  # noqa: E501
 
         Get status of a specific job  # noqa: E501
@@ -117,31 +117,23 @@ class JobsApi(object):
         _params = locals()
 
         _all_params = [
-            'job_id'
+            'job_id',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_job_status_by_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method get_job_status_by_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -173,6 +165,7 @@ class JobsApi(object):
             '404': "ApiErrorResponse",
         }
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/jobs/{jobId}', 'GET',
             _path_params,
@@ -218,7 +211,7 @@ class JobsApi(object):
         return self.get_jobs_with_http_info(**kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_jobs_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
+    def get_jobs_with_http_info(self, **kwargs) -> ApiResponse:    # noqa: E501
         """get_jobs  # noqa: E501
 
         Get all jobs you have created  # noqa: E501
@@ -256,30 +249,22 @@ class JobsApi(object):
         _params = locals()
 
         _all_params = [
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_jobs" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method get_jobs"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -308,6 +293,7 @@ class JobsApi(object):
             '404': "ApiErrorResponse",
         }
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/jobs', 'GET',
             _path_params,

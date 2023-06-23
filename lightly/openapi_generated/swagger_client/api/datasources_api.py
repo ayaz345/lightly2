@@ -85,7 +85,7 @@ class DatasourcesApi(object):
         return self.get_custom_embedding_file_read_url_from_datasource_by_dataset_id_with_http_info(dataset_id, file_name, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_custom_embedding_file_read_url_from_datasource_by_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], file_name : Annotated[constr(strict=True, min_length=4), Field(..., description="The name of the csv file within the embeddings folder to get the readUrl for")], **kwargs) -> ApiResponse:  # noqa: E501
+    def get_custom_embedding_file_read_url_from_datasource_by_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], file_name : Annotated[constr(strict=True, min_length=4), Field(..., description="The name of the csv file within the embeddings folder to get the readUrl for")], **kwargs) -> ApiResponse:    # noqa: E501
         """get_custom_embedding_file_read_url_from_datasource_by_dataset_id  # noqa: E501
 
         Get the ReadURL of a custom embedding csv file within the embeddings folder (e.g myCustomEmbedding.csv)  # noqa: E501
@@ -128,31 +128,23 @@ class DatasourcesApi(object):
 
         _all_params = [
             'dataset_id',
-            'file_name'
+            'file_name',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_custom_embedding_file_read_url_from_datasource_by_dataset_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method get_custom_embedding_file_read_url_from_datasource_by_dataset_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -190,6 +182,7 @@ class DatasourcesApi(object):
             '404': "ApiErrorResponse",
         }
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/datasets/{datasetId}/datasource/embeddings/file', 'GET',
             _path_params,
@@ -239,7 +232,7 @@ class DatasourcesApi(object):
         return self.get_datasource_by_dataset_id_with_http_info(dataset_id, purpose, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_datasource_by_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], purpose : Annotated[Optional[DatasourcePurpose], Field(description="Which datasource with which purpose we want to get. Defaults to INPUT_OUTPUT")] = None, **kwargs) -> ApiResponse:  # noqa: E501
+    def get_datasource_by_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], purpose : Annotated[Optional[DatasourcePurpose], Field(description="Which datasource with which purpose we want to get. Defaults to INPUT_OUTPUT")] = None, **kwargs) -> ApiResponse:    # noqa: E501
         """get_datasource_by_dataset_id  # noqa: E501
 
         Get the datasource of a dataset  # noqa: E501
@@ -282,31 +275,23 @@ class DatasourcesApi(object):
 
         _all_params = [
             'dataset_id',
-            'purpose'
+            'purpose',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_datasource_by_dataset_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method get_datasource_by_dataset_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -344,6 +329,7 @@ class DatasourcesApi(object):
             '404': "ApiErrorResponse",
         }
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/datasets/{datasetId}/datasource', 'GET',
             _path_params,
@@ -391,7 +377,7 @@ class DatasourcesApi(object):
         return self.get_datasource_processed_until_timestamp_by_dataset_id_with_http_info(dataset_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_datasource_processed_until_timestamp_by_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], **kwargs) -> ApiResponse:  # noqa: E501
+    def get_datasource_processed_until_timestamp_by_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], **kwargs) -> ApiResponse:    # noqa: E501
         """get_datasource_processed_until_timestamp_by_dataset_id  # noqa: E501
 
         Get timestamp of last treated resource  # noqa: E501
@@ -431,31 +417,23 @@ class DatasourcesApi(object):
         _params = locals()
 
         _all_params = [
-            'dataset_id'
+            'dataset_id',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_datasource_processed_until_timestamp_by_dataset_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method get_datasource_processed_until_timestamp_by_dataset_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -487,6 +465,7 @@ class DatasourcesApi(object):
             '404': "ApiErrorResponse",
         }
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/datasets/{datasetId}/datasource/processedUntilTimestamp', 'GET',
             _path_params,
@@ -534,7 +513,7 @@ class DatasourcesApi(object):
         return self.get_datasources_by_dataset_id_with_http_info(dataset_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_datasources_by_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], **kwargs) -> ApiResponse:  # noqa: E501
+    def get_datasources_by_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], **kwargs) -> ApiResponse:    # noqa: E501
         """get_datasources_by_dataset_id  # noqa: E501
 
         Get all the datasources of a dataset  # noqa: E501
@@ -574,31 +553,23 @@ class DatasourcesApi(object):
         _params = locals()
 
         _all_params = [
-            'dataset_id'
+            'dataset_id',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_datasources_by_dataset_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method get_datasources_by_dataset_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -630,6 +601,7 @@ class DatasourcesApi(object):
             '404': "ApiErrorResponse",
         }
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/datasets/{datasetId}/datasource/all', 'GET',
             _path_params,
@@ -687,7 +659,7 @@ class DatasourcesApi(object):
         return self.get_list_of_raw_samples_from_datasource_by_dataset_id_with_http_info(dataset_id, var_from, to, cursor, use_redirected_read_url, relevant_filenames_file_name, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_list_of_raw_samples_from_datasource_by_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], var_from : Annotated[Optional[conint(strict=True, ge=0)], Field(description="Unix timestamp, only samples with a creation date after `from` will be returned. This parameter is ignored if `cursor` is specified. ")] = None, to : Annotated[Optional[conint(strict=True, ge=0)], Field(description="Unix timestamp, only samples with a creation date before `to` will be returned. This parameter is ignored if `cursor` is specified. ")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Cursor from previous request, encodes `from` and `to` parameters. Specify to continue reading samples from the list. ")] = None, use_redirected_read_url : Annotated[Optional[StrictBool], Field(description="By default this is set to false unless a S3DelegatedAccess is configured in which case its always true and this param has no effect. When true this will return RedirectedReadUrls instead of ReadUrls meaning that  returned URLs allow for unlimited access to the file ")] = None, relevant_filenames_file_name : Annotated[Optional[constr(strict=True, min_length=4)], Field(description="The name of the file within your datasource which contains a list of relevant filenames to list. See https://docs.lightly.ai/docker/getting_started/first_steps.html#specify-relevant-files for more details  ")] = None, **kwargs) -> ApiResponse:  # noqa: E501
+    def get_list_of_raw_samples_from_datasource_by_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], var_from : Annotated[Optional[conint(strict=True, ge=0)], Field(description="Unix timestamp, only samples with a creation date after `from` will be returned. This parameter is ignored if `cursor` is specified. ")] = None, to : Annotated[Optional[conint(strict=True, ge=0)], Field(description="Unix timestamp, only samples with a creation date before `to` will be returned. This parameter is ignored if `cursor` is specified. ")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Cursor from previous request, encodes `from` and `to` parameters. Specify to continue reading samples from the list. ")] = None, use_redirected_read_url : Annotated[Optional[StrictBool], Field(description="By default this is set to false unless a S3DelegatedAccess is configured in which case its always true and this param has no effect. When true this will return RedirectedReadUrls instead of ReadUrls meaning that  returned URLs allow for unlimited access to the file ")] = None, relevant_filenames_file_name : Annotated[Optional[constr(strict=True, min_length=4)], Field(description="The name of the file within your datasource which contains a list of relevant filenames to list. See https://docs.lightly.ai/docker/getting_started/first_steps.html#specify-relevant-files for more details  ")] = None, **kwargs) -> ApiResponse:    # noqa: E501
         """get_list_of_raw_samples_from_datasource_by_dataset_id  # noqa: E501
 
         Get list of raw samples from datasource  # noqa: E501
@@ -742,31 +714,23 @@ class DatasourcesApi(object):
             'to',
             'cursor',
             'use_redirected_read_url',
-            'relevant_filenames_file_name'
+            'relevant_filenames_file_name',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_list_of_raw_samples_from_datasource_by_dataset_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method get_list_of_raw_samples_from_datasource_by_dataset_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -828,6 +792,7 @@ class DatasourcesApi(object):
             '404': "ApiErrorResponse",
         }
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/datasets/{datasetId}/datasource/list', 'GET',
             _path_params,
@@ -889,7 +854,7 @@ class DatasourcesApi(object):
         return self.get_list_of_raw_samples_metadata_from_datasource_by_dataset_id_with_http_info(dataset_id, var_from, to, cursor, use_redirected_read_url, relevant_filenames_file_name, relevant_filenames_run_id, relevant_filenames_artifact_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_list_of_raw_samples_metadata_from_datasource_by_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], var_from : Annotated[Optional[conint(strict=True, ge=0)], Field(description="Unix timestamp, only samples with a creation date after `from` will be returned. This parameter is ignored if `cursor` is specified. ")] = None, to : Annotated[Optional[conint(strict=True, ge=0)], Field(description="Unix timestamp, only samples with a creation date before `to` will be returned. This parameter is ignored if `cursor` is specified. ")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Cursor from previous request, encodes `from` and `to` parameters. Specify to continue reading samples from the list. ")] = None, use_redirected_read_url : Annotated[Optional[StrictBool], Field(description="By default this is set to false unless a S3DelegatedAccess is configured in which case its always true and this param has no effect. When true this will return RedirectedReadUrls instead of ReadUrls meaning that  returned URLs allow for unlimited access to the file ")] = None, relevant_filenames_file_name : Annotated[Optional[constr(strict=True, min_length=4)], Field(description="The name of the file within your datasource which contains a list of relevant filenames to list. See https://docs.lightly.ai/docker/getting_started/first_steps.html#specify-relevant-files for more details  ")] = None, relevant_filenames_run_id : Annotated[Optional[constr(strict=True)], Field(description="The run id of the run which generated an artifact to be used as the relevant filenames file. (see DatasourceRelevantFilenamesArtifactIdParam) ")] = None, relevant_filenames_artifact_id : Annotated[Optional[constr(strict=True)], Field(description="The artifact id of the run provided by DatasourceRelevantFilenamesRunIdParam to be used as the relevant filenames file. ")] = None, **kwargs) -> ApiResponse:  # noqa: E501
+    def get_list_of_raw_samples_metadata_from_datasource_by_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], var_from : Annotated[Optional[conint(strict=True, ge=0)], Field(description="Unix timestamp, only samples with a creation date after `from` will be returned. This parameter is ignored if `cursor` is specified. ")] = None, to : Annotated[Optional[conint(strict=True, ge=0)], Field(description="Unix timestamp, only samples with a creation date before `to` will be returned. This parameter is ignored if `cursor` is specified. ")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Cursor from previous request, encodes `from` and `to` parameters. Specify to continue reading samples from the list. ")] = None, use_redirected_read_url : Annotated[Optional[StrictBool], Field(description="By default this is set to false unless a S3DelegatedAccess is configured in which case its always true and this param has no effect. When true this will return RedirectedReadUrls instead of ReadUrls meaning that  returned URLs allow for unlimited access to the file ")] = None, relevant_filenames_file_name : Annotated[Optional[constr(strict=True, min_length=4)], Field(description="The name of the file within your datasource which contains a list of relevant filenames to list. See https://docs.lightly.ai/docker/getting_started/first_steps.html#specify-relevant-files for more details  ")] = None, relevant_filenames_run_id : Annotated[Optional[constr(strict=True)], Field(description="The run id of the run which generated an artifact to be used as the relevant filenames file. (see DatasourceRelevantFilenamesArtifactIdParam) ")] = None, relevant_filenames_artifact_id : Annotated[Optional[constr(strict=True)], Field(description="The artifact id of the run provided by DatasourceRelevantFilenamesRunIdParam to be used as the relevant filenames file. ")] = None, **kwargs) -> ApiResponse:    # noqa: E501
         """get_list_of_raw_samples_metadata_from_datasource_by_dataset_id  # noqa: E501
 
         Get list of the raw samples metadata from datasource for a specific taskName  # noqa: E501
@@ -950,31 +915,23 @@ class DatasourcesApi(object):
             'use_redirected_read_url',
             'relevant_filenames_file_name',
             'relevant_filenames_run_id',
-            'relevant_filenames_artifact_id'
+            'relevant_filenames_artifact_id',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_list_of_raw_samples_metadata_from_datasource_by_dataset_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method get_list_of_raw_samples_metadata_from_datasource_by_dataset_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -1048,6 +1005,7 @@ class DatasourcesApi(object):
             '404': "ApiErrorResponse",
         }
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/datasets/{datasetId}/datasource/metadata/list', 'GET',
             _path_params,
@@ -1111,7 +1069,7 @@ class DatasourcesApi(object):
         return self.get_list_of_raw_samples_predictions_from_datasource_by_dataset_id_with_http_info(dataset_id, task_name, var_from, to, cursor, use_redirected_read_url, relevant_filenames_file_name, relevant_filenames_run_id, relevant_filenames_artifact_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_list_of_raw_samples_predictions_from_datasource_by_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], task_name : Annotated[constr(strict=True, min_length=1), Field(..., description="The prediction task name for which one wants to list the predictions")], var_from : Annotated[Optional[conint(strict=True, ge=0)], Field(description="Unix timestamp, only samples with a creation date after `from` will be returned. This parameter is ignored if `cursor` is specified. ")] = None, to : Annotated[Optional[conint(strict=True, ge=0)], Field(description="Unix timestamp, only samples with a creation date before `to` will be returned. This parameter is ignored if `cursor` is specified. ")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Cursor from previous request, encodes `from` and `to` parameters. Specify to continue reading samples from the list. ")] = None, use_redirected_read_url : Annotated[Optional[StrictBool], Field(description="By default this is set to false unless a S3DelegatedAccess is configured in which case its always true and this param has no effect. When true this will return RedirectedReadUrls instead of ReadUrls meaning that  returned URLs allow for unlimited access to the file ")] = None, relevant_filenames_file_name : Annotated[Optional[constr(strict=True, min_length=4)], Field(description="The name of the file within your datasource which contains a list of relevant filenames to list. See https://docs.lightly.ai/docker/getting_started/first_steps.html#specify-relevant-files for more details  ")] = None, relevant_filenames_run_id : Annotated[Optional[constr(strict=True)], Field(description="The run id of the run which generated an artifact to be used as the relevant filenames file. (see DatasourceRelevantFilenamesArtifactIdParam) ")] = None, relevant_filenames_artifact_id : Annotated[Optional[constr(strict=True)], Field(description="The artifact id of the run provided by DatasourceRelevantFilenamesRunIdParam to be used as the relevant filenames file. ")] = None, **kwargs) -> ApiResponse:  # noqa: E501
+    def get_list_of_raw_samples_predictions_from_datasource_by_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], task_name : Annotated[constr(strict=True, min_length=1), Field(..., description="The prediction task name for which one wants to list the predictions")], var_from : Annotated[Optional[conint(strict=True, ge=0)], Field(description="Unix timestamp, only samples with a creation date after `from` will be returned. This parameter is ignored if `cursor` is specified. ")] = None, to : Annotated[Optional[conint(strict=True, ge=0)], Field(description="Unix timestamp, only samples with a creation date before `to` will be returned. This parameter is ignored if `cursor` is specified. ")] = None, cursor : Annotated[Optional[StrictStr], Field(description="Cursor from previous request, encodes `from` and `to` parameters. Specify to continue reading samples from the list. ")] = None, use_redirected_read_url : Annotated[Optional[StrictBool], Field(description="By default this is set to false unless a S3DelegatedAccess is configured in which case its always true and this param has no effect. When true this will return RedirectedReadUrls instead of ReadUrls meaning that  returned URLs allow for unlimited access to the file ")] = None, relevant_filenames_file_name : Annotated[Optional[constr(strict=True, min_length=4)], Field(description="The name of the file within your datasource which contains a list of relevant filenames to list. See https://docs.lightly.ai/docker/getting_started/first_steps.html#specify-relevant-files for more details  ")] = None, relevant_filenames_run_id : Annotated[Optional[constr(strict=True)], Field(description="The run id of the run which generated an artifact to be used as the relevant filenames file. (see DatasourceRelevantFilenamesArtifactIdParam) ")] = None, relevant_filenames_artifact_id : Annotated[Optional[constr(strict=True)], Field(description="The artifact id of the run provided by DatasourceRelevantFilenamesRunIdParam to be used as the relevant filenames file. ")] = None, **kwargs) -> ApiResponse:    # noqa: E501
         """get_list_of_raw_samples_predictions_from_datasource_by_dataset_id  # noqa: E501
 
         Get list of the raw samples predictions from datasource for a specific taskName  # noqa: E501
@@ -1175,31 +1133,23 @@ class DatasourcesApi(object):
             'use_redirected_read_url',
             'relevant_filenames_file_name',
             'relevant_filenames_run_id',
-            'relevant_filenames_artifact_id'
+            'relevant_filenames_artifact_id',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_list_of_raw_samples_predictions_from_datasource_by_dataset_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method get_list_of_raw_samples_predictions_from_datasource_by_dataset_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -1279,6 +1229,7 @@ class DatasourcesApi(object):
             '404': "ApiErrorResponse",
         }
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/datasets/{datasetId}/datasource/predictions/list', 'GET',
             _path_params,
@@ -1328,7 +1279,7 @@ class DatasourcesApi(object):
         return self.get_metadata_file_read_url_from_datasource_by_dataset_id_with_http_info(dataset_id, file_name, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_metadata_file_read_url_from_datasource_by_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], file_name : Annotated[constr(strict=True, min_length=5), Field(..., description="The name of the file within the metadata folder to get the readUrl for")], **kwargs) -> ApiResponse:  # noqa: E501
+    def get_metadata_file_read_url_from_datasource_by_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], file_name : Annotated[constr(strict=True, min_length=5), Field(..., description="The name of the file within the metadata folder to get the readUrl for")], **kwargs) -> ApiResponse:    # noqa: E501
         """get_metadata_file_read_url_from_datasource_by_dataset_id  # noqa: E501
 
         Get the ReadURL of a file within the metadata folder (e.g. my_image.json or my_video-099-mp4.json)  # noqa: E501
@@ -1371,31 +1322,23 @@ class DatasourcesApi(object):
 
         _all_params = [
             'dataset_id',
-            'file_name'
+            'file_name',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_metadata_file_read_url_from_datasource_by_dataset_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method get_metadata_file_read_url_from_datasource_by_dataset_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -1433,6 +1376,7 @@ class DatasourcesApi(object):
             '404': "ApiErrorResponse",
         }
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/datasets/{datasetId}/datasource/metadata/file', 'GET',
             _path_params,
@@ -1482,7 +1426,7 @@ class DatasourcesApi(object):
         return self.get_prediction_file_read_url_from_datasource_by_dataset_id_with_http_info(dataset_id, file_name, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_prediction_file_read_url_from_datasource_by_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], file_name : Annotated[constr(strict=True, min_length=4), Field(..., description="The name of the file within the prediction folder to get the readUrl for")], **kwargs) -> ApiResponse:  # noqa: E501
+    def get_prediction_file_read_url_from_datasource_by_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], file_name : Annotated[constr(strict=True, min_length=4), Field(..., description="The name of the file within the prediction folder to get the readUrl for")], **kwargs) -> ApiResponse:    # noqa: E501
         """get_prediction_file_read_url_from_datasource_by_dataset_id  # noqa: E501
 
         Get the ReadURL of a file within the predictions folder (e.g tasks.json or my_classification_task/schema.json)  # noqa: E501
@@ -1525,31 +1469,23 @@ class DatasourcesApi(object):
 
         _all_params = [
             'dataset_id',
-            'file_name'
+            'file_name',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_prediction_file_read_url_from_datasource_by_dataset_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method get_prediction_file_read_url_from_datasource_by_dataset_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -1587,6 +1523,7 @@ class DatasourcesApi(object):
             '404': "ApiErrorResponse",
         }
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/datasets/{datasetId}/datasource/predictions/file', 'GET',
             _path_params,

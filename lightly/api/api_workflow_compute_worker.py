@@ -364,8 +364,7 @@ class _ComputeWorkerMixin:
              }]
         """
         runs: List[DockerRunData] = list(self.get_compute_worker_runs_iter(dataset_id))
-        sorted_runs = sorted(runs, key=lambda run: run.created_at or -1)
-        return sorted_runs
+        return sorted(runs, key=lambda run: run.created_at or -1)
 
     def get_compute_worker_run(self, run_id: str) -> DockerRunData:
         """Fetches a Lightly Worker run.
@@ -612,8 +611,7 @@ class _ComputeWorkerMixin:
 
         """
         tags = self._compute_worker_api.get_docker_run_tags(run_id=run_id)
-        tags_in_dataset = [tag for tag in tags if tag.dataset_id == self.dataset_id]
-        return tags_in_dataset
+        return [tag for tag in tags if tag.dataset_id == self.dataset_id]
 
 
 def selection_config_from_dict(cfg: Dict[str, Any]) -> SelectionConfig:

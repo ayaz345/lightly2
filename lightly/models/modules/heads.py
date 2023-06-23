@@ -157,24 +157,23 @@ class MoCoProjectionHead(ProjectionHead):
             batch_norm: Whether or not to use batch norms.
                 (False for v2, True for v3)
         """
-        layers: List[Tuple[int, int, Optional[nn.Module], Optional[nn.Module]]] = []
-        layers.append(
+        layers: List[Tuple[int, int, Optional[nn.Module], Optional[nn.Module]]] = [
             (
                 input_dim,
                 hidden_dim,
                 nn.BatchNorm1d(hidden_dim) if batch_norm else None,
                 nn.ReLU(),
             )
-        )
-        for _ in range(2, num_layers):
-            layers.append(
-                (
-                    hidden_dim,
-                    hidden_dim,
-                    nn.BatchNorm1d(hidden_dim) if batch_norm else None,
-                    nn.ReLU(),
-                )
+        ]
+        layers.extend(
+            (
+                hidden_dim,
+                hidden_dim,
+                nn.BatchNorm1d(hidden_dim) if batch_norm else None,
+                nn.ReLU(),
             )
+            for _ in range(2, num_layers)
+        )
         layers.append(
             (
                 hidden_dim,
@@ -262,24 +261,23 @@ class SimCLRProjectionHead(ProjectionHead):
             num_layers: Number of hidden layers (2 for v1, 3+ for v2).
             batch_norm: Whether or not to use batch norms.
         """
-        layers: List[Tuple[int, int, Optional[nn.Module], Optional[nn.Module]]] = []
-        layers.append(
+        layers: List[Tuple[int, int, Optional[nn.Module], Optional[nn.Module]]] = [
             (
                 input_dim,
                 hidden_dim,
                 nn.BatchNorm1d(hidden_dim) if batch_norm else None,
                 nn.ReLU(),
             )
-        )
-        for _ in range(2, num_layers):
-            layers.append(
-                (
-                    hidden_dim,
-                    hidden_dim,
-                    nn.BatchNorm1d(hidden_dim) if batch_norm else None,
-                    nn.ReLU(),
-                )
+        ]
+        layers.extend(
+            (
+                hidden_dim,
+                hidden_dim,
+                nn.BatchNorm1d(hidden_dim) if batch_norm else None,
+                nn.ReLU(),
             )
+            for _ in range(2, num_layers)
+        )
         layers.append(
             (
                 hidden_dim,
@@ -518,7 +516,7 @@ class SwaVPrototypes(nn.Module):
         self.n_prototypes = (
             n_prototypes if isinstance(n_prototypes, list) else [n_prototypes]
         )
-        self._is_single_prototype = True if isinstance(n_prototypes, int) else False
+        self._is_single_prototype = isinstance(n_prototypes, int)
         self.heads = nn.ModuleList(
             [nn.Linear(input_dim, prototypes) for prototypes in self.n_prototypes]
         )
@@ -526,9 +524,7 @@ class SwaVPrototypes(nn.Module):
 
     def forward(self, x, step=None) -> Union[torch.Tensor, List[torch.Tensor]]:
         self._freeze_prototypes_if_required(step)
-        out = []
-        for layer in self.heads:
-            out.append(layer(x))
+        out = [layer(x) for layer in self.heads]
         return out[0] if self._is_single_prototype else out
 
     def normalize(self):

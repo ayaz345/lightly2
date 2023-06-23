@@ -125,11 +125,7 @@ class DatasetDataEnriched(BaseModel):
 
     def to_dict(self, by_alias: bool = False):
         """Returns the dictionary representation of the model"""
-        _dict = self.dict(by_alias=by_alias,
-                          exclude={
-                          },
-                          exclude_none=True)
-        return _dict
+        return self.dict(by_alias=by_alias, exclude={}, exclude_none=True)
 
     @classmethod
     def from_dict(cls, obj: dict) -> DatasetDataEnriched:
@@ -141,29 +137,32 @@ class DatasetDataEnriched(BaseModel):
             return DatasetDataEnriched.parse_obj(obj)
 
         # raise errors for additional fields in the input
-        for _key in obj.keys():
+        for _key in obj:
             if _key not in cls.__properties:
-                raise ValueError("Error due to additional fields (not defined in DatasetDataEnriched) in the input: " + str(obj))
+                raise ValueError(
+                    f"Error due to additional fields (not defined in DatasetDataEnriched) in the input: {obj}"
+                )
 
-        _obj = DatasetDataEnriched.parse_obj({
-            "id": obj.get("id"),
-            "name": obj.get("name"),
-            "user_id": obj.get("userId"),
-            "access_type": obj.get("accessType"),
-            "type": obj.get("type"),
-            "img_type": obj.get("imgType"),
-            "n_samples": obj.get("nSamples"),
-            "size_in_bytes": obj.get("sizeInBytes"),
-            "created_at": obj.get("createdAt"),
-            "last_modified_at": obj.get("lastModifiedAt"),
-            "meta_data_configuration_id": obj.get("metaDataConfigurationId"),
-            "access_role": obj.get("accessRole"),
-            "datasources": obj.get("datasources"),
-            "parent_dataset_id": obj.get("parentDatasetId"),
-            "original_dataset_id": obj.get("originalDatasetId"),
-            "samples": obj.get("samples"),
-            "n_tags": obj.get("nTags"),
-            "n_embeddings": obj.get("nEmbeddings")
-        })
-        return _obj
+        return DatasetDataEnriched.parse_obj(
+            {
+                "id": obj.get("id"),
+                "name": obj.get("name"),
+                "user_id": obj.get("userId"),
+                "access_type": obj.get("accessType"),
+                "type": obj.get("type"),
+                "img_type": obj.get("imgType"),
+                "n_samples": obj.get("nSamples"),
+                "size_in_bytes": obj.get("sizeInBytes"),
+                "created_at": obj.get("createdAt"),
+                "last_modified_at": obj.get("lastModifiedAt"),
+                "meta_data_configuration_id": obj.get("metaDataConfigurationId"),
+                "access_role": obj.get("accessRole"),
+                "datasources": obj.get("datasources"),
+                "parent_dataset_id": obj.get("parentDatasetId"),
+                "original_dataset_id": obj.get("originalDatasetId"),
+                "samples": obj.get("samples"),
+                "n_tags": obj.get("nTags"),
+                "n_embeddings": obj.get("nEmbeddings"),
+            }
+        )
 

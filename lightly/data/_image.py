@@ -100,9 +100,9 @@ class DatasetFolder(datasets.VisionDataset):
 
         samples = _make_dataset(self.root, extensions, is_valid_file)
         if len(samples) == 0:
-            msg = "Found 0 files in folder: {}\n".format(self.root)
+            msg = f"Found 0 files in folder: {self.root}\n"
             if extensions is not None:
-                msg += "Supported extensions are: {}".format(",".join(extensions))
+                msg += f'Supported extensions are: {",".join(extensions)}'
             raise RuntimeError(msg)
 
         self.loader = loader

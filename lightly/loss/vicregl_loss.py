@@ -161,8 +161,7 @@ class VICRegLLoss(torch.nn.Module):
             local_view_grids=local_view_grids,
         )
 
-        loss = self.alpha * global_loss + (1 - self.alpha) * local_loss
-        return loss
+        return self.alpha * global_loss + (1 - self.alpha) * local_loss
 
     def _global_loss(
         self,
@@ -214,7 +213,7 @@ class VICRegLLoss(torch.nn.Module):
         """Returns variance and covariance loss from global features."""
         view_features = list(global_view_features)
         if local_view_features is not None:
-            view_features = view_features + list(local_view_features)
+            view_features += list(local_view_features)
 
         var_loss = 0
         cov_loss = 0

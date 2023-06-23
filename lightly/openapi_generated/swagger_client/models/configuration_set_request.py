@@ -60,9 +60,9 @@ class ConfigurationSetRequest(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of each item in configs (list)
         _items = []
         if self.configs:
-            for _item in self.configs:
-                if _item:
-                    _items.append(_item.to_dict(by_alias=by_alias))
+            _items.extend(
+                _item.to_dict(by_alias=by_alias) for _item in self.configs if _item
+            )
             _dict['configs' if by_alias else 'configs'] = _items
         return _dict
 
@@ -76,13 +76,21 @@ class ConfigurationSetRequest(BaseModel):
             return ConfigurationSetRequest.parse_obj(obj)
 
         # raise errors for additional fields in the input
-        for _key in obj.keys():
+        for _key in obj:
             if _key not in cls.__properties:
-                raise ValueError("Error due to additional fields (not defined in ConfigurationSetRequest) in the input: " + str(obj))
+                raise ValueError(
+                    f"Error due to additional fields (not defined in ConfigurationSetRequest) in the input: {obj}"
+                )
 
-        _obj = ConfigurationSetRequest.parse_obj({
-            "name": obj.get("name"),
-            "configs": [ConfigurationEntry.from_dict(_item) for _item in obj.get("configs")] if obj.get("configs") is not None else None
-        })
-        return _obj
+        return ConfigurationSetRequest.parse_obj(
+            {
+                "name": obj.get("name"),
+                "configs": [
+                    ConfigurationEntry.from_dict(_item)
+                    for _item in obj.get("configs")
+                ]
+                if obj.get("configs") is not None
+                else None,
+            }
+        )
 

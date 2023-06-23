@@ -82,7 +82,7 @@ class TeamsApi(object):
         return self.add_team_member_with_http_info(team_id, create_team_membership_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def add_team_member_with_http_info(self, team_id : Annotated[constr(strict=True), Field(..., description="id of the team")], create_team_membership_request : CreateTeamMembershipRequest, **kwargs) -> ApiResponse:  # noqa: E501
+    def add_team_member_with_http_info(self, team_id : Annotated[constr(strict=True), Field(..., description="id of the team")], create_team_membership_request : CreateTeamMembershipRequest, **kwargs) -> ApiResponse:    # noqa: E501
         """add_team_member  # noqa: E501
 
         Add a team member. One needs to be part of the team to do so.  # noqa: E501
@@ -125,26 +125,20 @@ class TeamsApi(object):
 
         _all_params = [
             'team_id',
-            'create_team_membership_request'
+            'create_team_membership_request',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method add_team_member" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method add_team_member"
                 )
             _params[_key] = _val
         del _params['kwargs']
@@ -173,12 +167,11 @@ class TeamsApi(object):
         _header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
 
-        # set the HTTP header `Content-Type`
-        _content_types_list = _params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json']))
-        if _content_types_list:
-                _header_params['Content-Type'] = _content_types_list
+        if _content_types_list := _params.get(
+            '_content_type',
+            self.api_client.select_header_content_type(['application/json']),
+        ):
+            _header_params['Content-Type'] = _content_types_list
 
         # authentication setting
         _auth_settings = ['auth0Bearer', 'ApiKeyAuth']  # noqa: E501
@@ -234,7 +227,7 @@ class TeamsApi(object):
         return self.delete_team_member_by_id_with_http_info(team_id, user_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def delete_team_member_by_id_with_http_info(self, team_id : Annotated[constr(strict=True), Field(..., description="id of the team")], user_id : Annotated[StrictStr, Field(..., description="id of the user")], **kwargs) -> ApiResponse:  # noqa: E501
+    def delete_team_member_by_id_with_http_info(self, team_id : Annotated[constr(strict=True), Field(..., description="id of the team")], user_id : Annotated[StrictStr, Field(..., description="id of the user")], **kwargs) -> ApiResponse:    # noqa: E501
         """delete_team_member_by_id  # noqa: E501
 
         Deletes a member from a team. One needs to be part of the team to do so.  # noqa: E501
@@ -277,31 +270,23 @@ class TeamsApi(object):
 
         _all_params = [
             'team_id',
-            'user_id'
+            'user_id',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method delete_team_member_by_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method delete_team_member_by_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -330,6 +315,7 @@ class TeamsApi(object):
 
         _response_types_map = {}
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/teams/{teamId}/members/{userId}', 'DELETE',
             _path_params,
@@ -377,7 +363,7 @@ class TeamsApi(object):
         return self.get_service_accounts_by_team_id_with_http_info(team_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_service_accounts_by_team_id_with_http_info(self, team_id : Annotated[constr(strict=True), Field(..., description="id of the team")], **kwargs) -> ApiResponse:  # noqa: E501
+    def get_service_accounts_by_team_id_with_http_info(self, team_id : Annotated[constr(strict=True), Field(..., description="id of the team")], **kwargs) -> ApiResponse:    # noqa: E501
         """get_service_accounts_by_team_id  # noqa: E501
 
         Get the service accounts of a team. One needs to be part of the team to do so.  # noqa: E501
@@ -417,31 +403,23 @@ class TeamsApi(object):
         _params = locals()
 
         _all_params = [
-            'team_id'
+            'team_id',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_service_accounts_by_team_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method get_service_accounts_by_team_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -473,6 +451,7 @@ class TeamsApi(object):
             '404': "ApiErrorResponse",
         }
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/teams/{teamId}/serviceaccounts', 'GET',
             _path_params,
@@ -520,7 +499,7 @@ class TeamsApi(object):
         return self.get_team_by_id_with_http_info(team_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_team_by_id_with_http_info(self, team_id : Annotated[constr(strict=True), Field(..., description="id of the team")], **kwargs) -> ApiResponse:  # noqa: E501
+    def get_team_by_id_with_http_info(self, team_id : Annotated[constr(strict=True), Field(..., description="id of the team")], **kwargs) -> ApiResponse:    # noqa: E501
         """get_team_by_id  # noqa: E501
 
         Get basic team information by ID.  # noqa: E501
@@ -560,31 +539,23 @@ class TeamsApi(object):
         _params = locals()
 
         _all_params = [
-            'team_id'
+            'team_id',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_team_by_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method get_team_by_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -616,6 +587,7 @@ class TeamsApi(object):
             '404': "ApiErrorResponse",
         }
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/teams/{teamId}', 'GET',
             _path_params,
@@ -663,7 +635,7 @@ class TeamsApi(object):
         return self.get_team_members_by_id_with_http_info(team_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_team_members_by_id_with_http_info(self, team_id : Annotated[constr(strict=True), Field(..., description="id of the team")], **kwargs) -> ApiResponse:  # noqa: E501
+    def get_team_members_by_id_with_http_info(self, team_id : Annotated[constr(strict=True), Field(..., description="id of the team")], **kwargs) -> ApiResponse:    # noqa: E501
         """get_team_members_by_id  # noqa: E501
 
         Get the members of a team. One needs to be part of the team to do so.  # noqa: E501
@@ -703,31 +675,23 @@ class TeamsApi(object):
         _params = locals()
 
         _all_params = [
-            'team_id'
+            'team_id',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_team_members_by_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method get_team_members_by_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -759,6 +723,7 @@ class TeamsApi(object):
             '404': "ApiErrorResponse",
         }
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/teams/{teamId}/members', 'GET',
             _path_params,
@@ -810,7 +775,7 @@ class TeamsApi(object):
         return self.update_team_member_by_id_with_http_info(team_id, user_id, update_team_membership_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def update_team_member_by_id_with_http_info(self, team_id : Annotated[constr(strict=True), Field(..., description="id of the team")], user_id : Annotated[StrictStr, Field(..., description="id of the user")], update_team_membership_request : UpdateTeamMembershipRequest, **kwargs) -> ApiResponse:  # noqa: E501
+    def update_team_member_by_id_with_http_info(self, team_id : Annotated[constr(strict=True), Field(..., description="id of the team")], user_id : Annotated[StrictStr, Field(..., description="id of the user")], update_team_membership_request : UpdateTeamMembershipRequest, **kwargs) -> ApiResponse:    # noqa: E501
         """update_team_member_by_id  # noqa: E501
 
         Update the team membership of a user. One needs to be part of the team to do so.  # noqa: E501
@@ -856,26 +821,20 @@ class TeamsApi(object):
         _all_params = [
             'team_id',
             'user_id',
-            'update_team_membership_request'
+            'update_team_membership_request',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method update_team_member_by_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method update_team_member_by_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
@@ -907,12 +866,11 @@ class TeamsApi(object):
         _header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
 
-        # set the HTTP header `Content-Type`
-        _content_types_list = _params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json']))
-        if _content_types_list:
-                _header_params['Content-Type'] = _content_types_list
+        if _content_types_list := _params.get(
+            '_content_type',
+            self.api_client.select_header_content_type(['application/json']),
+        ):
+            _header_params['Content-Type'] = _content_types_list
 
         # authentication setting
         _auth_settings = ['auth0Bearer', 'ApiKeyAuth']  # noqa: E501

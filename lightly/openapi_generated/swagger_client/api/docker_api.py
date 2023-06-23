@@ -103,7 +103,7 @@ class DockerApi(object):
         return self.cancel_scheduled_docker_run_state_by_id_with_http_info(dataset_id, scheduled_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def cancel_scheduled_docker_run_state_by_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], scheduled_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the docker worker run")], **kwargs) -> ApiResponse:  # noqa: E501
+    def cancel_scheduled_docker_run_state_by_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], scheduled_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the docker worker run")], **kwargs) -> ApiResponse:    # noqa: E501
         """cancel_scheduled_docker_run_state_by_id  # noqa: E501
 
         Cancel a scheduled run. This will fail if the state of the scheduled run is no longer OPEN (e.g when it is LOCKED)   # noqa: E501
@@ -146,31 +146,23 @@ class DockerApi(object):
 
         _all_params = [
             'dataset_id',
-            'scheduled_id'
+            'scheduled_id',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method cancel_scheduled_docker_run_state_by_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method cancel_scheduled_docker_run_state_by_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -199,6 +191,7 @@ class DockerApi(object):
 
         _response_types_map = {}
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/datasets/{datasetId}/docker/worker/schedule/{scheduledId}', 'PUT',
             _path_params,
@@ -248,7 +241,7 @@ class DockerApi(object):
         return self.confirm_docker_run_artifact_creation_with_http_info(run_id, artifact_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def confirm_docker_run_artifact_creation_with_http_info(self, run_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the docker run")], artifact_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the artifact of the docker run")], **kwargs) -> ApiResponse:  # noqa: E501
+    def confirm_docker_run_artifact_creation_with_http_info(self, run_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the docker run")], artifact_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the artifact of the docker run")], **kwargs) -> ApiResponse:    # noqa: E501
         """confirm_docker_run_artifact_creation  # noqa: E501
 
         confirm that the docker run artifact has been uploaded and is available  # noqa: E501
@@ -291,31 +284,23 @@ class DockerApi(object):
 
         _all_params = [
             'run_id',
-            'artifact_id'
+            'artifact_id',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method confirm_docker_run_artifact_creation" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method confirm_docker_run_artifact_creation"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -344,6 +329,7 @@ class DockerApi(object):
 
         _response_types_map = {}
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/docker/runs/{runId}/artifacts/{artifactId}/confirmUpload', 'PUT',
             _path_params,
@@ -391,7 +377,7 @@ class DockerApi(object):
         return self.create_docker_run_with_http_info(docker_run_create_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def create_docker_run_with_http_info(self, docker_run_create_request : DockerRunCreateRequest, **kwargs) -> ApiResponse:  # noqa: E501
+    def create_docker_run_with_http_info(self, docker_run_create_request : DockerRunCreateRequest, **kwargs) -> ApiResponse:    # noqa: E501
         """create_docker_run  # noqa: E501
 
         Creates a new docker run database entry.  # noqa: E501
@@ -431,26 +417,20 @@ class DockerApi(object):
         _params = locals()
 
         _all_params = [
-            'docker_run_create_request'
+            'docker_run_create_request',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method create_docker_run" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method create_docker_run"
                 )
             _params[_key] = _val
         del _params['kwargs']
@@ -476,12 +456,11 @@ class DockerApi(object):
         _header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
 
-        # set the HTTP header `Content-Type`
-        _content_types_list = _params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json']))
-        if _content_types_list:
-                _header_params['Content-Type'] = _content_types_list
+        if _content_types_list := _params.get(
+            '_content_type',
+            self.api_client.select_header_content_type(['application/json']),
+        ):
+            _header_params['Content-Type'] = _content_types_list
 
         # authentication setting
         _auth_settings = ['auth0Bearer', 'ApiKeyAuth']  # noqa: E501
@@ -543,7 +522,7 @@ class DockerApi(object):
         return self.create_docker_run_artifact_with_http_info(run_id, docker_run_artifact_create_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def create_docker_run_artifact_with_http_info(self, run_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the docker run")], docker_run_artifact_create_request : DockerRunArtifactCreateRequest, **kwargs) -> ApiResponse:  # noqa: E501
+    def create_docker_run_artifact_with_http_info(self, run_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the docker run")], docker_run_artifact_create_request : DockerRunArtifactCreateRequest, **kwargs) -> ApiResponse:    # noqa: E501
         """create_docker_run_artifact  # noqa: E501
 
         creates a docker run artifact and returns the writeUrl and artifactId to upload and confirm  # noqa: E501
@@ -586,26 +565,20 @@ class DockerApi(object):
 
         _all_params = [
             'run_id',
-            'docker_run_artifact_create_request'
+            'docker_run_artifact_create_request',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method create_docker_run_artifact" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method create_docker_run_artifact"
                 )
             _params[_key] = _val
         del _params['kwargs']
@@ -634,12 +607,11 @@ class DockerApi(object):
         _header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
 
-        # set the HTTP header `Content-Type`
-        _content_types_list = _params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json']))
-        if _content_types_list:
-                _header_params['Content-Type'] = _content_types_list
+        if _content_types_list := _params.get(
+            '_content_type',
+            self.api_client.select_header_content_type(['application/json']),
+        ):
+            _header_params['Content-Type'] = _content_types_list
 
         # authentication setting
         _auth_settings = ['auth0Bearer', 'ApiKeyAuth']  # noqa: E501
@@ -703,7 +675,7 @@ class DockerApi(object):
         return self.create_docker_run_scheduled_by_dataset_id_with_http_info(dataset_id, docker_run_scheduled_create_request, disable_config_validation, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def create_docker_run_scheduled_by_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], docker_run_scheduled_create_request : DockerRunScheduledCreateRequest, disable_config_validation : Annotated[Optional[StrictBool], Field(description="if set, disables the sanity check and validation where we check if the provided configuration can run on your datasource e.g     if predictions are used, we check that the bucket structure + tasks.json, schema.json are correct     if metadata is used, we check that the bucket structure + schema.json are correct     if relevantFilenamesFile is set, we check that the file exists ")] = None, **kwargs) -> ApiResponse:  # noqa: E501
+    def create_docker_run_scheduled_by_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], docker_run_scheduled_create_request : DockerRunScheduledCreateRequest, disable_config_validation : Annotated[Optional[StrictBool], Field(description="if set, disables the sanity check and validation where we check if the provided configuration can run on your datasource e.g     if predictions are used, we check that the bucket structure + tasks.json, schema.json are correct     if metadata is used, we check that the bucket structure + schema.json are correct     if relevantFilenamesFile is set, we check that the file exists ")] = None, **kwargs) -> ApiResponse:    # noqa: E501
         """create_docker_run_scheduled_by_dataset_id  # noqa: E501
 
         Schedule a docker run by dataset id. With docker runs it's possible to process unlabeled images from a datasource and use active learning to select the most relevant samples for further processing and visualization in the web app   # noqa: E501
@@ -749,26 +721,20 @@ class DockerApi(object):
         _all_params = [
             'dataset_id',
             'docker_run_scheduled_create_request',
-            'disable_config_validation'
+            'disable_config_validation',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method create_docker_run_scheduled_by_dataset_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method create_docker_run_scheduled_by_dataset_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
@@ -803,12 +769,11 @@ class DockerApi(object):
         _header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
 
-        # set the HTTP header `Content-Type`
-        _content_types_list = _params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json']))
-        if _content_types_list:
-                _header_params['Content-Type'] = _content_types_list
+        if _content_types_list := _params.get(
+            '_content_type',
+            self.api_client.select_header_content_type(['application/json']),
+        ):
+            _header_params['Content-Type'] = _content_types_list
 
         # authentication setting
         _auth_settings = ['auth0Bearer', 'ApiKeyAuth']  # noqa: E501
@@ -867,7 +832,7 @@ class DockerApi(object):
         return self.create_docker_worker_config_with_http_info(docker_worker_config_create_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def create_docker_worker_config_with_http_info(self, docker_worker_config_create_request : DockerWorkerConfigCreateRequest, **kwargs) -> ApiResponse:  # noqa: E501
+    def create_docker_worker_config_with_http_info(self, docker_worker_config_create_request : DockerWorkerConfigCreateRequest, **kwargs) -> ApiResponse:    # noqa: E501
         """create_docker_worker_config  # noqa: E501
 
         Creates a docker worker configuration.  # noqa: E501
@@ -907,26 +872,20 @@ class DockerApi(object):
         _params = locals()
 
         _all_params = [
-            'docker_worker_config_create_request'
+            'docker_worker_config_create_request',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method create_docker_worker_config" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method create_docker_worker_config"
                 )
             _params[_key] = _val
         del _params['kwargs']
@@ -952,12 +911,11 @@ class DockerApi(object):
         _header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
 
-        # set the HTTP header `Content-Type`
-        _content_types_list = _params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json']))
-        if _content_types_list:
-                _header_params['Content-Type'] = _content_types_list
+        if _content_types_list := _params.get(
+            '_content_type',
+            self.api_client.select_header_content_type(['application/json']),
+        ):
+            _header_params['Content-Type'] = _content_types_list
 
         # authentication setting
         _auth_settings = ['auth0Bearer', 'ApiKeyAuth']  # noqa: E501
@@ -1016,7 +974,7 @@ class DockerApi(object):
         return self.create_docker_worker_config_v2_with_http_info(docker_worker_config_v2_create_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def create_docker_worker_config_v2_with_http_info(self, docker_worker_config_v2_create_request : DockerWorkerConfigV2CreateRequest, **kwargs) -> ApiResponse:  # noqa: E501
+    def create_docker_worker_config_v2_with_http_info(self, docker_worker_config_v2_create_request : DockerWorkerConfigV2CreateRequest, **kwargs) -> ApiResponse:    # noqa: E501
         """create_docker_worker_config_v2  # noqa: E501
 
         Creates a docker worker v2 configuration.  # noqa: E501
@@ -1056,26 +1014,20 @@ class DockerApi(object):
         _params = locals()
 
         _all_params = [
-            'docker_worker_config_v2_create_request'
+            'docker_worker_config_v2_create_request',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method create_docker_worker_config_v2" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method create_docker_worker_config_v2"
                 )
             _params[_key] = _val
         del _params['kwargs']
@@ -1101,12 +1053,11 @@ class DockerApi(object):
         _header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
 
-        # set the HTTP header `Content-Type`
-        _content_types_list = _params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json']))
-        if _content_types_list:
-                _header_params['Content-Type'] = _content_types_list
+        if _content_types_list := _params.get(
+            '_content_type',
+            self.api_client.select_header_content_type(['application/json']),
+        ):
+            _header_params['Content-Type'] = _content_types_list
 
         # authentication setting
         _auth_settings = ['auth0Bearer', 'ApiKeyAuth']  # noqa: E501
@@ -1165,7 +1116,7 @@ class DockerApi(object):
         return self.create_docker_worker_config_v3_with_http_info(docker_worker_config_v3_create_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def create_docker_worker_config_v3_with_http_info(self, docker_worker_config_v3_create_request : DockerWorkerConfigV3CreateRequest, **kwargs) -> ApiResponse:  # noqa: E501
+    def create_docker_worker_config_v3_with_http_info(self, docker_worker_config_v3_create_request : DockerWorkerConfigV3CreateRequest, **kwargs) -> ApiResponse:    # noqa: E501
         """create_docker_worker_config_v3  # noqa: E501
 
         Creates a docker worker v3 configuration.  # noqa: E501
@@ -1205,26 +1156,20 @@ class DockerApi(object):
         _params = locals()
 
         _all_params = [
-            'docker_worker_config_v3_create_request'
+            'docker_worker_config_v3_create_request',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method create_docker_worker_config_v3" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method create_docker_worker_config_v3"
                 )
             _params[_key] = _val
         del _params['kwargs']
@@ -1250,12 +1195,11 @@ class DockerApi(object):
         _header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
 
-        # set the HTTP header `Content-Type`
-        _content_types_list = _params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json']))
-        if _content_types_list:
-                _header_params['Content-Type'] = _content_types_list
+        if _content_types_list := _params.get(
+            '_content_type',
+            self.api_client.select_header_content_type(['application/json']),
+        ):
+            _header_params['Content-Type'] = _content_types_list
 
         # authentication setting
         _auth_settings = ['auth0Bearer', 'ApiKeyAuth']  # noqa: E501

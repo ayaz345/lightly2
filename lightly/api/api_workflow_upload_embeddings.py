@@ -31,17 +31,15 @@ class _UploadEmbeddingsMixin:
 
     def set_embedding_id_to_latest(self) -> None:
         """Sets the embedding ID in the API client to the latest embedding ID in the current dataset."""
-        embeddings_on_server: List[
-            DatasetEmbeddingData
-        ] = self._embeddings_api.get_embeddings_by_dataset_id(
+        if embeddings_on_server := self._embeddings_api.get_embeddings_by_dataset_id(
             dataset_id=self.dataset_id
-        )
-        if len(embeddings_on_server) == 0:
+        ):
+            # return first entry as the API returns newest first
+            self.embedding_id = embeddings_on_server[0].id
+        else:
             raise RuntimeError(
                 f"There are no known embeddings for dataset_id {self.dataset_id}."
             )
-        # return first entry as the API returns newest first
-        self.embedding_id = embeddings_on_server[0].id
 
     def get_embedding_by_name(
         self, name: str, ignore_suffix: bool = True
@@ -208,9 +206,9 @@ class _UploadEmbeddingsMixin:
         # combine online and local embeddings
         total_rows = [header]
         filename_to_local_row = {row[0]: row for row in local_rows}
-        for row in online_rows:
-            # pick local over online filename if it exists
-            total_rows.append(filename_to_local_row.pop(row[0], row))
+        total_rows.extend(
+            filename_to_local_row.pop(row[0], row) for row in online_rows
+        )
         # add all local rows which were not added yet
         total_rows.extend(list(filename_to_local_row.values()))
 
@@ -248,8 +246,7 @@ class _UploadEmbeddingsMixin:
                 )
             if set(filenames) != set(filenames_on_server):
                 raise ValueError(
-                    f"The filenames in the embedding file and "
-                    f"the filenames on the server do not align"
+                    'The filenames in the embedding file and the filenames on the server do not align'
                 )
             check_filenames(filenames)
 

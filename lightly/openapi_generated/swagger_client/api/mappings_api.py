@@ -77,7 +77,7 @@ class MappingsApi(object):
         return self.get_sample_mappings_by_dataset_id_with_http_info(dataset_id, field, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_sample_mappings_by_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], field : Annotated[StrictStr, Field(..., description="the field to return as the value")], **kwargs) -> ApiResponse:  # noqa: E501
+    def get_sample_mappings_by_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], field : Annotated[StrictStr, Field(..., description="the field to return as the value")], **kwargs) -> ApiResponse:    # noqa: E501
         """get_sample_mappings_by_dataset_id  # noqa: E501
 
         Get all samples of a dataset as a list. List index is the index of the sample2bitmask mapping and the value is the 'field' you wanted (e.g _id, fileName)  # noqa: E501
@@ -120,31 +120,23 @@ class MappingsApi(object):
 
         _all_params = [
             'dataset_id',
-            'field'
+            'field',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_sample_mappings_by_dataset_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method get_sample_mappings_by_dataset_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -182,6 +174,7 @@ class MappingsApi(object):
             '404': "ApiErrorResponse",
         }
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/datasets/{datasetId}/mappings', 'GET',
             _path_params,

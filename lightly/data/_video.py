@@ -274,8 +274,6 @@ class VideoLoader(threading.local):
 
             # Make sure we have the tensor in correct shape (we want H x W x C)
             frame = frame_info["data"].permute(1, 2, 0)
-            self.current_index = index
-
         else:  # fallback on pyav
             frame, _, _ = io.read_video(
                 self.path,
@@ -283,7 +281,7 @@ class VideoLoader(threading.local):
                 end_pts=timestamp,
                 pts_unit=self.pts_unit,
             )
-            self.current_index = index
+        self.current_index = index
 
         if len(frame.shape) < 3:
             raise FrameShapeError(
@@ -299,9 +297,7 @@ class VideoLoader(threading.local):
         if len(frame.shape) == 4:
             frame = frame.squeeze()
 
-        # convert to PIL image
-        image = Image.fromarray(frame.numpy())
-        return image
+        return Image.fromarray(frame.numpy())
 
 
 class _TimestampFpsFromVideosDataset(Dataset):
@@ -419,7 +415,7 @@ def _find_non_increasing_timestamps(timestamps: List[Fraction]) -> List[bool]:
         non-increasing and False otherwise.
 
     """
-    if len(timestamps) == 0:
+    if not timestamps:
         return []
     is_non_increasing = np.zeros(
         shape=len(timestamps),
@@ -483,9 +479,9 @@ class VideoDataset(datasets.VisionDataset):
         )
 
         if len(videos) == 0:
-            msg = "Found 0 videos in folder: {}\n".format(self.root)
+            msg = f"Found 0 videos in folder: {self.root}\n"
             if extensions is not None:
-                msg += "Supported extensions are: {}".format(",".join(extensions))
+                msg += f'Supported extensions are: {",".join(extensions)}'
             raise RuntimeError(msg)
 
         self.extensions = extensions
@@ -664,24 +660,24 @@ class VideoDataset(datasets.VisionDataset):
             n_frames = self._video_frame_count(i)
 
             zero_padding = len(str(n_frames))
-            for frame_number in range(n_frames):
-                filenames.append(
-                    self._format_filename(
-                        video_name=video_name,
-                        frame_number=frame_number,
-                        video_format=video_format,
-                        zero_padding=zero_padding,
-                    )
+            filenames.extend(
+                self._format_filename(
+                    video_name=video_name,
+                    frame_number=frame_number,
+                    video_format=video_format,
+                    zero_padding=zero_padding,
                 )
+                for frame_number in range(n_frames)
+            )
         return filenames
 
     def _video_frame_count(self, video_index: int) -> int:
         """Returns the number of frames in the video with the given index."""
-        if video_index < len(self.offsets) - 1:
-            n_frames = self.offsets[video_index + 1] - self.offsets[video_index]
-        else:
-            n_frames = len(self) - self.offsets[video_index]
-        return n_frames
+        return (
+            self.offsets[video_index + 1] - self.offsets[video_index]
+            if video_index < len(self.offsets) - 1
+            else len(self) - self.offsets[video_index]
+        )
 
     def _video_name_format(self, video_filename: str) -> Tuple[str, str]:
         """Extracts name and format from the filename of the video.

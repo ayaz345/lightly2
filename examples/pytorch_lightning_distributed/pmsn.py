@@ -61,8 +61,7 @@ class PMSN(pl.LightningModule):
         anchors_focal_out = self.encode_masked(anchors_focal)
         anchors_out = torch.cat([anchors_out, anchors_focal_out], dim=0)
 
-        loss = self.criterion(anchors_out, targets_out, self.prototypes.data)
-        return loss
+        return self.criterion(anchors_out, targets_out, self.prototypes.data)
 
     def encode_masked(self, anchors):
         batch_size, _, _, width = anchors.shape

@@ -43,8 +43,7 @@ class DINO(LightningModule):
 
     def forward_student(self, x: Tensor) -> Tensor:
         features = self.student_backbone(x).flatten(start_dim=1)
-        projections = self.student_projection_head(features)
-        return projections
+        return self.student_projection_head(features)
 
     def on_train_start(self) -> None:
         deactivate_requires_grad(self.backbone)

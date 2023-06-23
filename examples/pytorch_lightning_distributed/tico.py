@@ -29,8 +29,7 @@ class TiCo(pl.LightningModule):
 
     def forward(self, x):
         y = self.backbone(x).flatten(start_dim=1)
-        z = self.projection_head(y)
-        return z
+        return self.projection_head(y)
 
     def forward_momentum(self, x):
         y = self.backbone_momentum(x).flatten(start_dim=1)
@@ -47,8 +46,7 @@ class TiCo(pl.LightningModule):
         x1 = x1.to(self.device)
         z0 = self.forward(x0)
         z1 = self.forward_momentum(x1)
-        loss = self.criterion(z0, z1)
-        return loss
+        return self.criterion(z0, z1)
 
     def configure_optimizers(self):
         return torch.optim.SGD(self.parameters(), lr=0.06)

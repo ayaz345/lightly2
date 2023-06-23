@@ -29,13 +29,11 @@ class DINO(torch.nn.Module):
 
     def forward(self, x):
         y = self.student_backbone(x).flatten(start_dim=1)
-        z = self.student_head(y)
-        return z
+        return self.student_head(y)
 
     def forward_teacher(self, x):
         y = self.teacher_backbone(x).flatten(start_dim=1)
-        z = self.teacher_head(y)
-        return z
+        return self.teacher_head(y)
 
 
 resnet = torchvision.models.resnet18()

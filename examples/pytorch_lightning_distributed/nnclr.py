@@ -40,8 +40,7 @@ class NNCLR(pl.LightningModule):
         z1, p1 = self.forward(x1)
         z0 = self.memory_bank(z0, update=False)
         z1 = self.memory_bank(z1, update=True)
-        loss = 0.5 * (self.criterion(z0, p1) + self.criterion(z1, p0))
-        return loss
+        return 0.5 * (self.criterion(z0, p1) + self.criterion(z1, p0))
 
     def configure_optimizers(self):
         optim = torch.optim.SGD(self.parameters(), lr=0.06)

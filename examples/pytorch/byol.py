@@ -32,8 +32,7 @@ class BYOL(nn.Module):
     def forward(self, x):
         y = self.backbone(x).flatten(start_dim=1)
         z = self.projection_head(y)
-        p = self.prediction_head(z)
-        return p
+        return self.prediction_head(z)
 
     def forward_momentum(self, x):
         y = self.backbone_momentum(x).flatten(start_dim=1)

@@ -80,7 +80,7 @@ class MetaDataConfigurationsApi(object):
         return self.create_meta_data_configuration_with_http_info(dataset_id, configuration_set_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def create_meta_data_configuration_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], configuration_set_request : ConfigurationSetRequest, **kwargs) -> ApiResponse:  # noqa: E501
+    def create_meta_data_configuration_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], configuration_set_request : ConfigurationSetRequest, **kwargs) -> ApiResponse:    # noqa: E501
         """create_meta_data_configuration  # noqa: E501
 
         Create a new metadata configuration  # noqa: E501
@@ -123,26 +123,20 @@ class MetaDataConfigurationsApi(object):
 
         _all_params = [
             'dataset_id',
-            'configuration_set_request'
+            'configuration_set_request',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method create_meta_data_configuration" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method create_meta_data_configuration"
                 )
             _params[_key] = _val
         del _params['kwargs']
@@ -171,12 +165,11 @@ class MetaDataConfigurationsApi(object):
         _header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
 
-        # set the HTTP header `Content-Type`
-        _content_types_list = _params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json']))
-        if _content_types_list:
-                _header_params['Content-Type'] = _content_types_list
+        if _content_types_list := _params.get(
+            '_content_type',
+            self.api_client.select_header_content_type(['application/json']),
+        ):
+            _header_params['Content-Type'] = _content_types_list
 
         # authentication setting
         _auth_settings = ['auth0Bearer', 'ApiKeyAuth']  # noqa: E501
@@ -238,7 +231,7 @@ class MetaDataConfigurationsApi(object):
         return self.get_meta_data_configuration_by_id_with_http_info(dataset_id, configuration_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_meta_data_configuration_by_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], configuration_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the metadata configuration")], **kwargs) -> ApiResponse:  # noqa: E501
+    def get_meta_data_configuration_by_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], configuration_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the metadata configuration")], **kwargs) -> ApiResponse:    # noqa: E501
         """get_meta_data_configuration_by_id  # noqa: E501
 
         Get a specific metadata configuration  # noqa: E501
@@ -281,31 +274,23 @@ class MetaDataConfigurationsApi(object):
 
         _all_params = [
             'dataset_id',
-            'configuration_id'
+            'configuration_id',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_meta_data_configuration_by_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method get_meta_data_configuration_by_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -340,6 +325,7 @@ class MetaDataConfigurationsApi(object):
             '404': "ApiErrorResponse",
         }
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/datasets/{datasetId}/configuration/metadata/{configurationId}', 'GET',
             _path_params,
@@ -387,7 +373,7 @@ class MetaDataConfigurationsApi(object):
         return self.get_meta_data_configurations_with_http_info(dataset_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_meta_data_configurations_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], **kwargs) -> ApiResponse:  # noqa: E501
+    def get_meta_data_configurations_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], **kwargs) -> ApiResponse:    # noqa: E501
         """get_meta_data_configurations  # noqa: E501
 
         Get the all metadata configurations that exist for a user  # noqa: E501
@@ -427,31 +413,23 @@ class MetaDataConfigurationsApi(object):
         _params = locals()
 
         _all_params = [
-            'dataset_id'
+            'dataset_id',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_meta_data_configurations" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method get_meta_data_configurations"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -483,6 +461,7 @@ class MetaDataConfigurationsApi(object):
             '404': "ApiErrorResponse",
         }
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/datasets/{datasetId}/configuration/metadata', 'GET',
             _path_params,
@@ -534,7 +513,7 @@ class MetaDataConfigurationsApi(object):
         return self.update_meta_data_configuration_by_id_with_http_info(dataset_id, configuration_id, configuration_set_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def update_meta_data_configuration_by_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], configuration_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the metadata configuration")], configuration_set_request : ConfigurationSetRequest, **kwargs) -> ApiResponse:  # noqa: E501
+    def update_meta_data_configuration_by_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], configuration_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the metadata configuration")], configuration_set_request : ConfigurationSetRequest, **kwargs) -> ApiResponse:    # noqa: E501
         """update_meta_data_configuration_by_id  # noqa: E501
 
         update a specific metadata configuration  # noqa: E501
@@ -580,26 +559,20 @@ class MetaDataConfigurationsApi(object):
         _all_params = [
             'dataset_id',
             'configuration_id',
-            'configuration_set_request'
+            'configuration_set_request',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method update_meta_data_configuration_by_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method update_meta_data_configuration_by_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
@@ -631,12 +604,11 @@ class MetaDataConfigurationsApi(object):
         _header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
 
-        # set the HTTP header `Content-Type`
-        _content_types_list = _params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json']))
-        if _content_types_list:
-                _header_params['Content-Type'] = _content_types_list
+        if _content_types_list := _params.get(
+            '_content_type',
+            self.api_client.select_header_content_type(['application/json']),
+        ):
+            _header_params['Content-Type'] = _content_types_list
 
         # authentication setting
         _auth_settings = ['auth0Bearer', 'ApiKeyAuth']  # noqa: E501

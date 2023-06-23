@@ -58,11 +58,7 @@ class CreateEntityResponse(BaseModel):
 
     def to_dict(self, by_alias: bool = False):
         """Returns the dictionary representation of the model"""
-        _dict = self.dict(by_alias=by_alias,
-                          exclude={
-                          },
-                          exclude_none=True)
-        return _dict
+        return self.dict(by_alias=by_alias, exclude={}, exclude_none=True)
 
     @classmethod
     def from_dict(cls, obj: dict) -> CreateEntityResponse:
@@ -74,12 +70,11 @@ class CreateEntityResponse(BaseModel):
             return CreateEntityResponse.parse_obj(obj)
 
         # raise errors for additional fields in the input
-        for _key in obj.keys():
+        for _key in obj:
             if _key not in cls.__properties:
-                raise ValueError("Error due to additional fields (not defined in CreateEntityResponse) in the input: " + str(obj))
+                raise ValueError(
+                    f"Error due to additional fields (not defined in CreateEntityResponse) in the input: {obj}"
+                )
 
-        _obj = CreateEntityResponse.parse_obj({
-            "id": obj.get("id")
-        })
-        return _obj
+        return CreateEntityResponse.parse_obj({"id": obj.get("id")})
 

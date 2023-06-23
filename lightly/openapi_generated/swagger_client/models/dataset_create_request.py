@@ -75,11 +75,7 @@ class DatasetCreateRequest(BaseModel):
 
     def to_dict(self, by_alias: bool = False):
         """Returns the dictionary representation of the model"""
-        _dict = self.dict(by_alias=by_alias,
-                          exclude={
-                          },
-                          exclude_none=True)
-        return _dict
+        return self.dict(by_alias=by_alias, exclude={}, exclude_none=True)
 
     @classmethod
     def from_dict(cls, obj: dict) -> DatasetCreateRequest:
@@ -91,16 +87,19 @@ class DatasetCreateRequest(BaseModel):
             return DatasetCreateRequest.parse_obj(obj)
 
         # raise errors for additional fields in the input
-        for _key in obj.keys():
+        for _key in obj:
             if _key not in cls.__properties:
-                raise ValueError("Error due to additional fields (not defined in DatasetCreateRequest) in the input: " + str(obj))
+                raise ValueError(
+                    f"Error due to additional fields (not defined in DatasetCreateRequest) in the input: {obj}"
+                )
 
-        _obj = DatasetCreateRequest.parse_obj({
-            "name": obj.get("name"),
-            "type": obj.get("type"),
-            "img_type": obj.get("imgType"),
-            "creator": obj.get("creator"),
-            "parent_dataset_id": obj.get("parentDatasetId")
-        })
-        return _obj
+        return DatasetCreateRequest.parse_obj(
+            {
+                "name": obj.get("name"),
+                "type": obj.get("type"),
+                "img_type": obj.get("imgType"),
+                "creator": obj.get("creator"),
+                "parent_dataset_id": obj.get("parentDatasetId"),
+            }
+        )
 

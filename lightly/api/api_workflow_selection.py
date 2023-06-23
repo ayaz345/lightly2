@@ -151,11 +151,9 @@ class _SelectionMixin:
         new_tag_id = job_status_data.result.data
         if new_tag_id is None:
             raise RuntimeError(f"TagId returned by job with job_id {job_id} is None.")
-        new_tag_data = self._tags_api.get_tag_by_tag_id(
+        return self._tags_api.get_tag_by_tag_id(
             dataset_id=self.dataset_id, tag_id=new_tag_id
         )
-
-        return new_tag_data
 
     def _create_selection_create_request(
         self,
@@ -179,11 +177,10 @@ class _SelectionMixin:
                 min_distance=selection_config.min_distance,
             )
         )
-        sampling_create_request = SamplingCreateRequest(
+        return SamplingCreateRequest(
             new_tag_name=selection_config.name,
             method=selection_config.method,
             config=sampling_config,
             preselected_tag_id=preselected_tag_id,
             query_tag_id=query_tag_id,
         )
-        return sampling_create_request

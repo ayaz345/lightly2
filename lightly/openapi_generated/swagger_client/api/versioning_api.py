@@ -75,7 +75,7 @@ class VersioningApi(object):
         return self.get_latest_pip_version_with_http_info(current_version, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_latest_pip_version_with_http_info(self, current_version : Optional[StrictStr] = None, **kwargs) -> ApiResponse:  # noqa: E501
+    def get_latest_pip_version_with_http_info(self, current_version : Optional[StrictStr] = None, **kwargs) -> ApiResponse:    # noqa: E501
         """get_latest_pip_version  # noqa: E501
 
         Get latest pip version available  # noqa: E501
@@ -115,31 +115,23 @@ class VersioningApi(object):
         _params = locals()
 
         _all_params = [
-            'current_version'
+            'current_version',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_latest_pip_version" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method get_latest_pip_version"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -173,6 +165,7 @@ class VersioningApi(object):
             '404': "ApiErrorResponse",
         }
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/versions/pip/latest', 'GET',
             _path_params,
@@ -218,7 +211,7 @@ class VersioningApi(object):
         return self.get_minimum_compatible_pip_version_with_http_info(**kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_minimum_compatible_pip_version_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
+    def get_minimum_compatible_pip_version_with_http_info(self, **kwargs) -> ApiResponse:    # noqa: E501
         """get_minimum_compatible_pip_version  # noqa: E501
 
         Get minimum pip version needed for compatability  # noqa: E501
@@ -256,30 +249,22 @@ class VersioningApi(object):
         _params = locals()
 
         _all_params = [
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_minimum_compatible_pip_version" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method get_minimum_compatible_pip_version"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -307,6 +292,7 @@ class VersioningApi(object):
             '404': "ApiErrorResponse",
         }
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/versions/pip/minimum', 'GET',
             _path_params,

@@ -84,20 +84,27 @@ class AnnotationData(BaseModel):
             return AnnotationData.parse_obj(obj)
 
         # raise errors for additional fields in the input
-        for _key in obj.keys():
+        for _key in obj:
             if _key not in cls.__properties:
-                raise ValueError("Error due to additional fields (not defined in AnnotationData) in the input: " + str(obj))
+                raise ValueError(
+                    f"Error due to additional fields (not defined in AnnotationData) in the input: {obj}"
+                )
 
-        _obj = AnnotationData.parse_obj({
-            "id": obj.get("_id"),
-            "state": obj.get("state"),
-            "dataset_id": obj.get("datasetId"),
-            "tag_id": obj.get("tagId"),
-            "partner_id": obj.get("partnerId"),
-            "created_at": obj.get("createdAt"),
-            "last_modified_at": obj.get("lastModifiedAt"),
-            "meta": AnnotationMetaData.from_dict(obj.get("meta")) if obj.get("meta") is not None else None,
-            "offer": AnnotationOfferData.from_dict(obj.get("offer")) if obj.get("offer") is not None else None
-        })
-        return _obj
+        return AnnotationData.parse_obj(
+            {
+                "id": obj.get("_id"),
+                "state": obj.get("state"),
+                "dataset_id": obj.get("datasetId"),
+                "tag_id": obj.get("tagId"),
+                "partner_id": obj.get("partnerId"),
+                "created_at": obj.get("createdAt"),
+                "last_modified_at": obj.get("lastModifiedAt"),
+                "meta": AnnotationMetaData.from_dict(obj.get("meta"))
+                if obj.get("meta") is not None
+                else None,
+                "offer": AnnotationOfferData.from_dict(obj.get("offer"))
+                if obj.get("offer") is not None
+                else None,
+            }
+        )
 

@@ -31,7 +31,7 @@ def _get_config_path(config_path):
         dirname = os.path.dirname(cli.__file__)
         config_path = os.path.join(dirname, "config/config.yaml")
     if not os.path.exists(config_path):
-        raise ValueError("Config path {} does not exist!".format(config_path))
+        raise ValueError(f"Config path {config_path} does not exist!")
 
     return config_path
 
@@ -65,11 +65,8 @@ def _add_kwargs(cfg, kwargs):
 
     """
     for key, item in kwargs.items():
-        if isinstance(item, dict):
-            if key in cfg:
-                cfg[key] = _add_kwargs(cfg[key], item)
-            else:
-                cfg[key] = item
+        if isinstance(item, dict) and key in cfg:
+            cfg[key] = _add_kwargs(cfg[key], item)
         else:
             cfg[key] = item
     return cfg

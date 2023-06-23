@@ -71,6 +71,4 @@ class BarlowTwinsLoss(torch.nn.Module):
         c_diff = (c - torch.eye(D, device=device)).pow(2)  # DxD
         # multiply off-diagonal elems of c_diff by lambda
         c_diff[~torch.eye(D, dtype=bool)] *= self.lambda_param
-        loss = c_diff.sum()
-
-        return loss
+        return c_diff.sum()

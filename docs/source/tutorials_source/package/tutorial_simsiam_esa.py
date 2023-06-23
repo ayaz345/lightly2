@@ -267,7 +267,7 @@ filenames = []
 # disable gradients for faster calculations
 model.eval()
 with torch.no_grad():
-    for i, (x, _, fnames) in enumerate(dataloader_test):
+    for x, _, fnames in dataloader_test:
         # move the images to the gpu
         x = x.to(device)
         # embed the images with the pre-trained backbone
@@ -333,7 +333,7 @@ def get_scatter_plot_with_thumbnails():
     # shuffle images and find out which images to show
     shown_images_idx = []
     shown_images = np.array([[1.0, 1.0]])
-    iterator = [i for i in range(embeddings_2d.shape[0])]
+    iterator = list(range(embeddings_2d.shape[0]))
     np.random.shuffle(iterator)
     for i in iterator:
         # only show image if it is sufficiently far away from the others
@@ -422,7 +422,7 @@ def plot_nearest_neighbors_3x3(example_image: str, i: int):
         # get the corresponding filename
         fname = os.path.join(path_to_data, filenames[plot_idx])
         if plot_offset == 0:
-            ax.set_title(f"Example Image")
+            ax.set_title("Example Image")
             plt.imshow(get_image_as_np_array_with_frame(fname))
         else:
             plt.imshow(get_image_as_np_array(fname))

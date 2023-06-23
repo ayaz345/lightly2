@@ -76,15 +76,18 @@ class ConfigurationEntry(BaseModel):
             return ConfigurationEntry.parse_obj(obj)
 
         # raise errors for additional fields in the input
-        for _key in obj.keys():
+        for _key in obj:
             if _key not in cls.__properties:
-                raise ValueError("Error due to additional fields (not defined in ConfigurationEntry) in the input: " + str(obj))
+                raise ValueError(
+                    f"Error due to additional fields (not defined in ConfigurationEntry) in the input: {obj}"
+                )
 
-        _obj = ConfigurationEntry.parse_obj({
-            "name": obj.get("name"),
-            "path": obj.get("path"),
-            "default_value": obj.get("defaultValue"),
-            "value_data_type": obj.get("valueDataType")
-        })
-        return _obj
+        return ConfigurationEntry.parse_obj(
+            {
+                "name": obj.get("name"),
+                "path": obj.get("path"),
+                "default_value": obj.get("defaultValue"),
+                "value_data_type": obj.get("valueDataType"),
+            }
+        )
 

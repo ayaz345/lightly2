@@ -81,7 +81,7 @@ class DatasetsApi(object):
         return self.create_dataset_with_http_info(dataset_create_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def create_dataset_with_http_info(self, dataset_create_request : DatasetCreateRequest, **kwargs) -> ApiResponse:  # noqa: E501
+    def create_dataset_with_http_info(self, dataset_create_request : DatasetCreateRequest, **kwargs) -> ApiResponse:    # noqa: E501
         """create_dataset  # noqa: E501
 
         Creates a new dataset for a user  # noqa: E501
@@ -121,26 +121,20 @@ class DatasetsApi(object):
         _params = locals()
 
         _all_params = [
-            'dataset_create_request'
+            'dataset_create_request',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method create_dataset" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method create_dataset"
                 )
             _params[_key] = _val
         del _params['kwargs']
@@ -166,12 +160,11 @@ class DatasetsApi(object):
         _header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
 
-        # set the HTTP header `Content-Type`
-        _content_types_list = _params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json']))
-        if _content_types_list:
-                _header_params['Content-Type'] = _content_types_list
+        if _content_types_list := _params.get(
+            '_content_type',
+            self.api_client.select_header_content_type(['application/json']),
+        ):
+            _header_params['Content-Type'] = _content_types_list
 
         # authentication setting
         _auth_settings = ['auth0Bearer', 'ApiKeyAuth']  # noqa: E501
@@ -233,7 +226,7 @@ class DatasetsApi(object):
         return self.delete_dataset_by_id_with_http_info(dataset_id, force, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def delete_dataset_by_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], force : Optional[StrictBool] = None, **kwargs) -> ApiResponse:  # noqa: E501
+    def delete_dataset_by_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], force : Optional[StrictBool] = None, **kwargs) -> ApiResponse:    # noqa: E501
         """delete_dataset_by_id  # noqa: E501
 
         Delete a specific dataset  # noqa: E501
@@ -276,31 +269,23 @@ class DatasetsApi(object):
 
         _all_params = [
             'dataset_id',
-            'force'
+            'force',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method delete_dataset_by_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method delete_dataset_by_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -332,6 +317,7 @@ class DatasetsApi(object):
 
         _response_types_map = {}
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/datasets/{datasetId}', 'DELETE',
             _path_params,
@@ -379,7 +365,7 @@ class DatasetsApi(object):
         return self.get_children_of_dataset_id_with_http_info(dataset_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_children_of_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], **kwargs) -> ApiResponse:  # noqa: E501
+    def get_children_of_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], **kwargs) -> ApiResponse:    # noqa: E501
         """get_children_of_dataset_id  # noqa: E501
 
         Get all datasets which are the children of a specific dataset (e.g crop datasets)  # noqa: E501
@@ -419,31 +405,23 @@ class DatasetsApi(object):
         _params = locals()
 
         _all_params = [
-            'dataset_id'
+            'dataset_id',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_children_of_dataset_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method get_children_of_dataset_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -475,6 +453,7 @@ class DatasetsApi(object):
             '404': "ApiErrorResponse",
         }
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/datasets/{datasetId}/children', 'GET',
             _path_params,
@@ -522,7 +501,7 @@ class DatasetsApi(object):
         return self.get_dataset_by_id_with_http_info(dataset_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_dataset_by_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], **kwargs) -> ApiResponse:  # noqa: E501
+    def get_dataset_by_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], **kwargs) -> ApiResponse:    # noqa: E501
         """get_dataset_by_id  # noqa: E501
 
         Get a specific dataset  # noqa: E501
@@ -562,31 +541,23 @@ class DatasetsApi(object):
         _params = locals()
 
         _all_params = [
-            'dataset_id'
+            'dataset_id',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_dataset_by_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method get_dataset_by_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -618,6 +589,7 @@ class DatasetsApi(object):
             '404': "ApiErrorResponse",
         }
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/datasets/{datasetId}', 'GET',
             _path_params,
@@ -673,7 +645,7 @@ class DatasetsApi(object):
         return self.get_datasets_with_http_info(shared, get_assets_of_team, get_assets_of_team_inclusive_self, page_size, page_offset, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_datasets_with_http_info(self, shared : Annotated[Optional[StrictBool], Field(description="if set, only returns the datasets which have been shared with the user")] = None, get_assets_of_team : Annotated[Optional[StrictBool], Field(description="if this flag is true, we get the relevant asset of the team of the user rather than the assets of the user")] = None, get_assets_of_team_inclusive_self : Annotated[Optional[StrictBool], Field(description="if this flag is true, we get the relevant asset of the team of the user including the assets of the user")] = None, page_size : Annotated[Optional[conint(strict=True, ge=1)], Field(description="pagination size/limit of the number of samples to return")] = None, page_offset : Annotated[Optional[conint(strict=True, ge=0)], Field(description="pagination offset")] = None, **kwargs) -> ApiResponse:  # noqa: E501
+    def get_datasets_with_http_info(self, shared : Annotated[Optional[StrictBool], Field(description="if set, only returns the datasets which have been shared with the user")] = None, get_assets_of_team : Annotated[Optional[StrictBool], Field(description="if this flag is true, we get the relevant asset of the team of the user rather than the assets of the user")] = None, get_assets_of_team_inclusive_self : Annotated[Optional[StrictBool], Field(description="if this flag is true, we get the relevant asset of the team of the user including the assets of the user")] = None, page_size : Annotated[Optional[conint(strict=True, ge=1)], Field(description="pagination size/limit of the number of samples to return")] = None, page_offset : Annotated[Optional[conint(strict=True, ge=0)], Field(description="pagination offset")] = None, **kwargs) -> ApiResponse:    # noqa: E501
         """get_datasets  # noqa: E501
 
         Get all datasets for a user  # noqa: E501
@@ -725,31 +697,23 @@ class DatasetsApi(object):
             'get_assets_of_team',
             'get_assets_of_team_inclusive_self',
             'page_size',
-            'page_offset'
+            'page_offset',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_datasets" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method get_datasets"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -808,6 +772,7 @@ class DatasetsApi(object):
             '404': "ApiErrorResponse",
         }
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/datasets', 'GET',
             _path_params,
@@ -865,7 +830,7 @@ class DatasetsApi(object):
         return self.get_datasets_enriched_with_http_info(shared, limit, get_assets_of_team, get_assets_of_team_inclusive_self, page_size, page_offset, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_datasets_enriched_with_http_info(self, shared : Annotated[Optional[StrictBool], Field(description="if set, only returns the datasets which have been shared with the user")] = None, limit : Annotated[Optional[StrictInt], Field(description="DEPRECATED, use pageSize instead. if set, only returns the newest up until limit")] = None, get_assets_of_team : Annotated[Optional[StrictBool], Field(description="if this flag is true, we get the relevant asset of the team of the user rather than the assets of the user")] = None, get_assets_of_team_inclusive_self : Annotated[Optional[StrictBool], Field(description="if this flag is true, we get the relevant asset of the team of the user including the assets of the user")] = None, page_size : Annotated[Optional[conint(strict=True, ge=1)], Field(description="pagination size/limit of the number of samples to return")] = None, page_offset : Annotated[Optional[conint(strict=True, ge=0)], Field(description="pagination offset")] = None, **kwargs) -> ApiResponse:  # noqa: E501
+    def get_datasets_enriched_with_http_info(self, shared : Annotated[Optional[StrictBool], Field(description="if set, only returns the datasets which have been shared with the user")] = None, limit : Annotated[Optional[StrictInt], Field(description="DEPRECATED, use pageSize instead. if set, only returns the newest up until limit")] = None, get_assets_of_team : Annotated[Optional[StrictBool], Field(description="if this flag is true, we get the relevant asset of the team of the user rather than the assets of the user")] = None, get_assets_of_team_inclusive_self : Annotated[Optional[StrictBool], Field(description="if this flag is true, we get the relevant asset of the team of the user including the assets of the user")] = None, page_size : Annotated[Optional[conint(strict=True, ge=1)], Field(description="pagination size/limit of the number of samples to return")] = None, page_offset : Annotated[Optional[conint(strict=True, ge=0)], Field(description="pagination offset")] = None, **kwargs) -> ApiResponse:    # noqa: E501
         """get_datasets_enriched  # noqa: E501
 
         Get all datasets for a user but enriched with additional information as nTags, nEmbeddings, samples  # noqa: E501
@@ -920,31 +885,23 @@ class DatasetsApi(object):
             'get_assets_of_team',
             'get_assets_of_team_inclusive_self',
             'page_size',
-            'page_offset'
+            'page_offset',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_datasets_enriched" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method get_datasets_enriched"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -1009,6 +966,7 @@ class DatasetsApi(object):
             '404': "ApiErrorResponse",
         }
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/datasets/enriched', 'GET',
             _path_params,
@@ -1068,7 +1026,7 @@ class DatasetsApi(object):
         return self.get_datasets_enriched_query_by_name_with_http_info(dataset_name, shared, exact, get_assets_of_team, get_assets_of_team_inclusive_self, page_size, page_offset, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_datasets_enriched_query_by_name_with_http_info(self, dataset_name : constr(strict=True, min_length=1), shared : Annotated[Optional[StrictBool], Field(description="if set, only returns the datasets which have been shared with the user")] = None, exact : Annotated[Optional[StrictBool], Field(description="if set, only returns the datasets which match the name exactly (not just by prefix)")] = None, get_assets_of_team : Annotated[Optional[StrictBool], Field(description="if this flag is true, we get the relevant asset of the team of the user rather than the assets of the user")] = None, get_assets_of_team_inclusive_self : Annotated[Optional[StrictBool], Field(description="if this flag is true, we get the relevant asset of the team of the user including the assets of the user")] = None, page_size : Annotated[Optional[conint(strict=True, ge=1)], Field(description="pagination size/limit of the number of samples to return")] = None, page_offset : Annotated[Optional[conint(strict=True, ge=0)], Field(description="pagination offset")] = None, **kwargs) -> ApiResponse:  # noqa: E501
+    def get_datasets_enriched_query_by_name_with_http_info(self, dataset_name : constr(strict=True, min_length=1), shared : Annotated[Optional[StrictBool], Field(description="if set, only returns the datasets which have been shared with the user")] = None, exact : Annotated[Optional[StrictBool], Field(description="if set, only returns the datasets which match the name exactly (not just by prefix)")] = None, get_assets_of_team : Annotated[Optional[StrictBool], Field(description="if this flag is true, we get the relevant asset of the team of the user rather than the assets of the user")] = None, get_assets_of_team_inclusive_self : Annotated[Optional[StrictBool], Field(description="if this flag is true, we get the relevant asset of the team of the user including the assets of the user")] = None, page_size : Annotated[Optional[conint(strict=True, ge=1)], Field(description="pagination size/limit of the number of samples to return")] = None, page_offset : Annotated[Optional[conint(strict=True, ge=0)], Field(description="pagination offset")] = None, **kwargs) -> ApiResponse:    # noqa: E501
         """get_datasets_enriched_query_by_name  # noqa: E501
 
         Query for datasets  enriched with additional information by their name prefix unless exact flag is set  # noqa: E501
@@ -1126,31 +1084,23 @@ class DatasetsApi(object):
             'get_assets_of_team',
             'get_assets_of_team_inclusive_self',
             'page_size',
-            'page_offset'
+            'page_offset',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_datasets_enriched_query_by_name" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method get_datasets_enriched_query_by_name"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -1218,6 +1168,7 @@ class DatasetsApi(object):
             '404': "ApiErrorResponse",
         }
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/datasets/enriched/query/name/{datasetName}', 'GET',
             _path_params,

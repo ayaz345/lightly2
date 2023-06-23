@@ -62,11 +62,7 @@ class DatasetEmbeddingData(BaseModel):
 
     def to_dict(self, by_alias: bool = False):
         """Returns the dictionary representation of the model"""
-        _dict = self.dict(by_alias=by_alias,
-                          exclude={
-                          },
-                          exclude_none=True)
-        return _dict
+        return self.dict(by_alias=by_alias, exclude={}, exclude_none=True)
 
     @classmethod
     def from_dict(cls, obj: dict) -> DatasetEmbeddingData:
@@ -78,16 +74,19 @@ class DatasetEmbeddingData(BaseModel):
             return DatasetEmbeddingData.parse_obj(obj)
 
         # raise errors for additional fields in the input
-        for _key in obj.keys():
+        for _key in obj:
             if _key not in cls.__properties:
-                raise ValueError("Error due to additional fields (not defined in DatasetEmbeddingData) in the input: " + str(obj))
+                raise ValueError(
+                    f"Error due to additional fields (not defined in DatasetEmbeddingData) in the input: {obj}"
+                )
 
-        _obj = DatasetEmbeddingData.parse_obj({
-            "id": obj.get("id"),
-            "name": obj.get("name"),
-            "is_processed": obj.get("isProcessed"),
-            "created_at": obj.get("createdAt"),
-            "is2d": obj.get("is2d")
-        })
-        return _obj
+        return DatasetEmbeddingData.parse_obj(
+            {
+                "id": obj.get("id"),
+                "name": obj.get("name"),
+                "is_processed": obj.get("isProcessed"),
+                "created_at": obj.get("createdAt"),
+                "is2d": obj.get("is2d"),
+            }
+        )
 

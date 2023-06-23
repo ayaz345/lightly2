@@ -66,9 +66,7 @@ class SwaV(nn.Module):
         if self.start_queue_at_epoch > 0 and epoch < self.start_queue_at_epoch:
             return None
 
-        # Assign prototypes
-        queue_prototypes = [self.prototypes(x, epoch) for x in queue_features]
-        return queue_prototypes
+        return [self.prototypes(x, epoch) for x in queue_features]
 
 
 resnet = torchvision.models.resnet18()

@@ -53,8 +53,7 @@ def fix_hydra_arguments(config_path: str = "config", config_name: str = "config"
 
 def is_url(checkpoint):
     """Check whether the checkpoint is a url or not."""
-    is_url = "https://storage.googleapis.com" in checkpoint
-    return is_url
+    return "https://storage.googleapis.com" in checkpoint
 
 
 def get_ptmodel_from_config(model):
@@ -64,26 +63,21 @@ def get_ptmodel_from_config(model):
     key += "/d" + str(model["num_ftrs"])
     key += "/w" + str(float(model["width"]))
 
-    if key in model_zoo.keys():
-        return model_zoo[key], key
-    else:
-        return "", key
+    return (model_zoo[key], key) if key in model_zoo.keys() else ("", key)
 
 
 def load_state_dict_from_url(url, map_location=None):
     """Try to load the checkopint from the given url."""
     try:
-        state_dict = torch.hub.load_state_dict_from_url(url, map_location=map_location)
-        return state_dict
+        return torch.hub.load_state_dict_from_url(url, map_location=map_location)
     except Exception:
-        print("Not able to load state dict from %s" % (url))
+        print(f"Not able to load state dict from {url}")
         print("Retrying with http:// prefix")
     try:
         url = url.replace("https", "http")
-        state_dict = torch.hub.load_state_dict_from_url(url, map_location=map_location)
-        return state_dict
+        return torch.hub.load_state_dict_from_url(url, map_location=map_location)
     except Exception:
-        print("Not able to load state dict from %s" % (url))
+        print(f"Not able to load state dict from {url}")
 
     # in this case downloading the pre-trained model was not possible
     # notify the user and return
@@ -97,7 +91,7 @@ def _maybe_expand_batchnorm_weights(model_dict, state_dict, num_splits):
 
     for key, item in model_dict.items():
         # not batchnorm -> continue
-        if not running_mean in key and not running_var in key:
+        if running_mean not in key and running_var not in key:
             continue
 
         state = state_dict.get(key, None)
@@ -204,8 +198,7 @@ def get_model_from_config(cfg, is_cli_call: bool = False) -> SelfSupervisedEmbed
     if not checkpoint:
         checkpoint, key = get_ptmodel_from_config(cfg["model"])
         if not checkpoint:
-            msg = "Cannot download checkpoint for key {} ".format(key)
-            msg += "because it does not exist!"
+            msg = f"Cannot download checkpoint for key {key} because it does not exist!"
             raise RuntimeError(msg)
         state_dict = load_state_dict_from_url(checkpoint, map_location=device)[
             "state_dict"
@@ -231,5 +224,4 @@ def get_model_from_config(cfg, is_cli_call: bool = False) -> SelfSupervisedEmbed
     if state_dict is not None:
         load_from_state_dict(model, state_dict)
 
-    encoder = SelfSupervisedEmbedding(model, None, None, None)
-    return encoder
+    return SelfSupervisedEmbedding(model, None, None, None)

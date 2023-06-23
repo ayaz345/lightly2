@@ -83,7 +83,7 @@ class ScoresApi(object):
         return self.create_or_update_active_learning_score_by_tag_id_with_http_info(dataset_id, tag_id, active_learning_score_create_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def create_or_update_active_learning_score_by_tag_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], tag_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the tag")], active_learning_score_create_request : ActiveLearningScoreCreateRequest, **kwargs) -> ApiResponse:  # noqa: E501
+    def create_or_update_active_learning_score_by_tag_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], tag_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the tag")], active_learning_score_create_request : ActiveLearningScoreCreateRequest, **kwargs) -> ApiResponse:    # noqa: E501
         """create_or_update_active_learning_score_by_tag_id  # noqa: E501
 
         Create or update active learning score object by tag id  # noqa: E501
@@ -129,26 +129,20 @@ class ScoresApi(object):
         _all_params = [
             'dataset_id',
             'tag_id',
-            'active_learning_score_create_request'
+            'active_learning_score_create_request',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method create_or_update_active_learning_score_by_tag_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method create_or_update_active_learning_score_by_tag_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
@@ -180,12 +174,11 @@ class ScoresApi(object):
         _header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
 
-        # set the HTTP header `Content-Type`
-        _content_types_list = _params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json']))
-        if _content_types_list:
-                _header_params['Content-Type'] = _content_types_list
+        if _content_types_list := _params.get(
+            '_content_type',
+            self.api_client.select_header_content_type(['application/json']),
+        ):
+            _header_params['Content-Type'] = _content_types_list
 
         # authentication setting
         _auth_settings = ['auth0Bearer', 'ApiKeyAuth']  # noqa: E501
@@ -249,7 +242,7 @@ class ScoresApi(object):
         return self.get_active_learning_score_by_score_id_with_http_info(dataset_id, tag_id, score_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_active_learning_score_by_score_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], tag_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the tag")], score_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the scores")], **kwargs) -> ApiResponse:  # noqa: E501
+    def get_active_learning_score_by_score_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], tag_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the tag")], score_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the scores")], **kwargs) -> ApiResponse:    # noqa: E501
         """get_active_learning_score_by_score_id  # noqa: E501
 
         Get active learning score object by id  # noqa: E501
@@ -295,31 +288,23 @@ class ScoresApi(object):
         _all_params = [
             'dataset_id',
             'tag_id',
-            'score_id'
+            'score_id',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_active_learning_score_by_score_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method get_active_learning_score_by_score_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -357,6 +342,7 @@ class ScoresApi(object):
             '404': "ApiErrorResponse",
         }
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/datasets/{datasetId}/tags/{tagId}/scores/{scoreId}', 'GET',
             _path_params,
@@ -406,7 +392,7 @@ class ScoresApi(object):
         return self.get_active_learning_scores_by_tag_id_with_http_info(dataset_id, tag_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_active_learning_scores_by_tag_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], tag_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the tag")], **kwargs) -> ApiResponse:  # noqa: E501
+    def get_active_learning_scores_by_tag_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], tag_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the tag")], **kwargs) -> ApiResponse:    # noqa: E501
         """get_active_learning_scores_by_tag_id  # noqa: E501
 
         Get all scoreIds for the given tag  # noqa: E501
@@ -449,31 +435,23 @@ class ScoresApi(object):
 
         _all_params = [
             'dataset_id',
-            'tag_id'
+            'tag_id',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_active_learning_scores_by_tag_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method get_active_learning_scores_by_tag_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -508,6 +486,7 @@ class ScoresApi(object):
             '404': "ApiErrorResponse",
         }
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/datasets/{datasetId}/tags/{tagId}/scores', 'GET',
             _path_params,

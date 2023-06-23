@@ -151,8 +151,7 @@ class SimCLRModel(pl.LightningModule):
 
     def forward(self, x):
         h = self.backbone(x).flatten(start_dim=1)
-        z = self.projection_head(h)
-        return z
+        return self.projection_head(h)
 
     def training_step(self, batch, batch_idx):
         (x0, x1), _, _ = batch

@@ -68,8 +68,7 @@ class SMoGModel(nn.Module):
 
     def forward_momentum(self, x):
         features = self.backbone_momentum(x).flatten(start_dim=1)
-        encoded = self.projection_head_momentum(features)
-        return encoded
+        return self.projection_head_momentum(features)
 
 
 batch_size = 256

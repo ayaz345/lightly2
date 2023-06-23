@@ -88,6 +88,7 @@ Training a model using the curated data
 """
 
 
+
 # %%
 # Now we can start training our model using PyTorch Lightning
 # We start by importing the necessary dependencies
@@ -150,8 +151,8 @@ test_len = int(full_len - train_len)
 dataset_train, dataset_test = random_split(dset, [train_len, test_len])
 dataset_test.transforms = test_transform
 
-print("Training set consists of {} images".format(len(dataset_train)))
-print("Test set consists of {} images".format(len(dataset_test)))
+print(f"Training set consists of {len(dataset_train)} images")
+print(f"Test set consists of {len(dataset_test)} images")
 
 # %%
 # We can create our data loaders to fetch the data from the training and test

@@ -48,8 +48,7 @@ def get_versioning_api() -> VersioningApi:
         raise_if_no_token_specified=False,
     )
     api_client = LightlySwaggerApiClient(configuration=configuration)
-    versioning_api = VersioningApi(api_client=api_client)
-    return versioning_api
+    return VersioningApi(api_client=api_client)
 
 
 def get_latest_version(current_version: str) -> Tuple[None, str]:

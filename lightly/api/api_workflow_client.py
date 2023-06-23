@@ -104,11 +104,7 @@ class ApiWorkflowClient(
             if not is_compatible_version(__version__):
                 warnings.warn(
                     UserWarning(
-                        (
-                            f"Incompatible version of lightly pip package. "
-                            f"Please upgrade to the latest version "
-                            f"to be able to access the api."
-                        )
+                        'Incompatible version of lightly pip package. Please upgrade to the latest version to be able to access the api.'
                     )
                 )
         except (
@@ -210,10 +206,9 @@ class ApiWorkflowClient(
 
         """
         filenames_on_server = self.get_filenames()
-        list_ordered = sort_items_by_keys(
+        return sort_items_by_keys(
             filenames_for_list, list_to_order, filenames_on_server
         )
-        return list_ordered
 
     def get_filenames(self) -> List[str]:
         """Downloads the list of filenames from the server.
@@ -223,10 +218,9 @@ class ApiWorkflowClient(
         Returns:
             Names of files in the current dataset.
         """
-        filenames_on_server = self._mappings_api.get_sample_mappings_by_dataset_id(
+        return self._mappings_api.get_sample_mappings_by_dataset_id(
             dataset_id=self.dataset_id, field="fileName"
         )
-        return filenames_on_server
 
     def upload_file_with_signed_url(
         self,

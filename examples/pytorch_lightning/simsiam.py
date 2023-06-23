@@ -32,8 +32,7 @@ class SimSiam(pl.LightningModule):
         (x0, x1) = batch[0]
         z0, p0 = self.forward(x0)
         z1, p1 = self.forward(x1)
-        loss = 0.5 * (self.criterion(z0, p1) + self.criterion(z1, p0))
-        return loss
+        return 0.5 * (self.criterion(z0, p1) + self.criterion(z1, p0))
 
     def configure_optimizers(self):
         optim = torch.optim.SGD(self.parameters(), lr=0.06)

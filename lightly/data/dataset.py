@@ -72,10 +72,7 @@ def _dump_image(dataset, output_dir, filename, index, fmt):
 
     """
 
-    if isinstance(dataset, datasets.ImageFolder):
-        # can safely copy the image from the input to the output directory
-        _copy_image(dataset.root, output_dir, filename)
-    elif isinstance(dataset, DatasetFolder):
+    if isinstance(dataset, (datasets.ImageFolder, DatasetFolder)):
         # can safely copy the image from the input to the output directory
         _copy_image(dataset.root, output_dir, filename)
     else:
@@ -292,7 +289,7 @@ class LightlyDataset:
         # dump all the files if no filenames were passed, otherwise dump only
         # the ones referenced in the list
         if filenames is None:
-            indices = [i for i in range(self.__len__())]
+            indices = list(range(self.__len__()))
             filenames = self.get_filenames()
         else:
             indices = []
@@ -333,8 +330,9 @@ class LightlyDataset:
 
         """
 
-        has_input_dir = hasattr(self, "input_dir") and isinstance(self.input_dir, str)
-        if has_input_dir:
+        if has_input_dir := hasattr(self, "input_dir") and isinstance(
+            self.input_dir, str
+        ):
             path_to_image = os.path.join(self.input_dir, filename)
             if os.path.isfile(path_to_image):
                 # the file exists, return its filepath
@@ -348,7 +346,7 @@ class LightlyDataset:
 
         # the file doesn't exist, save it as a jpg and return filepath
         folder_path = tempfile.mkdtemp()
-        filepath = os.path.join(folder_path, filename) + ".jpg"
+        filepath = f"{os.path.join(folder_path, filename)}.jpg"
 
         if os.path.dirname(filepath):
             os.makedirs(os.path.dirname(filepath), exist_ok=True)
