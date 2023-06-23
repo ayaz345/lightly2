@@ -208,7 +208,7 @@ class _DatasetsMixin:
         Returns:
             An iterator over datasets owned by the current user.
         """
-        dataset_iterable: Iterator[DatasetData] = (_ for _ in ())
+        dataset_iterable: Iterator[DatasetData] = iter(())
         if not shared or shared is None:
             dataset_iterable = utils.paginate_endpoint(
                 self._datasets_api.get_datasets,
@@ -285,8 +285,7 @@ class _DatasetsMixin:
             "and will be removed in the future.",
             DeprecationWarning,
         )
-        owned_datasets = self.get_datasets(shared=None)
-        return owned_datasets
+        return self.get_datasets(shared=None)
 
     def set_dataset_id_by_name(
         self, dataset_name: str, shared: Optional[bool] = False

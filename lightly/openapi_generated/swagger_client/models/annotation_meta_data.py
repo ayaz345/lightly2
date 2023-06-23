@@ -51,11 +51,7 @@ class AnnotationMetaData(BaseModel):
 
     def to_dict(self, by_alias: bool = False):
         """Returns the dictionary representation of the model"""
-        _dict = self.dict(by_alias=by_alias,
-                          exclude={
-                          },
-                          exclude_none=True)
-        return _dict
+        return self.dict(by_alias=by_alias, exclude={}, exclude_none=True)
 
     @classmethod
     def from_dict(cls, obj: dict) -> AnnotationMetaData:
@@ -67,12 +63,13 @@ class AnnotationMetaData(BaseModel):
             return AnnotationMetaData.parse_obj(obj)
 
         # raise errors for additional fields in the input
-        for _key in obj.keys():
+        for _key in obj:
             if _key not in cls.__properties:
-                raise ValueError("Error due to additional fields (not defined in AnnotationMetaData) in the input: " + str(obj))
+                raise ValueError(
+                    f"Error due to additional fields (not defined in AnnotationMetaData) in the input: {obj}"
+                )
 
-        _obj = AnnotationMetaData.parse_obj({
-            "description": obj.get("description")
-        })
-        return _obj
+        return AnnotationMetaData.parse_obj(
+            {"description": obj.get("description")}
+        )
 

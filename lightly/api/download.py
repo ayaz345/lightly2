@@ -315,7 +315,7 @@ if not isinstance(av, ModuleNotFoundError):
         """
         _check_av_available()
 
-        if len(timestamps) == 0:
+        if not timestamps:
             return []
 
         if any(timestamps[i + 1] <= timestamps[i] for i in range(len(timestamps) - 1)):
@@ -361,24 +361,19 @@ if not isinstance(av, ModuleNotFoundError):
 
         leftovers = timestamps[index_timestamp:]
 
-        # sometimes frames are skipped when we seek to the first frame
-        # let's retry downloading these frames without seeking
-        retry_skipped_timestamps = seek_to_first_frame
-        if retry_skipped_timestamps:
+        if retry_skipped_timestamps := seek_to_first_frame:
             warnings.warn(
                 f"Timestamps {leftovers} could not be decoded! Retrying from the start..."
             )
-            frames = download_video_frames_at_timestamps(
+            yield from download_video_frames_at_timestamps(
                 url,
                 leftovers,
                 as_pil_image=as_pil_image,
                 thread_type=thread_type,
                 video_channel=video_channel,
-                seek_to_first_frame=False,
+                retry_skipped_timestamps=False,
                 retry_fn=retry_fn,
             )
-            for frame in frames:
-                yield frame
             return
 
         raise RuntimeError(
@@ -471,7 +466,7 @@ def download_and_write_all_files(
         retry_fn(thread_download_and_write, **kwargs)
 
     # dict where every thread stores its requests.Session
-    sessions = dict()
+    sessions = {}
     # use lock because sessions dict is shared between threads
     lock = threading.Lock()
 

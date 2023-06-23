@@ -55,11 +55,7 @@ class ApiErrorResponse(BaseModel):
 
     def to_dict(self, by_alias: bool = False):
         """Returns the dictionary representation of the model"""
-        _dict = self.dict(by_alias=by_alias,
-                          exclude={
-                          },
-                          exclude_none=True)
-        return _dict
+        return self.dict(by_alias=by_alias, exclude={}, exclude_none=True)
 
     @classmethod
     def from_dict(cls, obj: dict) -> ApiErrorResponse:
@@ -71,15 +67,18 @@ class ApiErrorResponse(BaseModel):
             return ApiErrorResponse.parse_obj(obj)
 
         # raise errors for additional fields in the input
-        for _key in obj.keys():
+        for _key in obj:
             if _key not in cls.__properties:
-                raise ValueError("Error due to additional fields (not defined in ApiErrorResponse) in the input: " + str(obj))
+                raise ValueError(
+                    f"Error due to additional fields (not defined in ApiErrorResponse) in the input: {obj}"
+                )
 
-        _obj = ApiErrorResponse.parse_obj({
-            "code": obj.get("code"),
-            "error": obj.get("error"),
-            "request_id": obj.get("requestId"),
-            "error_labels": obj.get("errorLabels")
-        })
-        return _obj
+        return ApiErrorResponse.parse_obj(
+            {
+                "code": obj.get("code"),
+                "error": obj.get("error"),
+                "request_id": obj.get("requestId"),
+                "error_labels": obj.get("errorLabels"),
+            }
+        )
 

@@ -79,13 +79,20 @@ class CreateSampleWithWriteUrlsResponse(BaseModel):
             return CreateSampleWithWriteUrlsResponse.parse_obj(obj)
 
         # raise errors for additional fields in the input
-        for _key in obj.keys():
+        for _key in obj:
             if _key not in cls.__properties:
-                raise ValueError("Error due to additional fields (not defined in CreateSampleWithWriteUrlsResponse) in the input: " + str(obj))
+                raise ValueError(
+                    f"Error due to additional fields (not defined in CreateSampleWithWriteUrlsResponse) in the input: {obj}"
+                )
 
-        _obj = CreateSampleWithWriteUrlsResponse.parse_obj({
-            "id": obj.get("id"),
-            "sample_write_urls": SampleWriteUrls.from_dict(obj.get("sampleWriteUrls")) if obj.get("sampleWriteUrls") is not None else None
-        })
-        return _obj
+        return CreateSampleWithWriteUrlsResponse.parse_obj(
+            {
+                "id": obj.get("id"),
+                "sample_write_urls": SampleWriteUrls.from_dict(
+                    obj.get("sampleWriteUrls")
+                )
+                if obj.get("sampleWriteUrls") is not None
+                else None,
+            }
+        )
 

@@ -278,16 +278,16 @@ def ResNetGenerator(
         "resnet-152": {"block": Bottleneck, "layers": [3, 8, 36, 3]},
     }
 
-    if name not in model_params.keys():
+    if name in model_params:
+        return ResNet(
+            **model_params[name],
+            width=width,
+            num_classes=num_classes,
+            num_splits=num_splits
+        )
+    else:
         raise ValueError(
             "Illegal name: {%s}. \
         Try resnet-9, resnet-18, resnet-34, resnet-50, resnet-101, resnet-152."
             % (name)
         )
-
-    return ResNet(
-        **model_params[name],
-        width=width,
-        num_classes=num_classes,
-        num_splits=num_splits
-    )

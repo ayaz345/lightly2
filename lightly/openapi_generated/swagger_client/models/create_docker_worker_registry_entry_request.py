@@ -64,11 +64,7 @@ class CreateDockerWorkerRegistryEntryRequest(BaseModel):
 
     def to_dict(self, by_alias: bool = False):
         """Returns the dictionary representation of the model"""
-        _dict = self.dict(by_alias=by_alias,
-                          exclude={
-                          },
-                          exclude_none=True)
-        return _dict
+        return self.dict(by_alias=by_alias, exclude={}, exclude_none=True)
 
     @classmethod
     def from_dict(cls, obj: dict) -> CreateDockerWorkerRegistryEntryRequest:
@@ -80,16 +76,19 @@ class CreateDockerWorkerRegistryEntryRequest(BaseModel):
             return CreateDockerWorkerRegistryEntryRequest.parse_obj(obj)
 
         # raise errors for additional fields in the input
-        for _key in obj.keys():
+        for _key in obj:
             if _key not in cls.__properties:
-                raise ValueError("Error due to additional fields (not defined in CreateDockerWorkerRegistryEntryRequest) in the input: " + str(obj))
+                raise ValueError(
+                    f"Error due to additional fields (not defined in CreateDockerWorkerRegistryEntryRequest) in the input: {obj}"
+                )
 
-        _obj = CreateDockerWorkerRegistryEntryRequest.parse_obj({
-            "name": obj.get("name"),
-            "worker_type": obj.get("workerType"),
-            "labels": obj.get("labels"),
-            "creator": obj.get("creator"),
-            "docker_version": obj.get("dockerVersion")
-        })
-        return _obj
+        return CreateDockerWorkerRegistryEntryRequest.parse_obj(
+            {
+                "name": obj.get("name"),
+                "worker_type": obj.get("workerType"),
+                "labels": obj.get("labels"),
+                "creator": obj.get("creator"),
+                "docker_version": obj.get("dockerVersion"),
+            }
+        )
 

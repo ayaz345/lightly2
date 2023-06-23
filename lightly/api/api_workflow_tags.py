@@ -61,10 +61,9 @@ class _TagsMixin:
              'preselected_tag_id': None,
              ...}
         """
-        tag_data = self._tags_api.get_tag_by_tag_id(
+        return self._tags_api.get_tag_by_tag_id(
             dataset_id=self.dataset_id, tag_id=tag_id
         )
-        return tag_data
 
     def get_tag_by_name(self, tag_name: str) -> TagData:
         """Gets a tag from the current dataset by tag name.
@@ -146,11 +145,9 @@ class _TagsMixin:
         if not filenames_on_server:
             filenames_on_server = self.get_filenames()
 
-        filenames_tag = BitMask.from_hex(bit_mask_data).masked_select_from_list(
+        return BitMask.from_hex(bit_mask_data).masked_select_from_list(
             filenames_on_server
         )
-
-        return filenames_tag
 
     def create_tag_from_filenames(
         self, fnames_new_tag: List[str], new_tag_name: str, parent_tag_id: str = None
@@ -229,12 +226,10 @@ class _TagsMixin:
             "creator": self._creator,
         }
 
-        new_tag = self._tags_api.create_tag_by_dataset_id(
+        return self._tags_api.create_tag_by_dataset_id(
             tag_create_request=TagCreateRequest.from_dict(tag_data_dict),
             dataset_id=self.dataset_id,
         )
-
-        return new_tag
 
     def delete_tag_by_id(self, tag_id: str) -> None:
         """Deletes a tag from the current dataset.

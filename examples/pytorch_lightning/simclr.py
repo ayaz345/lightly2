@@ -22,15 +22,13 @@ class SimCLR(pl.LightningModule):
 
     def forward(self, x):
         x = self.backbone(x).flatten(start_dim=1)
-        z = self.projection_head(x)
-        return z
+        return self.projection_head(x)
 
     def training_step(self, batch, batch_index):
         (x0, x1) = batch[0]
         z0 = self.forward(x0)
         z1 = self.forward(x1)
-        loss = self.criterion(z0, z1)
-        return loss
+        return self.criterion(z0, z1)
 
     def configure_optimizers(self):
         optim = torch.optim.SGD(self.parameters(), lr=0.06)

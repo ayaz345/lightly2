@@ -51,7 +51,7 @@ def _download_cli(cfg, is_cli_call=True):
     )
 
     # store sample names in a .txt file
-    filename = tag_name + ".txt"
+    filename = f"{tag_name}.txt"
     with open(filename, "w") as f:
         for item in filenames_tag:
             f.write("%s\n" % item)

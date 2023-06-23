@@ -41,8 +41,7 @@ class SymNegCosineSimilarityLoss(torch.nn.Module):
         )
 
     def _neg_cosine_simililarity(self, x, y):
-        v = -torch.nn.functional.cosine_similarity(x, y.detach(), dim=-1).mean()
-        return v
+        return -torch.nn.functional.cosine_similarity(x, y.detach(), dim=-1).mean()
 
     def forward(self, out0: torch.Tensor, out1: torch.Tensor):
         """Forward pass through Symmetric Loss.
@@ -68,9 +67,7 @@ class SymNegCosineSimilarityLoss(torch.nn.Module):
         z0, p0 = out0
         z1, p1 = out1
 
-        loss = (
+        return (
             self._neg_cosine_simililarity(p0, z1) / 2
             + self._neg_cosine_simililarity(p1, z0) / 2
         )
-
-        return loss

@@ -80,7 +80,7 @@ class CollaborationApi(object):
         return self.create_or_update_shared_access_config_by_dataset_id_with_http_info(dataset_id, shared_access_config_create_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def create_or_update_shared_access_config_by_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], shared_access_config_create_request : SharedAccessConfigCreateRequest, **kwargs) -> ApiResponse:  # noqa: E501
+    def create_or_update_shared_access_config_by_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], shared_access_config_create_request : SharedAccessConfigCreateRequest, **kwargs) -> ApiResponse:    # noqa: E501
         """create_or_update_shared_access_config_by_dataset_id  # noqa: E501
 
         Create or update a shared access config.  # noqa: E501
@@ -123,26 +123,20 @@ class CollaborationApi(object):
 
         _all_params = [
             'dataset_id',
-            'shared_access_config_create_request'
+            'shared_access_config_create_request',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method create_or_update_shared_access_config_by_dataset_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method create_or_update_shared_access_config_by_dataset_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
@@ -171,12 +165,11 @@ class CollaborationApi(object):
         _header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
 
-        # set the HTTP header `Content-Type`
-        _content_types_list = _params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json']))
-        if _content_types_list:
-                _header_params['Content-Type'] = _content_types_list
+        if _content_types_list := _params.get(
+            '_content_type',
+            self.api_client.select_header_content_type(['application/json']),
+        ):
+            _header_params['Content-Type'] = _content_types_list
 
         # authentication setting
         _auth_settings = ['auth0Bearer', 'ApiKeyAuth']  # noqa: E501
@@ -238,7 +231,7 @@ class CollaborationApi(object):
         return self.delete_shared_access_config_by_id_with_http_info(dataset_id, access_config_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def delete_shared_access_config_by_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], access_config_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the shared access config.")], **kwargs) -> ApiResponse:  # noqa: E501
+    def delete_shared_access_config_by_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], access_config_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the shared access config.")], **kwargs) -> ApiResponse:    # noqa: E501
         """delete_shared_access_config_by_id  # noqa: E501
 
         Delete shared access config by id.  # noqa: E501
@@ -281,31 +274,23 @@ class CollaborationApi(object):
 
         _all_params = [
             'dataset_id',
-            'access_config_id'
+            'access_config_id',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method delete_shared_access_config_by_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method delete_shared_access_config_by_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -334,6 +319,7 @@ class CollaborationApi(object):
 
         _response_types_map = {}
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/datasets/{datasetId}/collaboration/access/{accessConfigId}', 'DELETE',
             _path_params,
@@ -381,7 +367,7 @@ class CollaborationApi(object):
         return self.get_shared_access_configs_by_dataset_id_with_http_info(dataset_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_shared_access_configs_by_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], **kwargs) -> ApiResponse:  # noqa: E501
+    def get_shared_access_configs_by_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], **kwargs) -> ApiResponse:    # noqa: E501
         """get_shared_access_configs_by_dataset_id  # noqa: E501
 
         Get shared access configs by datasetId.  # noqa: E501
@@ -421,31 +407,23 @@ class CollaborationApi(object):
         _params = locals()
 
         _all_params = [
-            'dataset_id'
+            'dataset_id',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_shared_access_configs_by_dataset_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method get_shared_access_configs_by_dataset_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -477,6 +455,7 @@ class CollaborationApi(object):
             '404': "ApiErrorResponse",
         }
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/datasets/{datasetId}/collaboration/access', 'GET',
             _path_params,

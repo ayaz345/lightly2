@@ -60,8 +60,7 @@ class SimMIM(pl.LightningModule):
         # must adjust idx_mask for missing class token
         target = utils.get_at_index(patches, idx_mask - 1)
 
-        loss = self.criterion(x_out, target)
-        return loss
+        return self.criterion(x_out, target)
 
     def configure_optimizers(self):
         optim = torch.optim.AdamW(self.parameters(), lr=1.5e-4)

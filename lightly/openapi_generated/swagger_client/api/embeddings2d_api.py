@@ -82,7 +82,7 @@ class Embeddings2dApi(object):
         return self.create_embeddings2d_by_embedding_id_with_http_info(dataset_id, embedding_id, embedding2d_create_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def create_embeddings2d_by_embedding_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], embedding_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the embedding")], embedding2d_create_request : Embedding2dCreateRequest, **kwargs) -> ApiResponse:  # noqa: E501
+    def create_embeddings2d_by_embedding_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], embedding_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the embedding")], embedding2d_create_request : Embedding2dCreateRequest, **kwargs) -> ApiResponse:    # noqa: E501
         """create_embeddings2d_by_embedding_id  # noqa: E501
 
         Create a new 2d embedding  # noqa: E501
@@ -128,26 +128,20 @@ class Embeddings2dApi(object):
         _all_params = [
             'dataset_id',
             'embedding_id',
-            'embedding2d_create_request'
+            'embedding2d_create_request',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method create_embeddings2d_by_embedding_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method create_embeddings2d_by_embedding_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
@@ -179,12 +173,11 @@ class Embeddings2dApi(object):
         _header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
 
-        # set the HTTP header `Content-Type`
-        _content_types_list = _params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json']))
-        if _content_types_list:
-                _header_params['Content-Type'] = _content_types_list
+        if _content_types_list := _params.get(
+            '_content_type',
+            self.api_client.select_header_content_type(['application/json']),
+        ):
+            _header_params['Content-Type'] = _content_types_list
 
         # authentication setting
         _auth_settings = ['auth0Bearer', 'ApiKeyAuth']  # noqa: E501
@@ -248,7 +241,7 @@ class Embeddings2dApi(object):
         return self.get_embedding2d_by_id_with_http_info(dataset_id, embedding_id, embedding2d_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_embedding2d_by_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], embedding_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the embedding")], embedding2d_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the 2d embedding")], **kwargs) -> ApiResponse:  # noqa: E501
+    def get_embedding2d_by_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], embedding_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the embedding")], embedding2d_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the 2d embedding")], **kwargs) -> ApiResponse:    # noqa: E501
         """get_embedding2d_by_id  # noqa: E501
 
         Get the 2d embeddings by id  # noqa: E501
@@ -294,31 +287,23 @@ class Embeddings2dApi(object):
         _all_params = [
             'dataset_id',
             'embedding_id',
-            'embedding2d_id'
+            'embedding2d_id',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_embedding2d_by_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method get_embedding2d_by_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -356,6 +341,7 @@ class Embeddings2dApi(object):
             '404': "ApiErrorResponse",
         }
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/datasets/{datasetId}/embeddings/{embeddingId}/2d/{embedding2dId}', 'GET',
             _path_params,
@@ -405,7 +391,7 @@ class Embeddings2dApi(object):
         return self.get_embeddings2d_by_embedding_id_with_http_info(dataset_id, embedding_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_embeddings2d_by_embedding_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], embedding_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the embedding")], **kwargs) -> ApiResponse:  # noqa: E501
+    def get_embeddings2d_by_embedding_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], embedding_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the embedding")], **kwargs) -> ApiResponse:    # noqa: E501
         """get_embeddings2d_by_embedding_id  # noqa: E501
 
         Get all 2d embeddings of an embedding  # noqa: E501
@@ -448,31 +434,23 @@ class Embeddings2dApi(object):
 
         _all_params = [
             'dataset_id',
-            'embedding_id'
+            'embedding_id',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_embeddings2d_by_embedding_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method get_embeddings2d_by_embedding_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -507,6 +485,7 @@ class Embeddings2dApi(object):
             '404': "ApiErrorResponse",
         }
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/datasets/{datasetId}/embeddings/{embeddingId}/2d', 'GET',
             _path_params,

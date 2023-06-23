@@ -59,6 +59,7 @@ Results (4.5.2023):
 -------------------------------------------------------------------------------------------------
 
 """
+
 import copy
 import os
 import time
@@ -143,7 +144,7 @@ accelerator = "gpu" if torch.cuda.is_available() else "cpu"
 if distributed:
     strategy = "ddp"
     # reduce batch size for distributed training
-    batch_size = batch_size // devices
+    batch_size //= devices
 else:
     strategy = None  # Set to "auto" if using PyTorch Lightning >= 2.0
     # limit to single device if not using distributed training
@@ -379,8 +380,7 @@ class SimCLRModel(BenchmarkModule):
 
     def forward(self, x):
         x = self.backbone(x).flatten(start_dim=1)
-        z = self.projection_head(x)
-        return z
+        return self.projection_head(x)
 
     def training_step(self, batch, batch_index):
         (x0, x1), _, _ = batch
@@ -468,8 +468,7 @@ class BarlowTwinsModel(BenchmarkModule):
 
     def forward(self, x):
         x = self.backbone(x).flatten(start_dim=1)
-        z = self.projection_head(x)
-        return z
+        return self.projection_head(x)
 
     def training_step(self, batch, batch_index):
         (x0, x1), _, _ = batch
@@ -510,8 +509,7 @@ class BYOLModel(BenchmarkModule):
     def forward(self, x):
         y = self.backbone(x).flatten(start_dim=1)
         z = self.projection_head(y)
-        p = self.prediction_head(z)
-        return p
+        return self.prediction_head(z)
 
     def forward_momentum(self, x):
         y = self.backbone_momentum(x).flatten(start_dim=1)
@@ -575,8 +573,7 @@ class NNCLRModel(BenchmarkModule):
         z1, p1 = self.forward(x1)
         z0 = self.memory_bank(z0, update=False)
         z1 = self.memory_bank(z1, update=True)
-        loss = 0.5 * (self.criterion(z0, p1) + self.criterion(z1, p0))
-        return loss
+        return 0.5 * (self.criterion(z0, p1) + self.criterion(z1, p0))
 
     def configure_optimizers(self):
         optim = torch.optim.SGD(
@@ -660,13 +657,11 @@ class DINOModel(BenchmarkModule):
 
     def forward(self, x):
         y = self.backbone(x).flatten(start_dim=1)
-        z = self.head(y)
-        return z
+        return self.head(y)
 
     def forward_teacher(self, x):
         y = self.teacher_backbone(x).flatten(start_dim=1)
-        z = self.teacher_head(y)
-        return z
+        return self.teacher_head(y)
 
     def training_step(self, batch, batch_idx):
         utils.update_momentum(self.backbone, self.teacher_backbone, m=0.99)
@@ -704,8 +699,7 @@ class DCL(BenchmarkModule):
 
     def forward(self, x):
         x = self.backbone(x).flatten(start_dim=1)
-        z = self.projection_head(x)
-        return z
+        return self.projection_head(x)
 
     def training_step(self, batch, batch_index):
         (x0, x1), _, _ = batch
@@ -735,8 +729,7 @@ class DCLW(BenchmarkModule):
 
     def forward(self, x):
         x = self.backbone(x).flatten(start_dim=1)
-        z = self.projection_head(x)
-        return z
+        return self.projection_head(x)
 
     def training_step(self, batch, batch_index):
         (x0, x1), _, _ = batch
@@ -1140,8 +1133,7 @@ class SimMIMModel(BenchmarkModule):
         # must adjust idx_mask for missing class token
         target = utils.get_at_index(patches, idx_mask - 1)
 
-        loss = self.criterion(x_out, target)
-        return loss
+        return self.criterion(x_out, target)
 
     def configure_optimizers(self):
         optim = torch.optim.AdamW(
@@ -1168,15 +1160,13 @@ class VICRegModel(BenchmarkModule):
 
     def forward(self, x):
         x = self.backbone(x).flatten(start_dim=1)
-        z = self.projection_head(x)
-        return z
+        return self.projection_head(x)
 
     def training_step(self, batch, batch_index):
         (x0, x1), _, _ = batch
         z0 = self.forward(x0)
         z1 = self.forward(x1)
-        loss = self.criterion(z0, z1)
-        return loss
+        return self.criterion(z0, z1)
 
     def configure_optimizers(self):
         # Training diverges without LARS
@@ -1223,13 +1213,12 @@ class VICRegLModel(BenchmarkModule):
         views = views_and_grids[: len(views_and_grids) // 2]
         grids = views_and_grids[len(views_and_grids) // 2 :]
         features = [self.forward(view) for view in views]
-        loss = self.criterion(
+        return self.criterion(
             global_view_features=features[:2],
             global_view_grids=grids[:2],
             local_view_features=features[2:],
             local_view_grids=grids[2:],
         )
-        return loss
 
     def configure_optimizers(self):
         # Training diverges without LARS
@@ -1264,8 +1253,7 @@ class TiCoModel(BenchmarkModule):
 
     def forward(self, x):
         y = self.backbone(x).flatten(start_dim=1)
-        z = self.projection_head(y)
-        return z
+        return self.projection_head(y)
 
     def forward_momentum(self, x):
         y = self.backbone_momentum(x).flatten(start_dim=1)
@@ -1284,8 +1272,7 @@ class TiCoModel(BenchmarkModule):
         x1 = x1.to(self.device)
         z0 = self.forward(x0)
         z1 = self.forward_momentum(x1)
-        loss = self.criterion(z0, z1)
-        return loss
+        return self.criterion(z0, z1)
 
     def configure_optimizers(self):
         optim = torch.optim.SGD(
@@ -1334,10 +1321,9 @@ class SwaVQueueModel(BenchmarkModule):
             self.prototypes(x, self.current_epoch) for x in low_resolution_features
         ]
         queue_prototypes = self._get_queue_prototypes(high_resolution_features)
-        loss = self.criterion(
+        return self.criterion(
             high_resolution_prototypes, low_resolution_prototypes, queue_prototypes
         )
-        return loss
 
     def _subforward(self, input):
         features = self.backbone(input).flatten(start_dim=1)
@@ -1370,11 +1356,7 @@ class SwaVQueueModel(BenchmarkModule):
         ):
             return None
 
-        # Assign prototypes
-        queue_prototypes = [
-            self.prototypes(x, self.current_epoch) for x in queue_features
-        ]
-        return queue_prototypes
+        return [self.prototypes(x, self.current_epoch) for x in queue_features]
 
     def configure_optimizers(self):
         optim = torch.optim.Adam(
@@ -1408,7 +1390,7 @@ models = [
     VICRegModel,
     VICRegLModel,
 ]
-bench_results = dict()
+bench_results = {}
 
 experiment_version = None
 # loop through configurations and train models

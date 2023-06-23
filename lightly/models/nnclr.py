@@ -39,8 +39,7 @@ def _prediction_mlp(in_dims: int, h_dims: int, out_dims: int) -> nn.Sequential:
 
     l2 = nn.Linear(h_dims, out_dims)
 
-    prediction = nn.Sequential(l1, l2)
-    return prediction
+    return nn.Sequential(l1, l2)
 
 
 def _projection_mlp(

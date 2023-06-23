@@ -34,7 +34,7 @@ class _DatasourcesMixin:
         relevant_filenames_kwargs = (
             {"relevant_filenames_file_name": relevant_filenames_file_name}
             if relevant_filenames_file_name
-            else dict()
+            else {}
         )
 
         response: DatasourceRawSamplesData = download_function(
@@ -62,7 +62,7 @@ class _DatasourcesMixin:
             if progress_bar is not None:
                 progress_bar.update(len(response.data))
         sample_map = {}
-        for idx, s in enumerate(samples):
+        for s in samples:
             if s.file_name.startswith("/"):
                 warnings.warn(
                     UserWarning(
@@ -86,7 +86,7 @@ class _DatasourcesMixin:
                 )
             else:
                 sample_map[s.file_name] = s.read_url
-        return [(file_name, read_url) for file_name, read_url in sample_map.items()]
+        return list(sample_map.items())
 
     def download_raw_samples(
         self,
@@ -132,7 +132,7 @@ class _DatasourcesMixin:
             >>> client.download_raw_samples()
             [('image-1.png', 'https://......'), ('image-2.png', 'https://......')]
         """
-        samples = self._download_raw_files(
+        return self._download_raw_files(
             download_function=self._datasources_api.get_list_of_raw_samples_from_datasource_by_dataset_id,
             from_=from_,
             to=to,
@@ -140,7 +140,6 @@ class _DatasourcesMixin:
             use_redirected_read_url=use_redirected_read_url,
             progress_bar=progress_bar,
         )
-        return samples
 
     def download_raw_predictions(
         self,
@@ -217,7 +216,7 @@ class _DatasourcesMixin:
                 "relevant_filenames_artifact_id"
             ] = relevant_filenames_artifact_id
 
-        samples = self._download_raw_files(
+        return self._download_raw_files(
             download_function=self._datasources_api.get_list_of_raw_samples_predictions_from_datasource_by_dataset_id,
             from_=from_,
             to=to,
@@ -227,7 +226,6 @@ class _DatasourcesMixin:
             progress_bar=progress_bar,
             **relevant_filenames_kwargs,
         )
-        return samples
 
     def download_raw_metadata(
         self,
@@ -300,7 +298,7 @@ class _DatasourcesMixin:
                 "relevant_filenames_artifact_id"
             ] = relevant_filenames_artifact_id
 
-        samples = self._download_raw_files(
+        return self._download_raw_files(
             self._datasources_api.get_list_of_raw_samples_metadata_from_datasource_by_dataset_id,
             from_=from_,
             to=to,
@@ -309,7 +307,6 @@ class _DatasourcesMixin:
             progress_bar=progress_bar,
             **relevant_filenames_kwargs,
         )
-        return samples
 
     def download_new_raw_samples(
         self,
@@ -375,8 +372,7 @@ class _DatasourcesMixin:
         response: DatasourceProcessedUntilTimestampResponse = self._datasources_api.get_datasource_processed_until_timestamp_by_dataset_id(
             dataset_id=self.dataset_id
         )
-        timestamp = int(response.processed_until_timestamp)
-        return timestamp
+        return int(response.processed_until_timestamp)
 
     def update_processed_until_timestamp(self, timestamp: int) -> None:
         """Sets the timestamp until which samples have been processed.

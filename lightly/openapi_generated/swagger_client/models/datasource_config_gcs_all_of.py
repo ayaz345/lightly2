@@ -52,11 +52,7 @@ class DatasourceConfigGCSAllOf(BaseModel):
 
     def to_dict(self, by_alias: bool = False):
         """Returns the dictionary representation of the model"""
-        _dict = self.dict(by_alias=by_alias,
-                          exclude={
-                          },
-                          exclude_none=True)
-        return _dict
+        return self.dict(by_alias=by_alias, exclude={}, exclude_none=True)
 
     @classmethod
     def from_dict(cls, obj: dict) -> DatasourceConfigGCSAllOf:
@@ -68,13 +64,16 @@ class DatasourceConfigGCSAllOf(BaseModel):
             return DatasourceConfigGCSAllOf.parse_obj(obj)
 
         # raise errors for additional fields in the input
-        for _key in obj.keys():
+        for _key in obj:
             if _key not in cls.__properties:
-                raise ValueError("Error due to additional fields (not defined in DatasourceConfigGCSAllOf) in the input: " + str(obj))
+                raise ValueError(
+                    f"Error due to additional fields (not defined in DatasourceConfigGCSAllOf) in the input: {obj}"
+                )
 
-        _obj = DatasourceConfigGCSAllOf.parse_obj({
-            "gcs_project_id": obj.get("gcsProjectId"),
-            "gcs_credentials": obj.get("gcsCredentials")
-        })
-        return _obj
+        return DatasourceConfigGCSAllOf.parse_obj(
+            {
+                "gcs_project_id": obj.get("gcsProjectId"),
+                "gcs_credentials": obj.get("gcsCredentials"),
+            }
+        )
 

@@ -38,13 +38,12 @@ class VICRegL(pl.LightningModule):
         views = views_and_grids[: len(views_and_grids) // 2]
         grids = views_and_grids[len(views_and_grids) // 2 :]
         features = [self.forward(view) for view in views]
-        loss = self.criterion(
+        return self.criterion(
             global_view_features=features[:2],
             global_view_grids=grids[:2],
             local_view_features=features[2:],
             local_view_grids=grids[2:],
         )
-        return loss
 
     def configure_optimizers(self):
         optim = torch.optim.SGD(model.parameters(), lr=0.01, momentum=0.9)

@@ -71,12 +71,17 @@ class Auth0OnSignUpRequest(BaseModel):
             return Auth0OnSignUpRequest.parse_obj(obj)
 
         # raise errors for additional fields in the input
-        for _key in obj.keys():
+        for _key in obj:
             if _key not in cls.__properties:
-                raise ValueError("Error due to additional fields (not defined in Auth0OnSignUpRequest) in the input: " + str(obj))
+                raise ValueError(
+                    f"Error due to additional fields (not defined in Auth0OnSignUpRequest) in the input: {obj}"
+                )
 
-        _obj = Auth0OnSignUpRequest.parse_obj({
-            "user": Auth0OnSignUpRequestUser.from_dict(obj.get("user")) if obj.get("user") is not None else None
-        })
-        return _obj
+        return Auth0OnSignUpRequest.parse_obj(
+            {
+                "user": Auth0OnSignUpRequestUser.from_dict(obj.get("user"))
+                if obj.get("user") is not None
+                else None
+            }
+        )
 

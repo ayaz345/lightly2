@@ -39,10 +39,9 @@ class SwaV(pl.LightningModule):
             self.prototypes(x, self.current_epoch) for x in low_resolution_features
         ]
         queue_prototypes = self._get_queue_prototypes(high_resolution_features)
-        loss = self.criterion(
+        return self.criterion(
             high_resolution_prototypes, low_resolution_prototypes, queue_prototypes
         )
-        return loss
 
     def configure_optimizers(self):
         optim = torch.optim.Adam(self.parameters(), lr=0.001)
@@ -79,11 +78,7 @@ class SwaV(pl.LightningModule):
         ):
             return None
 
-        # Assign prototypes
-        queue_prototypes = [
-            self.prototypes(x, self.current_epoch) for x in queue_features
-        ]
-        return queue_prototypes
+        return [self.prototypes(x, self.current_epoch) for x in queue_features]
 
 
 model = SwaV()

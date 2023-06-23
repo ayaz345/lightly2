@@ -61,10 +61,10 @@ def _contains_videos(root: str, extensions: tuple):
         True if "root" or any subdir contains video files.
 
     """
-    for subdir, _, _ in os.walk(root):
-        if _dir_contains_videos(subdir, extensions):
-            return True
-    return False
+    return any(
+        _dir_contains_videos(subdir, extensions)
+        for subdir, _, _ in os.walk(root)
+    )
 
 
 def _is_lightly_output_dir(dirname: str):
@@ -131,7 +131,7 @@ def _load_dataset_from_folder(
 
     if contains_videos:
         # root contains videos -> create a video dataset
-        dataset = VideoDataset(
+        return VideoDataset(
             root,
             extensions=VIDEO_EXTENSIONS,
             transform=transform,
@@ -141,16 +141,14 @@ def _load_dataset_from_folder(
         )
     elif _contains_subdirs(root):
         # root contains subdirectories -> create an image folder dataset
-        dataset = datasets.ImageFolder(
+        return datasets.ImageFolder(
             root, transform=transform, is_valid_file=is_valid_file
         )
     else:
         # root contains plain images -> create a folder dataset
-        dataset = DatasetFolder(
+        return DatasetFolder(
             root,
             extensions=IMG_EXTENSIONS,
             transform=transform,
             is_valid_file=is_valid_file,
         )
-
-    return dataset

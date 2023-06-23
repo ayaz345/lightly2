@@ -48,8 +48,7 @@ class MoCo(pl.LightningModule):
         x_query, x_key = batch[0]
         query = self.forward(x_query)
         key = self.forward_momentum(x_key)
-        loss = self.criterion(query, key)
-        return loss
+        return self.criterion(query, key)
 
     def configure_optimizers(self):
         optim = torch.optim.SGD(self.parameters(), lr=0.06)

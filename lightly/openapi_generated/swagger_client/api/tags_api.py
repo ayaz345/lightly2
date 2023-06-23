@@ -93,7 +93,7 @@ class TagsApi(object):
         return self.create_initial_tag_by_dataset_id_with_http_info(dataset_id, initial_tag_create_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def create_initial_tag_by_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], initial_tag_create_request : InitialTagCreateRequest, **kwargs) -> ApiResponse:  # noqa: E501
+    def create_initial_tag_by_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], initial_tag_create_request : InitialTagCreateRequest, **kwargs) -> ApiResponse:    # noqa: E501
         """create_initial_tag_by_dataset_id  # noqa: E501
 
         create the intitial tag for a dataset which then locks the dataset  # noqa: E501
@@ -136,26 +136,20 @@ class TagsApi(object):
 
         _all_params = [
             'dataset_id',
-            'initial_tag_create_request'
+            'initial_tag_create_request',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method create_initial_tag_by_dataset_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method create_initial_tag_by_dataset_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
@@ -184,12 +178,11 @@ class TagsApi(object):
         _header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
 
-        # set the HTTP header `Content-Type`
-        _content_types_list = _params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json']))
-        if _content_types_list:
-                _header_params['Content-Type'] = _content_types_list
+        if _content_types_list := _params.get(
+            '_content_type',
+            self.api_client.select_header_content_type(['application/json']),
+        ):
+            _header_params['Content-Type'] = _content_types_list
 
         # authentication setting
         _auth_settings = ['auth0Bearer', 'ApiKeyAuth']  # noqa: E501
@@ -251,7 +244,7 @@ class TagsApi(object):
         return self.create_tag_by_dataset_id_with_http_info(dataset_id, tag_create_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def create_tag_by_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], tag_create_request : TagCreateRequest, **kwargs) -> ApiResponse:  # noqa: E501
+    def create_tag_by_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], tag_create_request : TagCreateRequest, **kwargs) -> ApiResponse:    # noqa: E501
         """create_tag_by_dataset_id  # noqa: E501
 
         create new tag for dataset  # noqa: E501
@@ -294,26 +287,20 @@ class TagsApi(object):
 
         _all_params = [
             'dataset_id',
-            'tag_create_request'
+            'tag_create_request',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method create_tag_by_dataset_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method create_tag_by_dataset_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
@@ -342,12 +329,11 @@ class TagsApi(object):
         _header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
 
-        # set the HTTP header `Content-Type`
-        _content_types_list = _params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json']))
-        if _content_types_list:
-                _header_params['Content-Type'] = _content_types_list
+        if _content_types_list := _params.get(
+            '_content_type',
+            self.api_client.select_header_content_type(['application/json']),
+        ):
+            _header_params['Content-Type'] = _content_types_list
 
         # authentication setting
         _auth_settings = ['auth0Bearer', 'ApiKeyAuth']  # noqa: E501
@@ -409,7 +395,7 @@ class TagsApi(object):
         return self.delete_tag_by_tag_id_with_http_info(dataset_id, tag_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def delete_tag_by_tag_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], tag_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the tag")], **kwargs) -> ApiResponse:  # noqa: E501
+    def delete_tag_by_tag_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], tag_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the tag")], **kwargs) -> ApiResponse:    # noqa: E501
         """delete_tag_by_tag_id  # noqa: E501
 
         delete a specific tag if its a leaf-tag (e.g is not a dependency of another tag)  # noqa: E501
@@ -452,31 +438,23 @@ class TagsApi(object):
 
         _all_params = [
             'dataset_id',
-            'tag_id'
+            'tag_id',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method delete_tag_by_tag_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method delete_tag_by_tag_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -505,6 +483,7 @@ class TagsApi(object):
 
         _response_types_map = {}
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/datasets/{datasetId}/tags/{tagId}', 'DELETE',
             _path_params,
@@ -554,7 +533,7 @@ class TagsApi(object):
         return self.download_zip_of_samples_by_tag_id_with_http_info(dataset_id, tag_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def download_zip_of_samples_by_tag_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], tag_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the tag")], **kwargs) -> ApiResponse:  # noqa: E501
+    def download_zip_of_samples_by_tag_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], tag_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the tag")], **kwargs) -> ApiResponse:    # noqa: E501
         """download_zip_of_samples_by_tag_id  # noqa: E501
 
         Download a zip file of the samples of a tag. Limited to 1000 images  # noqa: E501
@@ -597,31 +576,23 @@ class TagsApi(object):
 
         _all_params = [
             'dataset_id',
-            'tag_id'
+            'tag_id',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method download_zip_of_samples_by_tag_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method download_zip_of_samples_by_tag_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -657,6 +628,7 @@ class TagsApi(object):
             '413': "ApiErrorResponse",
         }
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/datasets/{datasetId}/tags/{tagId}/export/zip', 'GET',
             _path_params,
@@ -722,7 +694,7 @@ class TagsApi(object):
         return self.export_tag_to_basic_filenames_with_http_info(dataset_id, tag_id, expires_in, access_control, file_name_format, include_meta_data, format, preview_example, page_size, page_offset, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def export_tag_to_basic_filenames_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], tag_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the tag")], expires_in : Annotated[Optional[StrictInt], Field(description="If defined, the URLs provided will only be valid for amount of seconds from time of issuence. If not defined, the URls will be valid indefinitely. ")] = None, access_control : Annotated[Optional[StrictStr], Field(description="which access control name to be used")] = None, file_name_format : Optional[FileNameFormat] = None, include_meta_data : Annotated[Optional[StrictBool], Field(description="if true, will also include metadata")] = None, format : Optional[FileOutputFormat] = None, preview_example : Annotated[Optional[StrictBool], Field(description="if true, will generate a preview example of how the structure will look")] = None, page_size : Annotated[Optional[conint(strict=True, ge=1)], Field(description="pagination size/limit of the number of samples to return")] = None, page_offset : Annotated[Optional[conint(strict=True, ge=0)], Field(description="pagination offset")] = None, **kwargs) -> ApiResponse:  # noqa: E501
+    def export_tag_to_basic_filenames_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], tag_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the tag")], expires_in : Annotated[Optional[StrictInt], Field(description="If defined, the URLs provided will only be valid for amount of seconds from time of issuence. If not defined, the URls will be valid indefinitely. ")] = None, access_control : Annotated[Optional[StrictStr], Field(description="which access control name to be used")] = None, file_name_format : Optional[FileNameFormat] = None, include_meta_data : Annotated[Optional[StrictBool], Field(description="if true, will also include metadata")] = None, format : Optional[FileOutputFormat] = None, preview_example : Annotated[Optional[StrictBool], Field(description="if true, will generate a preview example of how the structure will look")] = None, page_size : Annotated[Optional[conint(strict=True, ge=1)], Field(description="pagination size/limit of the number of samples to return")] = None, page_offset : Annotated[Optional[conint(strict=True, ge=0)], Field(description="pagination offset")] = None, **kwargs) -> ApiResponse:    # noqa: E501
         """export_tag_to_basic_filenames  # noqa: E501
 
         Export the samples filenames of a specific tag   # noqa: E501
@@ -789,31 +761,23 @@ class TagsApi(object):
             'format',
             'preview_example',
             'page_size',
-            'page_offset'
+            'page_offset',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method export_tag_to_basic_filenames" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method export_tag_to_basic_filenames"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -896,6 +860,7 @@ class TagsApi(object):
             '404': "ApiErrorResponse",
         }
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/datasets/{datasetId}/tags/{tagId}/export/basic/filenames', 'GET',
             _path_params,
@@ -953,7 +918,7 @@ class TagsApi(object):
         return self.export_tag_to_basic_filenames_and_read_urls_with_http_info(dataset_id, tag_id, format, preview_example, page_size, page_offset, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def export_tag_to_basic_filenames_and_read_urls_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], tag_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the tag")], format : Optional[FileOutputFormat] = None, preview_example : Annotated[Optional[StrictBool], Field(description="if true, will generate a preview example of how the structure will look")] = None, page_size : Annotated[Optional[conint(strict=True, ge=1)], Field(description="pagination size/limit of the number of samples to return")] = None, page_offset : Annotated[Optional[conint(strict=True, ge=0)], Field(description="pagination offset")] = None, **kwargs) -> ApiResponse:  # noqa: E501
+    def export_tag_to_basic_filenames_and_read_urls_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], tag_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the tag")], format : Optional[FileOutputFormat] = None, preview_example : Annotated[Optional[StrictBool], Field(description="if true, will generate a preview example of how the structure will look")] = None, page_size : Annotated[Optional[conint(strict=True, ge=1)], Field(description="pagination size/limit of the number of samples to return")] = None, page_offset : Annotated[Optional[conint(strict=True, ge=0)], Field(description="pagination offset")] = None, **kwargs) -> ApiResponse:    # noqa: E501
         """export_tag_to_basic_filenames_and_read_urls  # noqa: E501
 
         Export the samples filenames to map with their readURL.   # noqa: E501
@@ -1008,31 +973,23 @@ class TagsApi(object):
             'format',
             'preview_example',
             'page_size',
-            'page_offset'
+            'page_offset',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method export_tag_to_basic_filenames_and_read_urls" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method export_tag_to_basic_filenames_and_read_urls"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -1091,6 +1048,7 @@ class TagsApi(object):
             '404': "ApiErrorResponse",
         }
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/datasets/{datasetId}/tags/{tagId}/export/basic/filenamesAndReadUrls', 'GET',
             _path_params,
@@ -1156,7 +1114,7 @@ class TagsApi(object):
         return self.export_tag_to_label_box_data_rows_with_http_info(dataset_id, tag_id, expires_in, access_control, file_name_format, include_meta_data, format, preview_example, page_size, page_offset, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def export_tag_to_label_box_data_rows_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], tag_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the tag")], expires_in : Annotated[Optional[StrictInt], Field(description="If defined, the URLs provided will only be valid for amount of seconds from time of issuence. If not defined, the URls will be valid indefinitely. ")] = None, access_control : Annotated[Optional[StrictStr], Field(description="which access control name to be used")] = None, file_name_format : Optional[FileNameFormat] = None, include_meta_data : Annotated[Optional[StrictBool], Field(description="if true, will also include metadata")] = None, format : Optional[FileOutputFormat] = None, preview_example : Annotated[Optional[StrictBool], Field(description="if true, will generate a preview example of how the structure will look")] = None, page_size : Annotated[Optional[conint(strict=True, ge=1)], Field(description="pagination size/limit of the number of samples to return")] = None, page_offset : Annotated[Optional[conint(strict=True, ge=0)], Field(description="pagination offset")] = None, **kwargs) -> ApiResponse:  # noqa: E501
+    def export_tag_to_label_box_data_rows_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], tag_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the tag")], expires_in : Annotated[Optional[StrictInt], Field(description="If defined, the URLs provided will only be valid for amount of seconds from time of issuence. If not defined, the URls will be valid indefinitely. ")] = None, access_control : Annotated[Optional[StrictStr], Field(description="which access control name to be used")] = None, file_name_format : Optional[FileNameFormat] = None, include_meta_data : Annotated[Optional[StrictBool], Field(description="if true, will also include metadata")] = None, format : Optional[FileOutputFormat] = None, preview_example : Annotated[Optional[StrictBool], Field(description="if true, will generate a preview example of how the structure will look")] = None, page_size : Annotated[Optional[conint(strict=True, ge=1)], Field(description="pagination size/limit of the number of samples to return")] = None, page_offset : Annotated[Optional[conint(strict=True, ge=0)], Field(description="pagination offset")] = None, **kwargs) -> ApiResponse:    # noqa: E501
         """(Deprecated) export_tag_to_label_box_data_rows  # noqa: E501
 
         Deprecated. Please use V4 unless there is a specific need to use the LabelBox V3 API. Export samples of a tag as a json for importing into LabelBox as outlined here; https://docs.labelbox.com/v3/reference/image ```openapi\\+warning The image URLs are special in that the resource can be accessed by anyone in possession of said URL for the time specified by the expiresIn query param ```   # noqa: E501
@@ -1225,31 +1183,23 @@ class TagsApi(object):
             'format',
             'preview_example',
             'page_size',
-            'page_offset'
+            'page_offset',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method export_tag_to_label_box_data_rows" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method export_tag_to_label_box_data_rows"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -1332,6 +1282,7 @@ class TagsApi(object):
             '404': "ApiErrorResponse",
         }
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/datasets/{datasetId}/tags/{tagId}/export/LabelBox/datarows', 'GET',
             _path_params,

@@ -56,8 +56,10 @@ def _train_cli(cfg, is_cli_call=True):
 
     if cfg["loader"]["batch_size"] < 64:
         msg = "Training a self-supervised model with a small batch size: {}! "
-        msg = msg.format(cfg["loader"]["batch_size"])
-        msg += "Small batch size may harm embedding quality. "
+        msg = (
+            msg.format(cfg["loader"]["batch_size"])
+            + "Small batch size may harm embedding quality. "
+        )
         msg += "You can specify the batch size via the loader key-word: "
         msg += "loader.batch_size=BSZ"
         warnings.warn(msg)
@@ -73,8 +75,7 @@ def _train_cli(cfg, is_cli_call=True):
         # try to load the checkpoint from the model zoo
         checkpoint, key = get_ptmodel_from_config(cfg["model"])
         if not checkpoint:
-            msg = "Cannot download checkpoint for key {} ".format(key)
-            msg += "because it does not exist! "
+            msg = f"Cannot download checkpoint for key {key} because it does not exist! "
             msg += "Model will be trained from scratch."
             warnings.warn(msg)
     elif checkpoint:

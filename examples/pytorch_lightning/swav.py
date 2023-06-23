@@ -34,8 +34,7 @@ class SwaV(pl.LightningModule):
         multi_crop_features = [self.forward(view.to(self.device)) for view in views]
         high_resolution = multi_crop_features[:2]
         low_resolution = multi_crop_features[2:]
-        loss = self.criterion(high_resolution, low_resolution)
-        return loss
+        return self.criterion(high_resolution, low_resolution)
 
     def configure_optimizers(self):
         optim = torch.optim.Adam(self.parameters(), lr=0.001)

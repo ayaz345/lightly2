@@ -30,8 +30,7 @@ class TiCo(nn.Module):
 
     def forward(self, x):
         y = self.backbone(x).flatten(start_dim=1)
-        z = self.projection_head(y)
-        return z
+        return self.projection_head(y)
 
     def forward_momentum(self, x):
         y = self.backbone_momentum(x).flatten(start_dim=1)

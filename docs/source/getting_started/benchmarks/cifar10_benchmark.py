@@ -59,6 +59,7 @@ processes might continue the benchmark if one of the nodes is killed.
 If you know how to fix this don't hesitate to create an issue or PR :)
 
 """
+
 import copy
 import os
 import time
@@ -129,7 +130,7 @@ accelerator = "gpu" if torch.cuda.is_available() else "cpu"
 if distributed:
     strategy = "ddp"
     # reduce batch size for distributed training
-    batch_size = batch_size // devices
+    batch_size //= devices
 else:
     strategy = None  # Set to "auto" if using PyTorch Lightning >= 2.0
     # limit to single device if not using distributed training
@@ -360,8 +361,7 @@ class SimCLRModel(BenchmarkModule):
 
     def forward(self, x):
         x = self.backbone(x).flatten(start_dim=1)
-        z = self.projection_head(x)
-        return z
+        return self.projection_head(x)
 
     def training_step(self, batch, batch_index):
         (x0, x1), _, _ = batch
@@ -462,8 +462,7 @@ class BarlowTwinsModel(BenchmarkModule):
 
     def forward(self, x):
         x = self.backbone(x).flatten(start_dim=1)
-        z = self.projection_head(x)
-        return z
+        return self.projection_head(x)
 
     def training_step(self, batch, batch_index):
         (x0, x1), _, _ = batch
@@ -505,8 +504,7 @@ class BYOLModel(BenchmarkModule):
     def forward(self, x):
         y = self.backbone(x).flatten(start_dim=1)
         z = self.projection_head(y)
-        p = self.prediction_head(z)
-        return p
+        return self.prediction_head(z)
 
     def forward_momentum(self, x):
         y = self.backbone_momentum(x).flatten(start_dim=1)
@@ -627,8 +625,7 @@ class NNCLRModel(BenchmarkModule):
         z1, p1 = self.forward(x1)
         z0 = self.memory_bank(z0, update=False)
         z1 = self.memory_bank(z1, update=True)
-        loss = 0.5 * (self.criterion(z0, p1) + self.criterion(z1, p0))
-        return loss
+        return 0.5 * (self.criterion(z0, p1) + self.criterion(z1, p0))
 
     def configure_optimizers(self):
         optim = torch.optim.SGD(
@@ -671,13 +668,11 @@ class DINOModel(BenchmarkModule):
 
     def forward(self, x):
         y = self.backbone(x).flatten(start_dim=1)
-        z = self.head(y)
-        return z
+        return self.head(y)
 
     def forward_teacher(self, x):
         y = self.teacher_backbone(x).flatten(start_dim=1)
-        z = self.teacher_head(y)
-        return z
+        return self.teacher_head(y)
 
     def training_step(self, batch, batch_idx):
         utils.update_momentum(self.backbone, self.teacher_backbone, m=0.99)
@@ -716,8 +711,7 @@ class DCL(BenchmarkModule):
 
     def forward(self, x):
         x = self.backbone(x).flatten(start_dim=1)
-        z = self.projection_head(x)
-        return z
+        return self.projection_head(x)
 
     def training_step(self, batch, batch_index):
         (x0, x1), _, _ = batch
@@ -748,8 +742,7 @@ class DCLW(BenchmarkModule):
 
     def forward(self, x):
         x = self.backbone(x).flatten(start_dim=1)
-        z = self.projection_head(x)
-        return z
+        return self.projection_head(x)
 
     def training_step(self, batch, batch_index):
         (x0, x1), _, _ = batch
@@ -885,7 +878,7 @@ models = [
     SwaVModel,
     SMoGModel,
 ]
-bench_results = dict()
+bench_results = {}
 
 experiment_version = None
 # loop through configurations and train models

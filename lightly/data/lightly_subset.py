@@ -16,7 +16,7 @@ class LightlySubset(LightlyDataset):
         self.base_dataset = base_dataset
         self.filenames_subset = filenames_subset
 
-        dict_base_dataset_filename_index: Dict[str, int] = dict()
+        dict_base_dataset_filename_index: Dict[str, int] = {}
         for index in range(len(base_dataset)):
             fname = base_dataset.index_to_filename(self.dataset, index)
             dict_base_dataset_filename_index[fname] = index
@@ -67,8 +67,7 @@ class LightlySubset(LightlyDataset):
         Returns:
             The filename of the sample.
         """
-        fname = self.filenames_subset[index_subset]
-        return fname
+        return self.filenames_subset[index_subset]
 
     @property
     def input_dir(self):

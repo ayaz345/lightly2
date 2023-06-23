@@ -69,8 +69,7 @@ class DatasourceConfigBase(BaseModel):
     @classmethod
     def get_discriminator_value(cls, obj: dict) -> str:
         """Returns the discriminator value (object type) of the data"""
-        discriminator_value = obj[cls.__discriminator_property_name]
-        if discriminator_value:
+        if discriminator_value := obj[cls.__discriminator_property_name]:
             return cls.__discriminator_value_class_map.get(discriminator_value)
         else:
             return None
@@ -90,22 +89,15 @@ class DatasourceConfigBase(BaseModel):
 
     def to_dict(self, by_alias: bool = False):
         """Returns the dictionary representation of the model"""
-        _dict = self.dict(by_alias=by_alias,
-                          exclude={
-                          },
-                          exclude_none=True)
-        return _dict
+        return self.dict(by_alias=by_alias, exclude={}, exclude_none=True)
 
     @classmethod
     def from_dict(cls, obj: dict) -> Union(DatasourceConfigAzure, DatasourceConfigGCS, DatasourceConfigLIGHTLY, DatasourceConfigLOCAL, DatasourceConfigOBS, DatasourceConfigS3, DatasourceConfigS3DelegatedAccess):
         """Create an instance of DatasourceConfigBase from a dict"""
-        # look up the object type based on discriminator mapping
-        object_type = cls.get_discriminator_value(obj)
-        if object_type:
-            klass = getattr(lightly.openapi_generated.swagger_client.models, object_type)
-            return klass.from_dict(obj)
-        else:
-            raise ValueError("DatasourceConfigBase failed to lookup discriminator value from " +
-                             json.dumps(obj) + ". Discriminator property name: " + cls.__discriminator_property_name +
-                             ", mapping: " + json.dumps(cls.__discriminator_value_class_map))
+        if not (object_type := cls.get_discriminator_value(obj)):
+            raise ValueError(
+                f"DatasourceConfigBase failed to lookup discriminator value from {json.dumps(obj)}. Discriminator property name: {cls.__discriminator_property_name}, mapping: {json.dumps(cls.__discriminator_value_class_map)}"
+            )
+        klass = getattr(lightly.openapi_generated.swagger_client.models, object_type)
+        return klass.from_dict(obj)
 

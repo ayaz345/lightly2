@@ -86,7 +86,7 @@ class SamplesApi(object):
         return self.create_sample_by_dataset_id_with_http_info(dataset_id, sample_create_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def create_sample_by_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], sample_create_request : SampleCreateRequest, **kwargs) -> ApiResponse:  # noqa: E501
+    def create_sample_by_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], sample_create_request : SampleCreateRequest, **kwargs) -> ApiResponse:    # noqa: E501
         """create_sample_by_dataset_id  # noqa: E501
 
         Create a new sample in a dataset  # noqa: E501
@@ -129,26 +129,20 @@ class SamplesApi(object):
 
         _all_params = [
             'dataset_id',
-            'sample_create_request'
+            'sample_create_request',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method create_sample_by_dataset_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method create_sample_by_dataset_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
@@ -177,12 +171,11 @@ class SamplesApi(object):
         _header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
 
-        # set the HTTP header `Content-Type`
-        _content_types_list = _params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json']))
-        if _content_types_list:
-                _header_params['Content-Type'] = _content_types_list
+        if _content_types_list := _params.get(
+            '_content_type',
+            self.api_client.select_header_content_type(['application/json']),
+        ):
+            _header_params['Content-Type'] = _content_types_list
 
         # authentication setting
         _auth_settings = ['auth0Bearer', 'ApiKeyAuth']  # noqa: E501
@@ -244,7 +237,7 @@ class SamplesApi(object):
         return self.create_sample_with_write_urls_by_dataset_id_with_http_info(dataset_id, sample_create_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def create_sample_with_write_urls_by_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], sample_create_request : SampleCreateRequest, **kwargs) -> ApiResponse:  # noqa: E501
+    def create_sample_with_write_urls_by_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], sample_create_request : SampleCreateRequest, **kwargs) -> ApiResponse:    # noqa: E501
         """create_sample_with_write_urls_by_dataset_id  # noqa: E501
 
         Create a sample and immediately receive write URLs (full image and thumbnail) to upload images  # noqa: E501
@@ -287,26 +280,20 @@ class SamplesApi(object):
 
         _all_params = [
             'dataset_id',
-            'sample_create_request'
+            'sample_create_request',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method create_sample_with_write_urls_by_dataset_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method create_sample_with_write_urls_by_dataset_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
@@ -335,12 +322,11 @@ class SamplesApi(object):
         _header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
 
-        # set the HTTP header `Content-Type`
-        _content_types_list = _params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json']))
-        if _content_types_list:
-                _header_params['Content-Type'] = _content_types_list
+        if _content_types_list := _params.get(
+            '_content_type',
+            self.api_client.select_header_content_type(['application/json']),
+        ):
+            _header_params['Content-Type'] = _content_types_list
 
         # authentication setting
         _auth_settings = ['auth0Bearer', 'ApiKeyAuth']  # noqa: E501
@@ -402,7 +388,7 @@ class SamplesApi(object):
         return self.get_sample_by_id_with_http_info(dataset_id, sample_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_sample_by_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], sample_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the sample")], **kwargs) -> ApiResponse:  # noqa: E501
+    def get_sample_by_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], sample_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the sample")], **kwargs) -> ApiResponse:    # noqa: E501
         """get_sample_by_id  # noqa: E501
 
         Get a specific sample of a dataset  # noqa: E501
@@ -445,31 +431,23 @@ class SamplesApi(object):
 
         _all_params = [
             'dataset_id',
-            'sample_id'
+            'sample_id',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_sample_by_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method get_sample_by_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -504,6 +482,7 @@ class SamplesApi(object):
             '404': "ApiErrorResponse",
         }
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/datasets/{datasetId}/samples/{sampleId}', 'GET',
             _path_params,
@@ -555,7 +534,7 @@ class SamplesApi(object):
         return self.get_sample_image_read_url_by_id_with_http_info(dataset_id, sample_id, type, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_sample_image_read_url_by_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], sample_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the sample")], type : Annotated[Optional[StrictStr], Field(description="if we want to get the full image or just the thumbnail")] = None, **kwargs) -> ApiResponse:  # noqa: E501
+    def get_sample_image_read_url_by_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], sample_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the sample")], type : Annotated[Optional[StrictStr], Field(description="if we want to get the full image or just the thumbnail")] = None, **kwargs) -> ApiResponse:    # noqa: E501
         """get_sample_image_read_url_by_id  # noqa: E501
 
         Get the image path of a specific sample of a dataset  # noqa: E501
@@ -601,31 +580,23 @@ class SamplesApi(object):
         _all_params = [
             'dataset_id',
             'sample_id',
-            'type'
+            'type',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_sample_image_read_url_by_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method get_sample_image_read_url_by_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -666,6 +637,7 @@ class SamplesApi(object):
             '404': "ApiErrorResponse",
         }
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/datasets/{datasetId}/samples/{sampleId}/readurl', 'GET',
             _path_params,
@@ -717,7 +689,7 @@ class SamplesApi(object):
         return self.get_sample_image_resource_redirect_by_id_with_http_info(dataset_id, sample_id, type, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_sample_image_resource_redirect_by_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], sample_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the sample")], type : Annotated[StrictStr, Field(..., description="if we want to get the full image or just the thumbnail")], **kwargs) -> ApiResponse:  # noqa: E501
+    def get_sample_image_resource_redirect_by_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], sample_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the sample")], type : Annotated[StrictStr, Field(..., description="if we want to get the full image or just the thumbnail")], **kwargs) -> ApiResponse:    # noqa: E501
         """get_sample_image_resource_redirect_by_id  # noqa: E501
 
         This endpoint enables anyone given the correct credentials to access the actual image directly. By creating a readURL for the resource and redirecting to that URL, the client can use this endpoint to always have a way to access the resource as there is no expiration   # noqa: E501
@@ -763,31 +735,23 @@ class SamplesApi(object):
         _all_params = [
             'dataset_id',
             'sample_id',
-            'type'
+            'type',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_sample_image_resource_redirect_by_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method get_sample_image_resource_redirect_by_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -822,6 +786,7 @@ class SamplesApi(object):
 
         _response_types_map = {}
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/datasets/{datasetId}/samples/{sampleId}/readurlRedirect', 'GET',
             _path_params,
@@ -873,7 +838,7 @@ class SamplesApi(object):
         return self.get_sample_image_write_url_by_id_with_http_info(dataset_id, sample_id, is_thumbnail, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_sample_image_write_url_by_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], sample_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the sample")], is_thumbnail : Annotated[StrictBool, Field(..., description="Whether or not the image to upload is a thumbnail")], **kwargs) -> ApiResponse:  # noqa: E501
+    def get_sample_image_write_url_by_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], sample_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the sample")], is_thumbnail : Annotated[StrictBool, Field(..., description="Whether or not the image to upload is a thumbnail")], **kwargs) -> ApiResponse:    # noqa: E501
         """get_sample_image_write_url_by_id  # noqa: E501
 
         Get the signed url to upload an image to for a specific sample of a dataset  # noqa: E501
@@ -919,31 +884,23 @@ class SamplesApi(object):
         _all_params = [
             'dataset_id',
             'sample_id',
-            'is_thumbnail'
+            'is_thumbnail',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_sample_image_write_url_by_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method get_sample_image_write_url_by_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -984,6 +941,7 @@ class SamplesApi(object):
             '404': "ApiErrorResponse",
         }
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/datasets/{datasetId}/samples/{sampleId}/writeurl', 'GET',
             _path_params,
@@ -1033,7 +991,7 @@ class SamplesApi(object):
         return self.get_sample_image_write_urls_by_id_with_http_info(dataset_id, sample_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_sample_image_write_urls_by_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], sample_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the sample")], **kwargs) -> ApiResponse:  # noqa: E501
+    def get_sample_image_write_urls_by_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], sample_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the sample")], **kwargs) -> ApiResponse:    # noqa: E501
         """get_sample_image_write_urls_by_id  # noqa: E501
 
         Get all signed write URLs to upload all images (full image and thumbnail) of a specific sample of a dataset  # noqa: E501
@@ -1076,31 +1034,23 @@ class SamplesApi(object):
 
         _all_params = [
             'dataset_id',
-            'sample_id'
+            'sample_id',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_sample_image_write_urls_by_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method get_sample_image_write_urls_by_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -1135,6 +1085,7 @@ class SamplesApi(object):
             '404': "ApiErrorResponse",
         }
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/datasets/{datasetId}/samples/{sampleId}/writeurls', 'GET',
             _path_params,
@@ -1190,7 +1141,7 @@ class SamplesApi(object):
         return self.get_samples_by_dataset_id_with_http_info(dataset_id, file_name, sort_by, page_size, page_offset, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_samples_by_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], file_name : Annotated[Optional[StrictStr], Field(description="filter the samples by filename")] = None, sort_by : Annotated[Optional[SampleSortBy], Field(description="sort the samples")] = None, page_size : Annotated[Optional[conint(strict=True, ge=1)], Field(description="pagination size/limit of the number of samples to return")] = None, page_offset : Annotated[Optional[conint(strict=True, ge=0)], Field(description="pagination offset")] = None, **kwargs) -> ApiResponse:  # noqa: E501
+    def get_samples_by_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], file_name : Annotated[Optional[StrictStr], Field(description="filter the samples by filename")] = None, sort_by : Annotated[Optional[SampleSortBy], Field(description="sort the samples")] = None, page_size : Annotated[Optional[conint(strict=True, ge=1)], Field(description="pagination size/limit of the number of samples to return")] = None, page_offset : Annotated[Optional[conint(strict=True, ge=0)], Field(description="pagination offset")] = None, **kwargs) -> ApiResponse:    # noqa: E501
         """get_samples_by_dataset_id  # noqa: E501
 
         Get all samples of a dataset  # noqa: E501
@@ -1242,31 +1193,23 @@ class SamplesApi(object):
             'file_name',
             'sort_by',
             'page_size',
-            'page_offset'
+            'page_offset',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_samples_by_dataset_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method get_samples_by_dataset_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -1322,6 +1265,7 @@ class SamplesApi(object):
             '404': "ApiErrorResponse",
         }
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/datasets/{datasetId}/samples', 'GET',
             _path_params,
@@ -1377,7 +1321,7 @@ class SamplesApi(object):
         return self.get_samples_partial_by_dataset_id_with_http_info(dataset_id, mode, file_name, page_size, page_offset, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_samples_partial_by_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], mode : Optional[SamplePartialMode] = None, file_name : Annotated[Optional[StrictStr], Field(description="filter the samples by filename")] = None, page_size : Annotated[Optional[conint(strict=True, ge=1)], Field(description="pagination size/limit of the number of samples to return")] = None, page_offset : Annotated[Optional[conint(strict=True, ge=0)], Field(description="pagination offset")] = None, **kwargs) -> ApiResponse:  # noqa: E501
+    def get_samples_partial_by_dataset_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], mode : Optional[SamplePartialMode] = None, file_name : Annotated[Optional[StrictStr], Field(description="filter the samples by filename")] = None, page_size : Annotated[Optional[conint(strict=True, ge=1)], Field(description="pagination size/limit of the number of samples to return")] = None, page_offset : Annotated[Optional[conint(strict=True, ge=0)], Field(description="pagination offset")] = None, **kwargs) -> ApiResponse:    # noqa: E501
         """get_samples_partial_by_dataset_id  # noqa: E501
 
         Get partial information of all samples of a dataset  # noqa: E501
@@ -1429,31 +1373,23 @@ class SamplesApi(object):
             'mode',
             'file_name',
             'page_size',
-            'page_offset'
+            'page_offset',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_samples_partial_by_dataset_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method get_samples_partial_by_dataset_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
-
-        _collection_formats = {}
 
         # process the path parameters
         _path_params = {}
@@ -1509,6 +1445,7 @@ class SamplesApi(object):
             '404': "ApiErrorResponse",
         }
 
+        _collection_formats = {}
         return self.api_client.call_api(
             '/v1/datasets/{datasetId}/samples/partial', 'GET',
             _path_params,

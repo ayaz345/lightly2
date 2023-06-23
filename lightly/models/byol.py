@@ -156,7 +156,7 @@ class BYOL(nn.Module, _MomentumEncoderMixin):
         if x1 is None:
             raise ValueError("x1 must not be None!")
 
-        if not all([s0 == s1 for s0, s1 in zip(x0.shape, x1.shape)]):
+        if any(s0 != s1 for s0, s1 in zip(x0.shape, x1.shape)):
             raise ValueError(
                 f"x0 and x1 must have same shape but got shapes {x0.shape} and {x1.shape}!"
             )

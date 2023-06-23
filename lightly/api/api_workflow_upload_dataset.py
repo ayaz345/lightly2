@@ -115,7 +115,7 @@ class _UploadDatasetMixin:
         )
         filenames_on_server = [sample.file_name for sample in samples]
         filenames_on_server_set = set(filenames_on_server)
-        if len(filenames_on_server) > 0:
+        if filenames_on_server:
             print(
                 f"Found {bcolors.OKGREEN}{len(filenames_on_server)}{bcolors.ENDC} images already on the server"
                 ", they are skipped during the upload."
@@ -197,9 +197,7 @@ class _UploadDatasetMixin:
             return success
 
         with ThreadPoolExecutor(max_workers=max_workers) as executor:
-            results = list(
-                executor.map(lambda_, [i for i in range(len(dataset))], chunksize=1)
-            )
+            results = list(executor.map(lambda_, list(range(len(dataset))), chunksize=1))
 
         if not all(results):
             msg = "Warning: Unsuccessful upload(s)! "
@@ -266,7 +264,7 @@ class _UploadDatasetMixin:
 
         # generate thumbnail if necessary
         thumbname = None
-        if not metadata["is_corrupted"] and mode in ["thumbnails", "full"]:
+        if not metadata["is_corrupted"] and mode in {"thumbnails", "full"}:
             thumbname = ".".join(filename.split(".")[:-1]) + "_thumb.webp"
 
         body = SampleCreateRequest(
@@ -282,7 +280,7 @@ class _UploadDatasetMixin:
             dataset_id=self.dataset_id,
         ).id
 
-        if not metadata["is_corrupted"] and mode in ["thumbnails", "full"]:
+        if not metadata["is_corrupted"] and mode in {"thumbnails", "full"}:
 
             def upload_thumbnail(image, signed_url):
                 thumbnail = image_processing.Thumbnail(image)

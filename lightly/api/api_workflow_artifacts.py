@@ -367,7 +367,7 @@ class _ArtifactsMixin:
         self, artifact_type: str, run: DockerRunData
     ) -> DockerRunArtifactData:
         if run.artifacts is None:
-            raise ArtifactNotExist(f"Run has no artifacts.")
+            raise ArtifactNotExist("Run has no artifacts.")
         try:
             artifact = next(art for art in run.artifacts if art.type == artifact_type)
         except StopIteration:
@@ -430,7 +430,6 @@ class _ArtifactsMixin:
         artifact = self._get_artifact_by_type(
             artifact_type=DockerRunArtifactType.CHECKPOINT, run=run
         )
-        read_url = self._compute_worker_api.get_docker_run_artifact_read_url_by_id(
+        return self._compute_worker_api.get_docker_run_artifact_read_url_by_id(
             run_id=run.id, artifact_id=artifact.id
         )
-        return read_url

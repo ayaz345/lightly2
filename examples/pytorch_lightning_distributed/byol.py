@@ -36,8 +36,7 @@ class BYOL(pl.LightningModule):
     def forward(self, x):
         y = self.backbone(x).flatten(start_dim=1)
         z = self.projection_head(y)
-        p = self.prediction_head(z)
-        return p
+        return self.prediction_head(z)
 
     def forward_momentum(self, x):
         y = self.backbone_momentum(x).flatten(start_dim=1)
@@ -54,8 +53,7 @@ class BYOL(pl.LightningModule):
         z0 = self.forward_momentum(x0)
         p1 = self.forward(x1)
         z1 = self.forward_momentum(x1)
-        loss = 0.5 * (self.criterion(p0, z1) + self.criterion(p1, z0))
-        return loss
+        return 0.5 * (self.criterion(p0, z1) + self.criterion(p1, z0))
 
     def configure_optimizers(self):
         return torch.optim.SGD(self.parameters(), lr=0.06)

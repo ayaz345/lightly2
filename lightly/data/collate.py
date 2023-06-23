@@ -160,11 +160,7 @@ class ImageCollateFunction(BaseCollateFunction):
         rr_degrees: Union[None, float, Tuple[float, float]] = None,
         normalize: dict = imagenet_normalize,
     ):
-        if isinstance(input_size, tuple):
-            input_size_ = max(input_size)
-        else:
-            input_size_ = input_size
-
+        input_size_ = max(input_size) if isinstance(input_size, tuple) else input_size
         color_jitter = T.ColorJitter(cj_bright, cj_contrast, cj_sat, cj_hue)
 
         transform = [
@@ -432,12 +428,6 @@ class MultiCropCollateFunction(MultiViewCollateFunction):
                 "Length of crop_sizes and crop_min_scales must be equal but are"
                 f" {len(crop_sizes)} and {len(crop_min_scales)}."
             )
-        if len(crop_sizes) != len(crop_min_scales):
-            raise ValueError(
-                "Length of crop_sizes and crop_max_scales must be equal but are"
-                f" {len(crop_sizes)} and {len(crop_min_scales)}."
-            )
-
         crop_transforms = []
         for i in range(len(crop_sizes)):
             random_resized_crop = T.RandomResizedCrop(
@@ -833,11 +823,7 @@ class PIRLCollateFunction(nn.Module):
         _deprecation_warning_collate_functions()
         super(PIRLCollateFunction, self).__init__()
 
-        if isinstance(input_size, tuple):
-            input_size_ = max(input_size)
-        else:
-            input_size_ = input_size
-
+        input_size_ = max(input_size) if isinstance(input_size, tuple) else input_size
         color_jitter = T.ColorJitter(cj_bright, cj_contrast, cj_sat, cj_hue)
 
         # Transform for transformed jigsaw image
@@ -1149,11 +1135,7 @@ class VICRegCollateFunction(BaseCollateFunction):
         rr_degrees: Union[None, float, Tuple[float, float]] = None,
         normalize: dict = imagenet_normalize,
     ):
-        if isinstance(input_size, tuple):
-            input_size_ = max(input_size)
-        else:
-            input_size_ = input_size
-
+        input_size_ = max(input_size) if isinstance(input_size, tuple) else input_size
         color_jitter = T.ColorJitter(cj_bright, cj_contrast, cj_sat, cj_hue)
 
         transform = [

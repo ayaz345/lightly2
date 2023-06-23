@@ -21,9 +21,10 @@ for video_path in dataset_dir.glob("**/*.mp4"):
     predictions = []
     with av.open(str(video_path)) as container:
         stream = container.streams.video[0]
-        for frame in container.decode(stream):
-            predictions.append(model_predict(frame.to_image()))
-
+        predictions.extend(
+            model_predict(frame.to_image())
+            for frame in container.decode(stream)
+        )
     # save predictions
     num_frames = len(predictions)
     zero_padding = len(str(num_frames))

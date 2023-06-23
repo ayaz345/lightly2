@@ -52,11 +52,7 @@ class DatasourceConfigAzureAllOf(BaseModel):
 
     def to_dict(self, by_alias: bool = False):
         """Returns the dictionary representation of the model"""
-        _dict = self.dict(by_alias=by_alias,
-                          exclude={
-                          },
-                          exclude_none=True)
-        return _dict
+        return self.dict(by_alias=by_alias, exclude={}, exclude_none=True)
 
     @classmethod
     def from_dict(cls, obj: dict) -> DatasourceConfigAzureAllOf:
@@ -68,13 +64,16 @@ class DatasourceConfigAzureAllOf(BaseModel):
             return DatasourceConfigAzureAllOf.parse_obj(obj)
 
         # raise errors for additional fields in the input
-        for _key in obj.keys():
+        for _key in obj:
             if _key not in cls.__properties:
-                raise ValueError("Error due to additional fields (not defined in DatasourceConfigAzureAllOf) in the input: " + str(obj))
+                raise ValueError(
+                    f"Error due to additional fields (not defined in DatasourceConfigAzureAllOf) in the input: {obj}"
+                )
 
-        _obj = DatasourceConfigAzureAllOf.parse_obj({
-            "account_name": obj.get("accountName"),
-            "account_key": obj.get("accountKey")
-        })
-        return _obj
+        return DatasourceConfigAzureAllOf.parse_obj(
+            {
+                "account_name": obj.get("accountName"),
+                "account_key": obj.get("accountKey"),
+            }
+        )
 

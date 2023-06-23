@@ -46,10 +46,8 @@ class SplitBatchNorm(nn.BatchNorm2d):
         # get input shape
         N, C, H, W = input.shape
 
-        # during training, use different stats for each split and otherwise
-        # use the stats from the first split
-        if self.training or not self.track_running_stats:
-            result = nn.functional.batch_norm(
+        return (
+            nn.functional.batch_norm(
                 input.view(-1, C * self.num_splits, H, W),
                 self.running_mean,
                 self.running_var,
@@ -59,8 +57,8 @@ class SplitBatchNorm(nn.BatchNorm2d):
                 self.momentum,
                 self.eps,
             ).view(N, C, H, W)
-        else:
-            result = nn.functional.batch_norm(
+            if self.training or not self.track_running_stats
+            else nn.functional.batch_norm(
                 input,
                 self.running_mean[: self.num_features],
                 self.running_var[: self.num_features],
@@ -70,8 +68,7 @@ class SplitBatchNorm(nn.BatchNorm2d):
                 self.momentum,
                 self.eps,
             )
-
-        return result
+        )
 
 
 def get_norm_layer(num_features: int, num_splits: int, **kw):

@@ -79,7 +79,7 @@ class SamplingsApi(object):
         return self.trigger_sampling_by_id_with_http_info(dataset_id, embedding_id, sampling_create_request, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def trigger_sampling_by_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], embedding_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the embedding")], sampling_create_request : SamplingCreateRequest, **kwargs) -> ApiResponse:  # noqa: E501
+    def trigger_sampling_by_id_with_http_info(self, dataset_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the dataset")], embedding_id : Annotated[constr(strict=True), Field(..., description="ObjectId of the embedding")], sampling_create_request : SamplingCreateRequest, **kwargs) -> ApiResponse:    # noqa: E501
         """trigger_sampling_by_id  # noqa: E501
 
         Trigger a sampling on a specific tag of a dataset with specific prior uploaded csv embedding  # noqa: E501
@@ -125,26 +125,20 @@ class SamplingsApi(object):
         _all_params = [
             'dataset_id',
             'embedding_id',
-            'sampling_create_request'
+            'sampling_create_request',
+            'async_req',
+            '_return_http_data_only',
+            '_preload_content',
+            '_request_timeout',
+            '_request_auth',
+            '_content_type',
+            '_headers',
         ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
         # validate the arguments
         for _key, _val in _params['kwargs'].items():
             if _key not in _all_params:
                 raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method trigger_sampling_by_id" % _key
+                    f"Got an unexpected keyword argument '{_key}' to method trigger_sampling_by_id"
                 )
             _params[_key] = _val
         del _params['kwargs']
@@ -176,12 +170,11 @@ class SamplingsApi(object):
         _header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
 
-        # set the HTTP header `Content-Type`
-        _content_types_list = _params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json']))
-        if _content_types_list:
-                _header_params['Content-Type'] = _content_types_list
+        if _content_types_list := _params.get(
+            '_content_type',
+            self.api_client.select_header_content_type(['application/json']),
+        ):
+            _header_params['Content-Type'] = _content_types_list
 
         # authentication setting
         _auth_settings = ['auth0Bearer', 'ApiKeyAuth']  # noqa: E501

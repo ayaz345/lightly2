@@ -19,8 +19,7 @@ class BarlowTwins(nn.Module):
 
     def forward(self, x):
         x = self.backbone(x).flatten(start_dim=1)
-        z = self.projection_head(x)
-        return z
+        return self.projection_head(x)
 
 
 resnet = torchvision.models.resnet18()

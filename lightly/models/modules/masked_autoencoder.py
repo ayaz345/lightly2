@@ -263,8 +263,7 @@ class MAEBackbone(vision_transformer.VisionTransformer):
 
         """
         out = self.encode(images, idx_keep)
-        class_token = out[:, 0]
-        return class_token
+        return out[:, 0]
 
     def encode(
         self, images: torch.Tensor, idx_keep: Optional[torch.Tensor] = None

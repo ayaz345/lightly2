@@ -70,11 +70,7 @@ class CropData(BaseModel):
 
     def to_dict(self, by_alias: bool = False):
         """Returns the dictionary representation of the model"""
-        _dict = self.dict(by_alias=by_alias,
-                          exclude={
-                          },
-                          exclude_none=True)
-        return _dict
+        return self.dict(by_alias=by_alias, exclude={}, exclude_none=True)
 
     @classmethod
     def from_dict(cls, obj: dict) -> CropData:
@@ -86,17 +82,20 @@ class CropData(BaseModel):
             return CropData.parse_obj(obj)
 
         # raise errors for additional fields in the input
-        for _key in obj.keys():
+        for _key in obj:
             if _key not in cls.__properties:
-                raise ValueError("Error due to additional fields (not defined in CropData) in the input: " + str(obj))
+                raise ValueError(
+                    f"Error due to additional fields (not defined in CropData) in the input: {obj}"
+                )
 
-        _obj = CropData.parse_obj({
-            "parent_id": obj.get("parentId"),
-            "prediction_uuid_timestamp": obj.get("predictionUUIDTimestamp"),
-            "prediction_index": obj.get("predictionIndex"),
-            "prediction_task_name": obj.get("predictionTaskName"),
-            "prediction_task_category_id": obj.get("predictionTaskCategoryId"),
-            "prediction_task_score": obj.get("predictionTaskScore")
-        })
-        return _obj
+        return CropData.parse_obj(
+            {
+                "parent_id": obj.get("parentId"),
+                "prediction_uuid_timestamp": obj.get("predictionUUIDTimestamp"),
+                "prediction_index": obj.get("predictionIndex"),
+                "prediction_task_name": obj.get("predictionTaskName"),
+                "prediction_task_category_id": obj.get("predictionTaskCategoryId"),
+                "prediction_task_score": obj.get("predictionTaskScore"),
+            }
+        )
 

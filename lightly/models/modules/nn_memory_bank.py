@@ -57,8 +57,4 @@ class NNMemoryBankModule(MemoryBankModule):
 
         similarity_matrix = torch.einsum("nd,md->nm", output_normed, bank_normed)
         index_nearest_neighbours = torch.argmax(similarity_matrix, dim=1)
-        nearest_neighbours = torch.index_select(
-            bank, dim=0, index=index_nearest_neighbours
-        )
-
-        return nearest_neighbours
+        return torch.index_select(bank, dim=0, index=index_nearest_neighbours)

@@ -80,11 +80,10 @@ class _UploadCustomMetadataMixin:
             metadata[COCO_ANNOTATION_KEYS.custom_metadata_image_id]: metadata
             for metadata in custom_metadata[COCO_ANNOTATION_KEYS.custom_metadata]
         }
-        filename_to_metadata = {
+        return {
             filename: image_id_to_custom_metadata.get(image_id, None)
             for (filename, image_id) in filename_to_image_id.items()
         }
-        return filename_to_metadata
 
     def upload_custom_metadata(
         self,
@@ -240,8 +239,7 @@ class _UploadCustomMetadataMixin:
 
         """
         config_set_request = ConfigurationSetRequest(name=name, configs=configs)
-        resp = self._metadata_configurations_api.create_meta_data_configuration(
+        return self._metadata_configurations_api.create_meta_data_configuration(
             configuration_set_request=config_set_request,
             dataset_id=self.dataset_id,
         )
-        return resp

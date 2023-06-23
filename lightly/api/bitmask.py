@@ -36,7 +36,7 @@ def _get_nonzero_bits(x: int) -> List[int]:
             nonzero_bit_indices.append(offset)
         # increment the offset and divide the number x by two (rounding down)
         offset += 1
-        x = x // 2
+        x //= 2
     return nonzero_bit_indices
 
 

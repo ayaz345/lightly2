@@ -75,16 +75,23 @@ class DatasourceConfigVerifyData(BaseModel):
             return DatasourceConfigVerifyData.parse_obj(obj)
 
         # raise errors for additional fields in the input
-        for _key in obj.keys():
+        for _key in obj:
             if _key not in cls.__properties:
-                raise ValueError("Error due to additional fields (not defined in DatasourceConfigVerifyData) in the input: " + str(obj))
+                raise ValueError(
+                    f"Error due to additional fields (not defined in DatasourceConfigVerifyData) in the input: {obj}"
+                )
 
-        _obj = DatasourceConfigVerifyData.parse_obj({
-            "can_read": obj.get("canRead"),
-            "can_write": obj.get("canWrite"),
-            "can_list": obj.get("canList"),
-            "can_overwrite": obj.get("canOverwrite"),
-            "errors": DatasourceConfigVerifyDataErrors.from_dict(obj.get("errors")) if obj.get("errors") is not None else None
-        })
-        return _obj
+        return DatasourceConfigVerifyData.parse_obj(
+            {
+                "can_read": obj.get("canRead"),
+                "can_write": obj.get("canWrite"),
+                "can_list": obj.get("canList"),
+                "can_overwrite": obj.get("canOverwrite"),
+                "errors": DatasourceConfigVerifyDataErrors.from_dict(
+                    obj.get("errors")
+                )
+                if obj.get("errors") is not None
+                else None,
+            }
+        )
 
